@@ -365,6 +365,52 @@
       to { opacity: 1; }
     }
 
+    .logo-scan-wrapper {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    }
+
+    .logo-scan {
+    display: block;
+    height: 100px; /* ou selon ta taille */
+    animation: logoPulse 1s ease-in-out 1;
+    }
+
+    .logo-scan::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 150%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 195, 255, 0.3), transparent);
+    animation: scanLaser 2s ease-out forwards;
+    z-index: 2;
+    }
+
+    @keyframes scanLaser {
+    0% {
+        left: -150%;
+    }
+    50% {
+        left: 100%;
+    }
+    100% {
+        left: 100%;
+    }
+    }
+
+    @keyframes logoPulse {
+    0% {
+        filter: brightness(0.8);
+        transform: scale(0.95);
+    }
+    100% {
+        filter: brightness(1);
+        transform: scale(1);
+    }
+    }
 
   </style>
 </head>
@@ -379,18 +425,21 @@
       </div>
 
   <header>
-    <img src="https://i.ibb.co/kWr3PZn/e42e854f1dd3.png" alt="Logo" onclick="navigate('home')" />
-    <div class="logo-text">Les Pâtés Lorrains</div>
-    <nav>
+  <div style="display: flex; align-items: center;">
+      <div class="logo-scan-wrapper">
+      <img src="https://i.ibb.co/kWr3PZn/e42e854f1dd3.png" alt="Logo" class="logo-scan" />
+      </div>
+      <div class="logo-text">Les Pâtés Lorrains</div>
+  </div>
+  <nav>
       <a onclick="navigate('home')">Accueil</a>
       <a onclick="navigate('convois')">Convois</a>
       <a onclick="navigate('galerie')">Galerie</a>
       <a onclick="navigate('radios')">Radios</a>
       <a onclick="navigate('recrutement')">Recrutements</a>
       <a onclick="navigate('reglement')">Règlement</a>
-
       <a id="discordLink">Discord</a>
-    </nav>
+  </nav>
   </header>
 
   <!-- MODALE DE CONFIRMATION -->
@@ -816,7 +865,7 @@
     setTimeout(() => {
       loader.style.display = "none";
     }, 500);
-  }, 4000); // délai de 3 secondes
+  }, 2000); // délai de 3 secondes
 });
 
   </script>
