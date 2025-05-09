@@ -438,6 +438,22 @@ width: 100%;
     border-radius: 8px;
   }
 }
+
+@media (max-width: 768px) {
+  .gallery img,
+  .convoi-gallery .thumb img,
+  .radio-gallery img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .gallery,
+  .convoi-gallery,
+  .radio-gallery {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.5rem;
+  }
+}
 </style>
 </head>
 <body>
