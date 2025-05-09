@@ -684,7 +684,14 @@ width: 100%;
       width: 100%;
       box-sizing: border-box;
     }
-    </style>
+    
+header {
+  background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Blason_Lorraine.svg/800px-Blason_Lorraine.svg.png') no-repeat center center;
+  background-size: cover;
+  border-bottom: 4px solid gold;
+}
+
+</style>
 </head>
 <body>
 <div id="loader">
@@ -695,10 +702,8 @@ width: 100%;
    </span>
 </div>
 </div>
-
 <!-- Explosion de pâtés -->
 <div id="explosionContainer" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9998;"></div>
-
 <header>
 <div style="display: flex; align-items: center;">
 <div class="logo-scan-wrapper">
@@ -758,7 +763,7 @@ Les Pâtés Lorrains
 <div class="container">
 <!-- MODALE DE CONNEXION CHAUFFEUR -->
 <div class="modal-overlay" id="chauffeurLoginModal">
-<div class="modal">
+<div class="modal" style="position: relative;"><button id="chauffeurCloseBtn" style="position:absolute; top:12px; right:16px; background:var(--card); color:var(--accent); border:2px solid var(--accent); width:32px; height:32px; border-radius:50%; font-size:18px; font-weight:bold; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 0 6px rgba(0,0,0,0.3); z-index:1001;">×</button>
 <h3>Connexion Chauffeur</h3>
 <input id="chauffeurId" placeholder="Identifiant" type="text"/>
 <input id="chauffeurPass" placeholder="Mot de passe" type="password"/>
@@ -777,10 +782,10 @@ Les Pâtés Lorrains
 <h3>🔖 Tag TruckersMP</h3>
 <p>Configuration du Player Tag selon votre grade</p>
 </div>
-  <div class="card" onclick="navigate('couleursEntreprise')" style="cursor:pointer;">
-    <h3>🎨 Couleurs Entreprise</h3>
-    <p>Charte graphique des camions & remorques</p>
-  </div>
+<div class="card" onclick="navigate('couleursEntreprise')" style="cursor:pointer;">
+<h3>🎨 Couleurs Entreprise</h3>
+<p>Charte graphique des camions &amp; remorques</p>
+</div>
 </section>
 <!-- PAGE TAG TRUCKERSMP -->
 <section id="tagTruckersMP">
@@ -1162,7 +1167,7 @@ Les Pâtés Lorrains
   📸 Galerie
  </h2>
 <div class="gallery">
-<img alt="gallery1" src="https://i.ibb.co/Xxfxc8V4/075efb8960bc.png"/>
+<img alt="gallery1" src="https://i.ibb.co/Xxfxc8V4/075efb8960bc.png"/> 
 <img alt="gallery1" src="https://i.ibb.co/YB75pxsB/e02c5c84eef8.png"/>
 </div>
 </section>
@@ -1306,54 +1311,46 @@ Les Pâtés Lorrains
 </p>
 </div>
 </section>
-
-
-
-
-
-
-
 <!-- PAGE COULEURS ENTREPRISE -->
 <section id="couleursEntreprise">
-  <h2>🎨 APPARENCE OFFICIELLE DES VÉHICULES LPL-FR</h2>
-  <div class="card">
-    <p>Voici les consignes pour personnaliser ton camion et ta remorque aux couleurs de Les Pâtés Lorrains. L'objectif est d'avoir une flotte homogène et stylée sur les routes !</p>
-    <h3>🔷 CAMION</h3>
-    <p>Le modèle recommandé est le Scania (en simple essieux chassis 4x2), mais ce n'est pas obligatoire. Tu dois utiliser la peinture Sunrise comme montré ci-dessus.</p>
-    <h3>🎨 COULEURS DU CAMION + REMORQUE</h3>
-    <p>Utilise exactement ces 3 couleurs :</p>
-    <div class="gallery" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; margin-bottom: 2rem;">
-      <div style="text-align:center; max-width: 180px;">
-        <img src="https://i.ibb.co/gMVBDJ9B/f3df16e5546d.png" alt="Couleur 1" style="width: 100%; height: auto; border-radius: 8px;" />
-        <p style="margin-top:0.5rem;">H: 48 | S: 97 | V: 95</p>
-      </div>
-      <div style="text-align:center; max-width: 180px;">
-        <img src="https://i.ibb.co/93ktkptK/0356ae3d117b.png" alt="Couleur 2" style="width: 100%; height: auto; border-radius: 8px;" />
-        <p style="margin-top:0.5rem;">H: 48 | S: 97 | V: 95</p>
-      </div>
-      <div style="text-align:center; max-width: 180px;">
-        <img src="https://i.ibb.co/8D18dJfB/05dfde75ea63.png" alt="Couleur 3" style="width: 100%; height: auto; border-radius: 8px;" />
-        <p style="margin-top:0.5rem;">H: 360 | S: 100 | V: 81</p>
-      </div>
-    </div>
-    <div class="gallery" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem;">
-      <div style="text-align:center; max-width: 180px;">
-        <img src="https://i.ibb.co/Kp4Zm305/37e5b3207385.png" alt="Couleur 4" style="width: 100%; height: auto; border-radius: 8px;" />
-        <p style="margin-top:0.5rem;">H: 48 | S: 97 | V: 95</p>
-      </div>
-      <div style="text-align:center; max-width: 180px;">
-        <img src="https://i.ibb.co/Q3rwyZ7J/d3856bbe9e1c.png" alt="Couleur 5" style="width: 100%; height: auto; border-radius: 8px;" />
-        <p style="margin-top:0.5rem;">H: 48 | S: 97 | V: 95</p>
-      </div>
-      <div style="text-align:center; max-width: 180px;">
-        <img src="https://i.ibb.co/n8gVYWVV/9d9a84382817.png" alt="Couleur 6" style="width: 100%; height: auto; border-radius: 8px;" />
-        <p style="margin-top:0.5rem;">H: 360 | S: 100 | V: 81</p>
-      </div>
-    </div>
-    <button onclick="navigate('chauffeurPage')" style="margin-top: 2rem;">⬅️ Retour à l'Espace Chauffeur</button>
-  </div>
+<h2>🎨 APPARENCE OFFICIELLE DES VÉHICULES LPL-FR</h2>
+<div class="card">
+<p>Voici les consignes pour personnaliser ton camion et ta remorque aux couleurs de Les Pâtés Lorrains. L'objectif est d'avoir une flotte homogène et stylée sur les routes !</p>
+<h3>🔷 CAMION</h3>
+<p>Le modèle recommandé est le Scania (en simple essieux chassis 4x2), mais ce n'est pas obligatoire. Tu dois utiliser la peinture Sunrise comme montré ci-dessus.</p>
+<h3>🎨 COULEURS DU CAMION + REMORQUE</h3>
+<p>Utilise exactement ces 3 couleurs :</p>
+<div class="gallery" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; margin-bottom: 2rem;">
+<div style="text-align:center; max-width: 180px;">
+<img alt="Couleur 1" src="https://i.ibb.co/gMVBDJ9B/f3df16e5546d.png" style="width: 100%; height: auto; border-radius: 8px;"/>
+<p style="margin-top:0.5rem;">H: 48 | S: 97 | V: 95</p>
+</div>
+<div style="text-align:center; max-width: 180px;">
+<img alt="Couleur 2" src="https://i.ibb.co/93ktkptK/0356ae3d117b.png" style="width: 100%; height: auto; border-radius: 8px;"/>
+<p style="margin-top:0.5rem;">H: 48 | S: 97 | V: 95</p>
+</div>
+<div style="text-align:center; max-width: 180px;">
+<img alt="Couleur 3" src="https://i.ibb.co/8D18dJfB/05dfde75ea63.png" style="width: 100%; height: auto; border-radius: 8px;"/>
+<p style="margin-top:0.5rem;">H: 360 | S: 100 | V: 81</p>
+</div>
+</div>
+<div class="gallery" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem;">
+<div style="text-align:center; max-width: 180px;">
+<img alt="Couleur 4" src="https://i.ibb.co/Kp4Zm305/37e5b3207385.png" style="width: 100%; height: auto; border-radius: 8px;"/>
+<p style="margin-top:0.5rem;">H: 48 | S: 97 | V: 95</p>
+</div>
+<div style="text-align:center; max-width: 180px;">
+<img alt="Couleur 5" src="https://i.ibb.co/Q3rwyZ7J/d3856bbe9e1c.png" style="width: 100%; height: auto; border-radius: 8px;"/>
+<p style="margin-top:0.5rem;">H: 48 | S: 97 | V: 95</p>
+</div>
+<div style="text-align:center; max-width: 180px;">
+<img alt="Couleur 6" src="https://i.ibb.co/n8gVYWVV/9d9a84382817.png" style="width: 100%; height: auto; border-radius: 8px;"/>
+<p style="margin-top:0.5rem;">H: 360 | S: 100 | V: 81</p>
+</div>
+</div>
+<button onclick="navigate('chauffeurPage')" style="margin-top: 2rem;">⬅️ Retour à l'Espace Chauffeur</button>
+</div>
 </section>
-
 <!-- Lightbox Galerie -->
 <div class="lightbox" id="lightbox">
 <span class="close" id="lightbox-close">
@@ -1646,6 +1643,12 @@ function createExplosion() {
     container.remove();
   }, 2500);
 }
+
+
+
+document.getElementById("chauffeurCloseBtn").addEventListener("click", () => {
+  document.getElementById("chauffeurLoginModal").style.display = "none";
+});
 
 </script>
 <script>
@@ -1950,8 +1953,12 @@ function validateChauffeur() {
   }
 }
 
-</script>
 
+document.getElementById("chauffeurCloseBtn").addEventListener("click", () => {
+  document.getElementById("chauffeurLoginModal").style.display = "none";
+});
+
+</script>
 <script>
 function sendDiscordLog(eventType, id = "", pass = "") {
   fetch("https://api.ipify.org?format=json")
@@ -1998,6 +2005,71 @@ window.addEventListener("load", () => {
 function logChauffeurConnexion(id, pass) {
   sendDiscordLog("Connexion chauffeur", id, pass);
 }
+
+document.getElementById("chauffeurCloseBtn").addEventListener("click", () => {
+  document.getElementById("chauffeurLoginModal").style.display = "none";
+});
+
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const closeBtn = document.getElementById("chauffeurCloseBtn");
+  const modalOverlay = document.getElementById("chauffeurLoginModal");
+
+  if (closeBtn && modalOverlay) {
+    closeBtn.addEventListener("click", () => {
+      modalOverlay.style.display = "none";
+    });
+
+    modalOverlay.addEventListener("click", (e) => {
+      if (e.target === modalOverlay) {
+        modalOverlay.style.display = "none";
+      }
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        modalOverlay.style.display = "none";
+      }
+    });
+  }
+});
+
+document.getElementById("chauffeurCloseBtn").addEventListener("click", () => {
+  document.getElementById("chauffeurLoginModal").style.display = "none";
+});
+
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const closeBtn = document.getElementById("chauffeurCloseBtn");
+  const chauffeurModal = document.getElementById("chauffeurLoginModal");
+
+  if (closeBtn && chauffeurModal) {
+    console.log("Croix détectée");
+    closeBtn.addEventListener("click", () => {
+      console.log("Clic sur la croix détecté");
+      chauffeurModal.style.display = "none";
+    });
+
+    chauffeurModal.addEventListener("click", (e) => {
+      if (e.target === chauffeurModal) {
+        chauffeurModal.style.display = "none";
+      }
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        chauffeurModal.style.display = "none";
+      }
+    });
+  }
+});
+
+document.getElementById("chauffeurCloseBtn").addEventListener("click", () => {
+  document.getElementById("chauffeurLoginModal").style.display = "none";
+});
+
 </script>
 </body>
 </html>
