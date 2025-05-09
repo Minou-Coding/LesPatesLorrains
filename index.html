@@ -619,7 +619,72 @@ width: 100%;
   }
 }
 
-</style>
+
+    html {
+      font-size: 16px;
+    }
+
+    @media (max-width: 1200px) {
+      html {
+        font-size: 15px;
+      }
+    }
+
+    @media (max-width: 992px) {
+      html {
+        font-size: 14px;
+      }
+      .container {
+        padding: 0 1rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      html {
+        font-size: 13px;
+      }
+      h1, h2, h3 {
+        font-size: 1.2rem;
+      }
+      .card {
+        padding: 1rem;
+      }
+      .hero-text {
+        padding: 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      html {
+        font-size: 12px;
+      }
+      .radio-gallery img,
+      .gallery img,
+      .convoi-gallery .thumb img {
+        max-width: 100%;
+        height: auto;
+      }
+      nav a {
+        font-size: 0.9rem;
+      }
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .container, section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+
+    .card, .modal {
+      width: 100%;
+      box-sizing: border-box;
+    }
+    </style>
 </head>
 <body>
 <div id="loader">
@@ -656,7 +721,7 @@ Les Pâtés Lorrains
 <a onclick="navigate('recrutement')">
    Recrutements
   </a>
-      <a onclick="navigate('reglement')">
+<a onclick="navigate('reglement')">
    Règlement
   </a>
 <a id="discordLink">
@@ -687,55 +752,53 @@ Les Pâtés Lorrains
 </div>
 </div>
 <div class="container">
-
 <!-- MODALE DE CONNEXION CHAUFFEUR -->
 <div class="modal-overlay" id="chauffeurLoginModal">
-  <div class="modal">
-    <h3>Connexion Chauffeur</h3>
-    <input id="chauffeurId" placeholder="Identifiant" type="text"/>
-    <input id="chauffeurPass" placeholder="Mot de passe" type="password"/>
-    <button onclick="validateChauffeur()">Se connecter</button>
-    <div class="error" id="chauffeurLoginError">❌ Identifiants invalides.</div>
-  </div>
+<div class="modal">
+<h3>Connexion Chauffeur</h3>
+<input id="chauffeurId" placeholder="Identifiant" type="text"/>
+<input id="chauffeurPass" placeholder="Mot de passe" type="password"/>
+<label style="display: block; margin: 0.5rem 0; font-size: 0.9rem;">
+<input id="rememberMe" style="margin-right: 6px;" type="checkbox"/> Se souvenir de moi
+    </label>
+<button onclick="validateChauffeur()">Se connecter</button>
+<div class="error" id="chauffeurLoginError">❌ Identifiants invalides.</div>
 </div>
-
+</div>
+</div>
 <!-- PAGE CHAUFFEUR -->
 <section id="chauffeurPage">
-  <h2>👨‍✈️ Espace Chauffeur</h2>
-  <div class="card" onclick="navigate('tagTruckersMP')" style="cursor:pointer;">
-    <h3>🔖 Tag TruckersMP</h3>
-    <p>Configuration du Player Tag selon votre grade</p>
-  </div>
+<h2>👨‍✈️ Espace Chauffeur</h2>
+<div class="card" onclick="navigate('tagTruckersMP')" style="cursor:pointer;">
+<h3>🔖 Tag TruckersMP</h3>
+<p>Configuration du Player Tag selon votre grade</p>
+</div>
 </section>
-
-
 <!-- PAGE TAG TRUCKERSMP -->
 <section id="tagTruckersMP">
-  <h2>🔖 TAG ENTREPRISE — OBLIGATOIRE SUR TRUCKERSMP</h2>
-  <div class="card">
-    <p>Tous les membres de Les Pâtés Lorrains doivent obligatoirement afficher leur Player Tag personnalisé sur TruckersMP.</p>
-    <p>Ce tag permet une identification claire et immédiate lors des convois, selon le grade du membre dans l'entreprise.</p>
-    <h3>PROCÉDURE DE CONFIGURATION</h3>
-    <ul>
-      <li>• Appuyez sur la touche TAB pour ouvrir le menu TruckersMP.</li>
-      <li>• Cliquez sur l'icône d'engrenage en bas à gauche.</li>
-      <li>• Dans la section "Player Tag", entrez le tag correspondant à votre grade (voir ci-dessous).</li>
-    </ul>
-    <h3>PLAYER TAGS PAR GRADE</h3>
-    <ul>
-      <li><strong>PDG :</strong> [1]LPL-FR — Couleur : #E74C3C</li>
-      <li><strong>DIRECTEUR :</strong> [2]LPL-FR — Couleur : #F39C12</li>
-      <li><strong>RESPONSABLE DE FLOTTE :</strong> [3]LPL-FR — Couleur : #F1C40F</li>
-      <li><strong>CHAUFFEUR :</strong> [4]LPL-FR — Couleur : #2ECC71</li>
-    </ul>
-    <p><strong>IMPORTANT :</strong> Assure-toi que ton tag est correctement configuré avant chaque convoi.</p>
-    <p><em>Le non-respect de cette consigne pourra entraîner une exclusion temporaire des événements.</em></p>
-    <p>Les Pâtés Lorrains — Discipline, visibilité et esprit d'équipe 🚛</p>
-    <button onclick="navigate('chauffeurPage')" style="margin-top: 1rem;">⬅️ Retour à l'Espace Chauffeur</button>
-  </div>
+<h2>🔖 TAG ENTREPRISE — OBLIGATOIRE SUR TRUCKERSMP</h2>
+<div class="card">
+<p>Tous les membres de Les Pâtés Lorrains doivent obligatoirement afficher leur Player Tag personnalisé sur TruckersMP.</p>
+<p>Ce tag permet une identification claire et immédiate lors des convois, selon le grade du membre dans l'entreprise.</p>
+<h3>PROCÉDURE DE CONFIGURATION</h3>
+<ul>
+<li>• Appuyez sur la touche TAB pour ouvrir le menu TruckersMP.</li>
+<li>• Cliquez sur l'icône d'engrenage en bas à gauche.</li>
+<li>• Dans la section "Player Tag", entrez le tag correspondant à votre grade (voir ci-dessous).</li>
+</ul>
+<h3>PLAYER TAGS PAR GRADE</h3>
+<ul>
+<li><strong>PDG :</strong> [1]LPL-FR — Couleur : #E74C3C</li>
+<li><strong>DIRECTEUR :</strong> [2]LPL-FR — Couleur : #F39C12</li>
+<li><strong>RESPONSABLE DE FLOTTE :</strong> [3]LPL-FR — Couleur : #F1C40F</li>
+<li><strong>CHAUFFEUR :</strong> [4]LPL-FR — Couleur : #2ECC71</li>
+</ul>
+<p><strong>IMPORTANT :</strong> Assure-toi que ton tag est correctement configuré avant chaque convoi.</p>
+<p><em>Le non-respect de cette consigne pourra entraîner une exclusion temporaire des événements.</em></p>
+<p>Les Pâtés Lorrains — Discipline, visibilité et esprit d'équipe 🚛</p>
+<button onclick="navigate('chauffeurPage')" style="margin-top: 1rem;">⬅️ Retour à l'Espace Chauffeur</button>
+</div>
 </section>
-
-
 <!-- Page Accueil -->
 <section class="active" id="home">
 <div class="hero">
@@ -1130,7 +1193,6 @@ Les Pâtés Lorrains
 </p>
 </div>
 </section>
-
 <!-- Page Règlement -->
 <section id="reglement">
 <h2>
@@ -1242,7 +1304,7 @@ Les Pâtés Lorrains
 </p>
 </div>
 </section>
-</div>
+
 <!-- Lightbox Galerie -->
 <div class="lightbox" id="lightbox">
 <span class="close" id="lightbox-close">
@@ -1256,15 +1318,12 @@ Les Pâtés Lorrains
 </footer>
 <!-- Lecteur Audio Fixe en Bas -->
 <div class="radio-player" id="radioPlayerContainer" style="position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);">
-
 <div id="equalizer" style="display: none; gap: 3px; position: absolute; left: 16px; top: 12px; display: flex; align-items: center;">
-  <div class="bar" style="width: 3px; height: 12px; background: #1db954; animation: bounce 0.5s infinite ease-in-out;"></div>
-  <div class="bar" style="width: 3px; height: 8px; background: #1db954; animation: bounce 0.5s 0.1s infinite ease-in-out;"></div>
-  <div class="bar" style="width: 3px; height: 14px; background: #1db954; animation: bounce 0.5s 0.2s infinite ease-in-out;"></div>
+<div class="bar" style="width: 3px; height: 12px; background: #1db954; animation: bounce 0.5s infinite ease-in-out;"></div>
+<div class="bar" style="width: 3px; height: 8px; background: #1db954; animation: bounce 0.5s 0.1s infinite ease-in-out;"></div>
+<div class="bar" style="width: 3px; height: 14px; background: #1db954; animation: bounce 0.5s 0.2s infinite ease-in-out;"></div>
 </div>
-
 <div id="togglePlayerBtn" onclick="togglePlayer()" style="position: absolute; top: 8px; right: 12px; font-size: 1.2rem; cursor: pointer; color: #1db954;">▼</div>
-
 <div class="controls">
 <button class="spotify-btn" id="togglePlayPause" onclick="togglePlayPause()">⏯</button><button class="spotify-btn" onclick="prevRadio()">
    ⏮
@@ -1361,9 +1420,11 @@ function validateChauffeur() {
   const id = document.getElementById("chauffeurId").value.trim();
   const pass = document.getElementById("chauffeurPass").value.trim();
   const allowed = [
+    {id: "minou", pass: "ets2"},
+    {id: "admin", pass: "1234"},
     {id: "Minou", pass: "Minou57170"},
     {id: "Douii", pass: "Alban@57"}
-  ];
+];
   const found = allowed.find(u => u.id === id && u.pass === pass);
   if (found) {
     document.getElementById("chauffeurLoginModal").style.display = "none";
@@ -1500,30 +1561,59 @@ function openLiveMap() {
 }
 
 </script>
-
 <script>
+
 function openChauffeurLogin() {
   document.getElementById("chauffeurLoginModal").style.display = "flex";
   document.getElementById("chauffeurLoginError").style.display = "none";
+
+  const savedId = localStorage.getItem("chauffeurId");
+  const savedPass = localStorage.getItem("chauffeurPass");
+  const idField = document.getElementById("chauffeurId");
+  const passField = document.getElementById("chauffeurPass");
+  const rememberBox = document.getElementById("rememberMe");
+
+  if (savedId && savedPass) {
+    idField.value = savedId;
+    passField.value = savedPass;
+    rememberBox.checked = true;
+  } else {
+    idField.value = "";
+    passField.value = "";
+    rememberBox.checked = false;
+  }
 }
 
 function validateChauffeur() {
   const id = document.getElementById("chauffeurId").value.trim();
   const pass = document.getElementById("chauffeurPass").value.trim();
+  const remember = document.getElementById("rememberMe").checked;
+
   const allowed = [
+    {id: "minou", pass: "ets2"},
+    {id: "admin", pass: "1234"},
     {id: "Minou", pass: "Minou57170"},
     {id: "Douii", pass: "Alban@57"}
-  ];
-  const found = allowed.find(function(u) {
-    return u.id === id && u.pass === pass;
-  });
+];
+
+  const found = allowed.find(u => u.id === id && u.pass === pass);
+
   if (found) {
+    if (remember) {
+      localStorage.setItem("chauffeurId", id);
+      localStorage.setItem("chauffeurPass", pass);
+    } else {
+      localStorage.removeItem("chauffeurId");
+      localStorage.removeItem("chauffeurPass");
+    }
+
     document.getElementById("chauffeurLoginModal").style.display = "none";
     navigate("chauffeurPage");
   } else {
     document.getElementById("chauffeurLoginError").style.display = "block";
   }
 }
+
 </script>
 </body>
 </html>
