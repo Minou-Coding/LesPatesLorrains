@@ -612,6 +612,13 @@ width: 100%;
   position: relative;
   z-index: 1;
 }
+
+@media (max-width: 768px) {
+  .desktop-only {
+    display: none !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -648,7 +655,7 @@ Les Pâtés Lorrains
 <a onclick="navigate('recrutement')">
    Recrutements
   </a>
-<a onclick="openLiveMap()">Live Map</a>
+<a onclick="openLiveMap()" class="desktop-only">Live Map</a>
       <a onclick="navigate('reglement')">
    Règlement
   </a>
