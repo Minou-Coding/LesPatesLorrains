@@ -1047,7 +1047,7 @@ Les Pâtés Lorrains
 <button class="spotify-btn" onclick="nextRadio()">
 ⏭
     </button>
-</div>
+<button class="spotify-btn" onclick="pauseRadio()">⏸</button><button class="spotify-btn" onclick="stopRadio()">⏹</button></div>
 <div class="radio-name" id="currentRadio">
     Aucune radio
    </div>
@@ -1191,6 +1191,19 @@ Les Pâtés Lorrains
     }, 500);
   }, 2000); // délai de 3 secondes
 });
-  </script>
+  
+
+    function pauseRadio() {
+      if (!audioPlayer.paused) {
+        audioPlayer.pause();
+      }
+    }
+
+    function stopRadio() {
+      audioPlayer.pause();
+      audioPlayer.currentTime = 0;
+      currentRadio.textContent = "Aucune radio";
+    }
+</script>
 </body>
 </html>
