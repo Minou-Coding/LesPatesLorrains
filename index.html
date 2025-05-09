@@ -480,6 +480,69 @@ width: 100%;
     margin-top: 5px;
   }
 }
+
+/* Nouveau design inspiré de Spotify */
+.radio-player {
+  background: linear-gradient(135deg, #1db954, #191414);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  font-family: 'Segoe UI', sans-serif;
+  max-width: 400px;
+  width: 90%;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 20px;
+  position: fixed;
+  z-index: 999;
+}
+
+.radio-player .controls {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.radio-player .spotify-btn {
+  background: #191414;
+  color: #1db954;
+  border: 2px solid #1db954;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  font-size: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.radio-player .spotify-btn:hover {
+  background: #1db954;
+  color: #fff;
+  transform: scale(1.1);
+}
+
+.radio-player .radio-name {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.radio-player input[type="range"] {
+  width: 100%;
+  accent-color: #1db954;
+  cursor: pointer;
+}
 </style>
 </head>
 <body>
