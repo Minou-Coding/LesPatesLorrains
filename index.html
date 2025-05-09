@@ -1169,7 +1169,9 @@ Les Pâtés Lorrains
  © 2025 Les Pâtés Lorrains | minou_offciel | TikTok
 </footer>
 <!-- Lecteur Audio Fixe en Bas -->
-<div class="radio-player">
+<div class="radio-player" id="radioPlayerContainer" style="position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);">
+<div id="togglePlayerBtn" onclick="togglePlayer()" style="position: absolute; top: 8px; right: 12px; font-size: 1.2rem; cursor: pointer; color: #1db954;">▼</div>
+
 <div class="controls">
 <button class="spotify-btn" id="togglePlayPause" onclick="togglePlayPause()">⏯</button><button class="spotify-btn" onclick="prevRadio()">
    ⏮
@@ -1339,10 +1341,28 @@ Les Pâtés Lorrains
   const btn = document.getElementById("togglePlayPause");
   if (audioPlayer.paused) {
     audioPlayer.play();
-    btn.textContent = "⏯";
+    btn.textContent = "⏸";
   } else {
     audioPlayer.pause();
     btn.textContent = "⏯";
+  }
+}
+
+
+let isPlayerMinimized = false;
+function togglePlayer() {
+  const container = document.getElementById("radioPlayerContainer");
+  const toggleBtn = document.getElementById("togglePlayerBtn");
+  if (!isPlayerMinimized) {
+    container.style.height = "40px";
+    container.style.overflow = "hidden";
+    toggleBtn.innerText = "▲";
+    isPlayerMinimized = true;
+  } else {
+    container.style.height = "";
+    container.style.overflow = "";
+    toggleBtn.innerText = "▼";
+    isPlayerMinimized = false;
   }
 }
 
