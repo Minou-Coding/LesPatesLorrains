@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Les Pâtés Lorrains - ETS2</title>
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   Les Pâtés Lorrains - ETS2
+  </title>
   <style>
-    :root {
+   :root {
       --bg: #0f1115;
       --primary: #1f2937;
       --accent: #00c3ff;
@@ -140,601 +142,882 @@
       transition: transform 0.3s ease;
       cursor: pointer;
     }
+.gallery img:hover,
+.convoi-gallery .thumb:hover img,
+.radio-gallery img:hover {
+  transform: scale(1.05);
+}
 
-    .gallery img:hover,
-    .convoi-gallery .thumb:hover img,
-    .radio-gallery img:hover {
-      transform: scale(1.05);
-    }
+.convoi-gallery .thumb {
+  position: relative;
+}
 
-    .convoi-gallery .thumb {
-      position: relative;
-    }
+.convoi-gallery .thumb span {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
 
-    .convoi-gallery .thumb span {
-      position: absolute;
-      bottom: 8px;
-      left: 8px;
-      background: rgba(0, 0, 0, 0.6);
-      color: #fff;
-      padding: 0.3rem 0.6rem;
-      border-radius: 6px;
-      font-size: 0.9rem;
-    }
+.lightbox {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  align-items: center;
+}
 
-    .lightbox {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0, 0, 0, 0.8);
-      justify-content: center;
-      align-items: center;
-    }
+.lightbox img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 8px;
+}
 
-    .lightbox img {
-      max-width: 90%;
-      max-height: 90%;
-      border-radius: 8px;
-    }
+.lightbox .close {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  font-size: 2rem;
+  color: white;
+  cursor: pointer;
+}
 
-    .lightbox .close {
-      position: absolute;
-      top: 2rem;
-      right: 2rem;
-      font-size: 2rem;
-      color: white;
-      cursor: pointer;
-    }
+footer {
+  text-align: center;
+  padding: 2rem 1rem;
+  color: #888;
+  font-size: 0.9rem;
+}
 
-    footer {
-      text-align: center;
-      padding: 2rem 1rem;
-      color: #888;
-      font-size: 0.9rem;
-    }
+/* Lecteur Audio Stylé */
+.radio-player {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 700px;
+  background: #181818;
+  border-radius: 40px;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  color: #fff;
+  z-index: 999;
+  font-family: "Segoe UI", sans-serif;
+}
 
-    /* Lecteur Audio Stylé */
-    .radio-player {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 90%;
-      max-width: 700px;
-      background: #181818;
-      border-radius: 40px;
-      padding: 14px 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-      color: #fff;
-      z-index: 999;
-      font-family: "Segoe UI", sans-serif;
-    }
+.radio-player .controls {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
 
-    .radio-player .controls {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
+.radio-player .spotify-btn {
+  background: #1db954;
+  border: none;
+  color: #fff;
+  font-size: 1.2rem;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  transition: background 0.2s ease, transform 0.2s ease;
+  box-shadow: 0 0 8px rgba(29, 185, 84, 0.4);
+  cursor: pointer;
+}
 
-    .radio-player .spotify-btn {
-      background: #1db954;
-      border: none;
-      color: #fff;
-      font-size: 1.2rem;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      display: grid;
-      place-items: center;
-      transition: background 0.2s ease, transform 0.2s ease;
-      box-shadow: 0 0 8px rgba(29, 185, 84, 0.4);
-      cursor: pointer;
-    }
+.radio-player .spotify-btn:hover {
+  background: #1ed760;
+  transform: scale(1.1);
+}
 
-    .radio-player .spotify-btn:hover {
-      background: #1ed760;
-      transform: scale(1.1);
-    }
+.radio-player .radio-name {
+  flex: 1;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #eee;
+  padding: 0 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
-    .radio-player .radio-name {
-      flex: 1;
-      text-align: center;
-      font-weight: 600;
-      font-size: 1rem;
-      color: #eee;
-      padding: 0 20px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
+.radio-player input[type="range"] {
+  width: 100px;
+  accent-color: #1db954;
+  cursor: pointer;
+}
 
-    .radio-player input[type="range"] {
-      width: 100px;
-      accent-color: #1db954;
-      cursor: pointer;
-    }
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
 
-    .modal-overlay {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0, 0, 0, 0.7);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 999;
-    }
+.modal {
+  background: var(--card);
+  padding: 2rem;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 4px 20px #00000060;
+  text-align: center;
+}
 
-    .modal {
-      background: var(--card);
-      padding: 2rem;
-      border-radius: 12px;
-      width: 90%;
-      max-width: 400px;
-      box-shadow: 0 4px 20px #00000060;
-      text-align: center;
-    }
+.modal input {
+width: 100%;
+     padding: 0.7rem;
+     border-radius: 8px;
+     border: none;
+     margin-top: 1rem;
+     margin-bottom: 1rem;
+     font-size: 1rem;
+   }
 
-    .modal input {
-      width: 100%;
-      padding: 0.7rem;
-      border-radius: 8px;
-      border: none;
-      margin-top: 1rem;
-      margin-bottom: 1rem;
-      font-size: 1rem;
-    }
+   .modal button {
+     background-color: var(--accent);
+     color: #000;
+     padding: 0.6rem 1.2rem;
+     border: none;
+     border-radius: 8px;
+     font-weight: bold;
+     cursor: pointer;
+   }
 
-    .modal button {
-      background-color: var(--accent);
-      color: #000;
-      padding: 0.6rem 1.2rem;
-      border: none;
-      border-radius: 8px;
-      font-weight: bold;
-      cursor: pointer;
-    }
+   .modal button:hover {
+     background-color: #007aa3;
+   }
 
-    .modal button:hover {
-      background-color: #007aa3;
-    }
+   .modal .error {
+     color: var(--alert);
+     margin-top: 0.5rem;
+     display: none;
+   }
 
-    .modal .error {
-      color: var(--alert);
-      margin-top: 0.5rem;
-      display: none;
-    }
+   .logo-text {
+     font-size: 1.4rem;
+     font-weight: 400;
+     color: var(--text);
+     margin-left: -900px;
+     font-family: "Segoe UI", sans-serif;
+     letter-spacing: 0.5px;
+   }
 
-    .logo-text {
-      font-size: 1.4rem;
-      font-weight: 400;
-      color: var(--text);
-      margin-left: -900px;
-      font-family: "Segoe UI", sans-serif;
-      letter-spacing: 0.5px;
-    }
+   #loader {
+     position: fixed;
+     z-index: 9999;
+     top: 0; left: 0;
+     width: 100vw;
+     height: 100vh;
+     background-color: var(--bg);
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     transition: opacity 0.5s ease;
+   }
 
-    #loader {
-      position: fixed;
-      z-index: 9999;
-      top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
-      background-color: var(--bg);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: opacity 0.5s ease;
-    }
+   .loader-logo {
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     animation: fadeIn 1s ease-in-out infinite alternate;
+   }
 
-    .loader-logo {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      animation: fadeIn 1s ease-in-out infinite alternate;
-    }
+   .loader-logo img {
+     width: 350px;
+     height: 350px;
+     animation: spin 2s linear infinite;
+   }
 
-    .loader-logo img {
-      width: 350px;
-      height: 350px;
-      animation: spin 2s linear infinite;
-    }
+   .loader-logo span {
+     color: var(--accent);
+     font-size: 1.2rem;
+     margin-top: 15px;
+     letter-spacing: 1px;
+   }
 
-    .loader-logo span {
-      color: var(--accent);
-      font-size: 1.2rem;
-      margin-top: 15px;
-      letter-spacing: 1px;
-    }
+   @keyframes spin {
+     0% { transform: rotate(0deg); }
+     100% { transform: rotate(360deg); }
+   }
 
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
+   @keyframes fadeIn {
+     from { opacity: 0.5; }
+     to { opacity: 1; }
+   }
 
-    @keyframes fadeIn {
-      from { opacity: 0.5; }
-      to { opacity: 1; }
-    }
+   .logo-scan-wrapper {
+   position: relative;
+   display: inline-block;
+   overflow: hidden;
+   }
 
-    .logo-scan-wrapper {
-    position: relative;
-    display: inline-block;
-    overflow: hidden;
-    }
+   .logo-scan {
+   display: block;
+   height: 100px; /* ou selon ta taille */
+   animation: logoPulse 1s ease-in-out 1;
+   }
 
-    .logo-scan {
-    display: block;
-    height: 100px; /* ou selon ta taille */
-    animation: logoPulse 1s ease-in-out 1;
-    }
+   .logo-scan::before {
+   content: "";
+   position: absolute;
+   top: 0;
+   left: -150%;
+   width: 150%;
+   height: 100%;
+   background: linear-gradient(90deg, transparent, rgba(0, 195, 255, 0.3), transparent);
+   animation: scanLaser 2s ease-out forwards;
+   z-index: 2;
+   }
 
-    .logo-scan::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -150%;
-    width: 150%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(0, 195, 255, 0.3), transparent);
-    animation: scanLaser 2s ease-out forwards;
-    z-index: 2;
-    }
+   @keyframes scanLaser {
+   0% {
+       left: -150%;
+   }
+   50% {
+       left: 100%;
+   }
+   100% {
+       left: 100%;
+   }
+   }
 
-    @keyframes scanLaser {
-    0% {
-        left: -150%;
-    }
-    50% {
-        left: 100%;
-    }
-    100% {
-        left: 100%;
-    }
-    }
-
-    @keyframes logoPulse {
-    0% {
-        filter: brightness(0.8);
-        transform: scale(0.95);
-    }
-    100% {
-        filter: brightness(1);
-        transform: scale(1);
-    }
-    }
-
-  </style>
+   @keyframes logoPulse {
+   0% {
+       filter: brightness(0.8);
+       transform: scale(0.95);
+   }
+   100% {
+       filter: brightness(1);
+       transform: scale(1);
+   }
+   }
+ </style>
 </head>
-
 <body>
-  
-    <div id="loader">
-        <div class="loader-logo">
-          <img src="https://i.ibb.co/kWr3PZn/e42e854f1dd3.png" alt="Logo" />
-          <span>Chargement...</span>
-        </div>
-      </div>
-
-  <header>
+ <div id="loader">
+  <div class="loader-logo">
+   <img alt="Logo" src="https://i.ibb.co/kWr3PZn/e42e854f1dd3.png"/>
+   <span>
+    Chargement...
+   </span>
+  </div>
+ </div>
+ <header>
   <div style="display: flex; align-items: center;">
-      <div class="logo-scan-wrapper">
-      <img src="https://i.ibb.co/kWr3PZn/e42e854f1dd3.png" alt="Logo" class="logo-scan" />
-      </div>
-      <div class="logo-text">Les Pâtés Lorrains</div>
+   <div class="logo-scan-wrapper">
+    <img alt="Logo" class="logo-scan" src="https://i.ibb.co/kWr3PZn/e42e854f1dd3.png"/>
+   </div>
+   <div class="logo-text">
+Les Pâtés Lorrains
   </div>
-  <nav>
-      <a onclick="navigate('home')">Accueil</a>
-      <a onclick="navigate('convois')">Convois</a>
-      <a onclick="navigate('galerie')">Galerie</a>
-      <a onclick="navigate('radios')">Radios</a>
-      <a onclick="navigate('recrutement')">Recrutements</a>
-      <a onclick="navigate('reglement')">Règlement</a>
-      <a id="discordLink">Discord</a>
-  </nav>
-  </header>
-
-  <!-- MODALE DE CONFIRMATION -->
-  <div class="modal-overlay" id="modalOverlay">
-    <div class="modal">
-      <h3>Accès au Discord</h3>
-      <p>Pour accéder au Discord, merci d’écrire <strong>"J'ai lu et accepté le règlement"</strong> ci-dessous :</p>
-      <input type="text" id="validationInput" placeholder="Tape ici : J'ai lu et accepté le règlement">
-      <button id="validateBtn">Valider</button>
-      <div class="error" id="validationError">⚠️ Tu dois taper exactement : J'ai lu et accepté le règlement</div>
-    </div>
+ </div>
+ <nav>
+  <a onclick="navigate('home')">
+   Accueil
+  </a>
+  <a onclick="navigate('convois')">
+   Convois
+  </a>
+  <a onclick="navigate('galerie')">
+   Galerie
+  </a>
+  <a onclick="navigate('radios')">
+   Radios
+  </a>
+  <a onclick="navigate('recrutement')">
+   Recrutements
+  </a>
+  <a onclick="navigate('reglement')">
+   Règlement
+  </a>
+  <a id="discordLink">
+   Discord
+  </a>
+ </nav>
+</header>
+<!-- MODALE DE CONFIRMATION -->
+<div class="modal-overlay" id="modalOverlay">
+ <div class="modal">
+  <h3>
+   Accès au Discord
+  </h3>
+  <p>
+   Pour accéder au Discord, merci d’écrire
+   <strong>
+    "J'ai lu et accepté le règlement"
+   </strong>
+   ci-dessous :
+  </p>
+  <input id="validationInput" placeholder="Tape ici : J'ai lu et accepté le règlement" type="text"/>
+  <button id="validateBtn">
+   Valider
+  </button>
+  <div class="error" id="validationError">
+   ⚠️ Tu dois taper exactement : J'ai lu et accepté le règlement
   </div>
-
-  <div class="container">
-
-    <!-- Page Accueil -->
-    <section id="home" class="active">
-      <div class="hero">
-        <img src="https://i.ibb.co/FbwSpc44/cfa0921d14a0.png" alt="Image d'accueil">
-        <div class="hero-text">
-          <h2>Les Pâtés Lorrains</h2>
-          <p>Une entreprise a l'esprit familial</p>
-        </div>
-      </div>
-
-      <h1>🚛 Les Pâtés Lorrains : Roulez avec nous, sans stress, sans prise de tête !</h1>
-      <p>Bienvenue chez <strong>Les Pâtés Lorrains</strong>, une entreprise virtuelle de transport où <em>professionnalisme</em> rime avec <em>convivialité</em>. Notre crédo ? Rouler sérieusement, sans se prendre au sérieux.</p>
-      <p>🎯 Ici, chacun avance à son rythme. Pas de pression, pas de drama – seulement des gens matures, passionnés et soudés par une même envie : profiter de la route dans une ambiance <strong>zen et respectueuse</strong>.</p>
-
-      <div class="card">
-        <h2>🧭 Nos valeurs :</h2>
-        <ul>
-          <li><strong>Le respect</strong> est la règle d’or. En vocal, en jeu, ou dans les discussions – on se parle, pas on s’engueule.</li>
-          <li><strong>Pas de stress</strong>, jamais. Si souci il y a, on gère ça calmement.</li>
-          <li><strong>L’entraide</strong> est constante. Mod cassé ? TruckersMP capricieux ? On est là pour toi.</li>
-          <li><strong>Le réalisme</strong> oui, mais relax. On roule propre, mais sans jouer les gendarmes.</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <h2>🚨 Règlement : Tolérance Zéro sur le non-respect</h2>
-        <p>Chez nous, le code de la route n’est pas une option. On respecte les règles, point barre.</p>
-        <ul>
-          <li>⛔ 95 km/h max sauf consignes spéciales</li>
-          <li>⛔ Priorités, feux, clignos, distances = sacrés</li>
-          <li>⛔ Zéro insulte, zéro provocation, zéro toxicité</li>
-        </ul>
-        <p><em>Chaque infraction peut mener à des sanctions sérieuses, y compris l’exclusion.</em></p>
-      </div>
-
-      <div class="card">
-        <h2>🏢 C’est quoi Les Pâtés Lorrains ?</h2>
-        <ul>
-          <li>✔️ Une équipe adulte, stable, passionnée</li>
-          <li>✔️ Des convois réguliers avec une vraie structure</li>
-          <li>✔️ Des responsables accessibles, à l’écoute</li>
-          <li>✔️ Une vraie ambiance de groupe, pas de solo ego trip</li>
-        </ul>
-        <p>Peu importe ton niveau d’engagement : que tu sois là tous les soirs ou juste le week-end, tu as ta place tant que tu respectes les autres.</p>
-      </div>
-
-      <div class="card">
-        <h2>💬 En résumé</h2>
-        <p>Tu cherches une entreprise où :</p>
-        <ul>
-          <li>✅ Tu roules sérieux, sans prise de tête</li>
-          <li>✅ Tu es entouré d’adultes respectueux</li>
-          <li>✅ Tu construis une vraie relation d’équipe</li>
-          <li>✅ Tu suis les règles, naturellement</li>
-        </ul>
-        <p>Alors <strong>tu es exactement là où tu dois être</strong>.</p>
-        <p><strong>Bienvenue chez Les Pâtés Lorrains</strong>, là où <em>plaisir de rouler</em> et <em>esprit d’équipe</em> se croisent – avec rigueur, respect, et fun.</p>
-      </div>
-    </section>
-
-    <!-- Page Convois (Galerie de vignettes) -->
-    <section id="convois">
-      <h2>📦 Nos Convois</h2>
-      <div class="convoi-gallery">
-        <div class="thumb" onclick="navigate('convoi09mai')">
-          <img src="https://i.ibb.co/xtJ29Dfk/e1f112dae65c.png" alt="Convoi 09 Mai 2025 - 21H30">
-          <span>09 Mai 2025 - 21H30</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- Page Détail du Convoi 09 Mai -->
-    <section id="convoi09mai">
-      <h2>🚛 Convoi Officiel - Vendredi 09 Mai 2025</h2>
-      <div class="card">
-        <h3>🕒 Départ à 21h30 - De Metz (EuroGoodies) à Bratislava (WGCC)</h3>
-        <div style="display: flex; flex-direction: column; gap: 1rem;">
-          <img src="https://i.ibb.co/xtJ29Dfk/e1f112dae65c.png" alt="Départ Metz" style="width:100%; border-radius: 12px;" />
-          <img src="https://i.ibb.co/wZmmvRVM/4a648eaf7428.png" alt="Arrivée Bratislava" style="width:100%; border-radius: 12px;" />
-        </div>
-        <p style="margin-top:1rem;">🛣️ <strong>Distance :</strong> 1294 km<br>
-        ⏱️ <strong>Durée estimée :</strong> 1h11<br>
-        🧭 <strong>Vitesse maximale :</strong> 90 km/h</p>
-        <p><strong>⛽ Rappel :</strong> Faites le plein avant le départ pour éviter les arrêts.</p>
-        <p><strong>⏳ Présence obligatoire à 21h30.</strong> Départ à 21h45 pile. Aucun retard ne sera toléré.</p>
-        <ul>
-          <li>🎨 Présence obligatoire avec votre propre remorque et votre camion aux couleurs de l'entreprise, disponibles sur le Discord</li>
-          <li>🛑 Frein moteur automatique : activé</li>
-          <li>🛑 Ralentisseur hydraulique automatique : activé</li>
-          <li>📏 Distance minimale entre camions : 1 trait et demi</li>
-          <li>🚨 Toute infraction = sanction immédiate</li>
-        </ul>
-        <button onclick="navigate('convois')" style="margin-top: 1rem;" class="discord-btn">⬅️ Retour aux Convois</button>
-      </div>
-    </section>
-
-    <!-- Page Radios -->
-    <section id="radios">
-      <h2>📻 Radios Françaises</h2>
-      <div class="radio-gallery">
-
-        <div onclick="playRadio(0)">
-          <img src="https://i.ibb.co/bRBHNv52/t-l-chargement-3.jpg" alt="Direct FM ( Metz )">
-          <span>Direct FM ( Metz )</span>
-        </div>
-
-        <div onclick="playRadio(1)">
-          <img src="https://i.ibb.co/wFXQjzc3/t-l-chargement-4.png" alt="France Inter">
-          <span>France Inter</span>
-        </div>
-
-        <div onclick="playRadio(2)">
-          <img src="https://i.ibb.co/j9Bxsj3K/t-l-chargement.jpg" alt="France Info">
-          <span>France Info</span>
-        </div>
-
-        <div onclick="playRadio(3)">
-          <img src="https://i.ibb.co/jP6TNSdc/France-Bleu-2021-svg.png" alt="France Bleu">
-          <span>France Bleu</span>
-        </div>
-
-        <div onclick="playRadio(4)">
-          <img src="https://i.ibb.co/4RBpBBRq/t-l-chargement-2.png" alt="Europe 1">
-          <span>Europe 1</span>
-        </div>
-
-        <div onclick="playRadio(5)">
-          <img src="https://i.ibb.co/GQ17J77N/t-l-chargement-11.png" alt="RTL">
-          <span>RTL</span>
-        </div>
-
-        <div onclick="playRadio(6)">
-          <img src="https://i.ibb.co/v6jHbHLQ/t-l-chargement.png" alt="NRJ">
-          <span>NRJ</span>
-        </div>
-
-        <div onclick="playRadio(7)">
-          <img src="https://i.ibb.co/DDH8FvjB/t-l-chargement-3.png" alt="Skyrock">
-          <span>Skyrock</span>
-        </div>
-
-        <div onclick="playRadio(8)">
-          <img src="https://i.ibb.co/4wvsMXYW/t-l-chargement-1.jpg" alt="Fun Radio">
-          <span>Fun Radio</span>
-        </div>
-
-        <div onclick="playRadio(9)">
-          <img src="https://i.ibb.co/JTx5Stb/t-l-chargement-6.png" alt="Chérie FM">
-          <span>Chérie FM</span>
-        </div>
-
-        <div onclick="playRadio(10)">
-          <img src="https://i.ibb.co/21SydjZn/t-l-chargement-7.png" alt="Rire & Chansons">
-          <span>Rire & Chansons</span>
-        </div>
-
-        <div onclick="playRadio(11)">
-          <img src="https://i.ibb.co/YBcQ9xP2/images.png" alt="Nostalgie">
-          <span>Nostalgie</span>
-        </div>
-
-        <div onclick="playRadio(12)">
-          <img src="https://i.ibb.co/FbDs01tY/t-l-chargement-2.jpg" alt="RFM">
-          <span>RFM</span>
-        </div>
-
-        <div onclick="playRadio(13)">
-          <img src="https://i.ibb.co/9x9b6Tz/t-l-chargement-8.png" alt="RTL2">
-          <span>RTL2</span>
-        </div>
-
-        <div onclick="playRadio(14)">
-          <img src="https://i.ibb.co/chfhGLD4/t-l-chargement-9.png" alt="FIP">
-          <span>FIP</span>
-        </div>
-
-        <div onclick="playRadio(15)">
-          <img src="https://i.ibb.co/5xtpSXVV/France-Culture-logo-2021-svg.png" alt="France Culture">
-          <span>France Culture</span>
-        </div>
-
-        <div onclick="playRadio(16)">
-          <img src="https://i.ibb.co/ycRh4bTx/t-l-chargement-10.png" alt="France Musique">
-          <span>France Musique</span>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- Page Galerie -->
-    <section id="galerie">
-      <h2>📸 Galerie</h2>
-      <div class="gallery">
-        <img src="https://i.ibb.co/DgTGC1WJ/71-CCA90-E-5874-427-F-A88-C-E3866-EEC62-C5.png" alt="gallery1">
-        <img src="https://i.ibb.co/3Y14GhfB/ets2-20250427-212434-00.png" alt="gallery2">
-        <img src="https://i.ibb.co/yFdRT5Tt/ets2-20250427-212717-00.png" alt="gallery3">
-        <img src="https://i.ibb.co/0Vz0Zfn6/ets2-20250428-155833-00.png" alt="gallery4">
-        <img src="https://i.ibb.co/rKDbhBq6/ets2-20250502-110322-00.png" alt="gallery5">
-        <img src="https://i.ibb.co/xKPDz1hv/ets2-20250502-110611-00.png" alt="gallery6">
-        <img src="https://i.ibb.co/G4wdxwCm/ets2-20250504-034024-00.png" alt="gallery7">
-        <img src="https://i.ibb.co/Sw6FCqp5/F608-A72-A-E338-4-BEC-99-B9-23-B479496-EE3.png" alt="gallery8">
-      </div>
-    </section>
-
-    <!-- Page Recrutements -->
-    <section id="recrutement">
-      <h2>🎯 Rejoignez Les Pâtés Lorrains</h2>
-      <div class="card">
-        <h3>📢 Nous recrutons des conducteurs majeurs !</h3>
-        <p>Si tu as 18 ans ou plus, que tu es motivé, mature, et que tu cherches une entreprise sérieuse mais détendue sur ETS2, tu es au bon endroit !</p>
-        <p>🎯 Notre équipe est composée uniquement d'adultes responsables et passionnés. Nous valorisons la communication, la rigueur et l’ambiance familiale.</p>
-        <p>💬 Pour en savoir plus et postuler, clique sur le bouton <strong>Discord</strong> en haut à droite du site.</p>
-        <p style="margin-top:1rem;"><strong>🚛 Rejoins la route avec Les Pâtés Lorrains !</strong></p>
-      </div>
-    </section>
-
-    <!-- Page Règlement -->
-    <section id="reglement">
-      <h2>📘 RÈGLEMENT OFFICIEL - LES PÂTÉS LORRAINS</h2>
-      <div class="card">
-        <p>Bienvenue chez Les Pâtés Lorrains, une entreprise virtuelle de transport où professionnalisme et convivialité vont de pair.</p>
-        <p>🎯 Notre objectif est simple : offrir un cadre où chacun peut évoluer dans le respect, la bonne humeur et sans pression inutile.</p>
-        <p><strong>🧭 Nos valeurs au quotidien :</strong></p>
-        <ul>
-          <li>➤ <strong>Le respect comme fondation</strong> — En vocal, en convoi ou en discussion, le respect est non négociable.</li>
-          <li>➤ <strong>Zéro stress, zéro drama</strong> — On reste zen même dans les bouchons.</li>
-          <li>➤ <strong>L'entraide avant tout</strong> — Toujours quelqu’un pour aider sur un souci de mod ou de config.</li>
-          <li>➤ <strong>Du réalisme à la cool</strong> — On roule propre, sans excès de zèle.</li>
-        </ul>
-        <p><strong>🚨 Tolérance Zéro & Discipline Obligatoire</strong></p>
-        <ul>
-          <li>• Dépassement des 95 km/h strictement interdit (hors exceptions autorisées).</li>
-          <li>• Respect absolu du code de la route.</li>
-          <li>• Aucun comportement dangereux ou irrespectueux.</li>
-          <li>• Aucune insulte, provocation ou attitude toxique.</li>
-          <li>• Être majeur est obligatoire pour rejoindre l'entreprise.</li>
-        </ul>
-        <p><strong>⚠️ Sanctions :</strong><br>
-        Toute infraction pourra entraîner des sanctions immédiates, allant du simple avertissement au licenciement selon la gravité.</p>
-        <p><strong>🏢 Organisation :</strong></p>
-        <ul>
-          <li>• Grades clairs et responsables à l'écoute</li>
-          <li>• Convois réguliers</li>
-          <li>• Règlement simple, appliqué, respecté</li>
-          <li>• Bonne humeur sans pression</li>
-        </ul>
-        <p><strong>💬 En résumé :</strong><br>
-        Tu veux rouler dans le respect, avec des gens adultes et passionnés, dans une vraie ambiance de groupe ?<br>
-        Alors tu es au bon endroit.</p>
-        <p><strong>Les Pâtés Lorrains – Roulez avec nous, sans stress, sans prise de tête !</strong></p>
-      </div>
-    </section>
-
+ </div>
+</div>
+<div class="container">
+ <!-- Page Accueil -->
+ <section class="active" id="home">
+  <div class="hero">
+   <img alt="Image d'accueil" src="https://i.ibb.co/FbwSpc44/cfa0921d14a0.png"/>
+   <div class="hero-text">
+    <h2>
+     Les Pâtés Lorrains
+    </h2>
+    <p>
+     Une entreprise a l'esprit familial
+    </p>
+   </div>
   </div>
-
-  <!-- Lightbox Galerie -->
-  <div class="lightbox" id="lightbox">
-    <span class="close" id="lightbox-close">&times;</span>
-    <img id="lightbox-img" src="" alt="Agrandissement">
+  <h1>
+   🚛 Les Pâtés Lorrains : Roulez avec nous, sans stress, sans prise de tête !
+  </h1>
+  <p>
+   Bienvenue chez
+   <strong>
+    Les Pâtés Lorrains
+   </strong>
+   , une entreprise virtuelle de transport où
+   <em>
+    professionnalisme
+   </em>
+   rime avec
+   <em>
+    convivialité
+   </em>
+   . Notre crédo ? Rouler sérieusement, sans se prendre au sérieux.
+  </p>
+  <p>
+   🎯 Ici, chacun avance à son rythme. Pas de pression, pas de drama – seulement des gens matures, passionnés et soudés par une même envie : profiter de la route dans une ambiance
+   <strong>
+    zen et respectueuse
+   </strong>
+   .
+  </p>
+  <div class="card">
+   <h2>
+    🧭 Nos valeurs :
+   </h2>
+   <ul>
+    <li>
+     <strong>
+      Le respect
+     </strong>
+     est la règle d’or. En vocal, en jeu, ou dans les discussions – on se parle, pas on s’engueule.
+    </li>
+    <li>
+     <strong>
+      Pas de stress
+     </strong>
+     , jamais. Si souci il y a, on gère ça calmement.
+    </li>
+    <li>
+     <strong>
+      L’entraide
+     </strong>
+     est constante. Mod cassé ? TruckersMP capricieux ? On est là pour toi.
+    </li>
+    <li>
+     <strong>
+      Le réalisme
+     </strong>
+     oui, mais relax. On roule propre, mais sans jouer les gendarmes.
+    </li>
+   </ul>
   </div>
-
-  <!-- Footer -->
-  <footer>
-    &copy; 2025 Les Pâtés Lorrains | minou_offciel | TikTok
-  </footer>
-
-  <!-- Lecteur Audio Fixe en Bas -->
-  <div class="radio-player">
-    <div class="controls">
-      <button class="spotify-btn" onclick="prevRadio()">⏮</button>
-      <button class="spotify-btn" onclick="nextRadio()">⏭</button>
-    </div>
-    <div class="radio-name" id="currentRadio">Aucune radio</div>
-    <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1" />
-    <audio id="audioPlayer" autoplay></audio>
+  <div class="card">
+   <h2>
+    🚨 Règlement : Tolérance Zéro sur le non-respect
+   </h2>
+   <p>
+    Chez nous, le code de la route n’est pas une option. On respecte les règles, point barre.
+   </p>
+   <ul>
+    <li>
+     ⛔ 95 km/h max sauf consignes spéciales
+    </li>
+    <li>
+     ⛔ Priorités, feux, clignos, distances = sacrés
+    </li>
+    <li>
+     ⛔ Zéro insulte, zéro provocation, zéro toxicité
+    </li>
+   </ul>
+   <p>
+    <em>
+     Chaque infraction peut mener à des sanctions sérieuses, y compris l’exclusion.
+    </em>
+   </p>
   </div>
-  
-
+  <div class="card">
+<h2>
+   🏢 C’est quoi Les Pâtés Lorrains ?
+  </h2>
+  <ul>
+   <li>
+    ✔️ Une équipe adulte, stable, passionnée
+   </li>
+   <li>
+    ✔️ Des convois réguliers avec une vraie structure
+   </li>
+   <li>
+    ✔️ Des responsables accessibles, à l’écoute
+   </li>
+   <li>
+    ✔️ Une vraie ambiance de groupe, pas de solo ego trip
+   </li>
+  </ul>
+  <p>
+   Peu importe ton niveau d’engagement : que tu sois là tous les soirs ou juste le week-end, tu as ta place tant que tu respectes les autres.
+  </p>
+ </div>
+ <div class="card">
+  <h2>
+   💬 En résumé
+  </h2>
+  <p>
+   Tu cherches une entreprise où :
+  </p>
+  <ul>
+   <li>
+    ✅ Tu roules sérieux, sans prise de tête
+   </li>
+   <li>
+    ✅ Tu es entouré d’adultes respectueux
+   </li>
+   <li>
+    ✅ Tu construis une vraie relation d’équipe
+   </li>
+   <li>
+    ✅ Tu suis les règles, naturellement
+   </li>
+  </ul>
+  <p>
+   Alors
+   <strong>
+    tu es exactement là où tu dois être
+   </strong>
+   .
+  </p>
+  <p>
+   <strong>
+    Bienvenue chez Les Pâtés Lorrains
+   </strong>
+   , là où
+   <em>
+    plaisir de rouler
+   </em>
+   et
+   <em>
+    esprit d’équipe
+   </em>
+   se croisent – avec rigueur, respect, et fun.
+  </p>
+ </div>
+</section>
+<!-- Page Convois (Galerie de vignettes) -->
+<section id="convois">
+ <h2>
+  📦 Nos Convois
+ </h2>
+ <div class="convoi-gallery">
+  <div class="thumb" onclick="navigate('convoi09mai')">
+   <img alt="Convoi 09 Mai 2025 - 21H30" src="https://i.ibb.co/xtJ29Dfk/e1f112dae65c.png"/>
+   <span>
+    09 Mai 2025 - 21H30
+   </span>
+  </div>
+ </div>
+</section>
+<!-- Page Détail du Convoi 09 Mai -->
+<section id="convoi09mai">
+ <h2>
+  🚛 Convoi Officiel - Vendredi 09 Mai 2025
+ </h2>
+ <div class="card">
+  <h3>
+   🕒 Départ à 21h30 - De Metz (EuroGoodies) à Bratislava (WGCC)
+  </h3>
+  <div style="display: flex; flex-direction: column; gap: 1rem;">
+   <img alt="Départ Metz" src="https://i.ibb.co/xtJ29Dfk/e1f112dae65c.png" style="width:100%; border-radius: 12px;">
+    <img alt="Arrivée Bratislava" src="https://i.ibb.co/wZmmvRVM/4a648eaf7428.png" style="width:100%; border-radius: 12px;">
+    </img>
+   </img>
+  </div>
+  <p style="margin-top:1rem;">
+   🛣️
+   <strong>
+    Distance :
+   </strong>
+   1294 km
+   <br/>
+   ⏱️
+   <strong>
+    Durée estimée :
+   </strong>
+   1h11
+   <br/>
+   🧭
+   <strong>
+    Vitesse maximale :
+   </strong>
+   90 km/h
+  </p>
+  <p>
+   <strong>
+    ⛽ Rappel :
+   </strong>
+   Faites le plein avant le départ pour éviter les arrêts.
+  </p>
+  <p>
+   <strong>
+    ⏳ Présence obligatoire à 21h30.
+   </strong>
+   Départ à 21h45 pile. Aucun retard ne sera toléré.
+  </p>
+  <ul>
+   <li>
+    🎨 Présence obligatoire avec votre propre remorque et votre camion aux couleurs de l'entreprise, disponibles sur le Discord
+   </li>
+   <li>
+    🛑 Frein moteur automatique : activé
+   </li>
+   <li>
+    🛑 Ralentisseur hydraulique automatique : activé
+   </li>
+   <li>
+    📏 Distance minimale entre camions : 1 trait et demi
+   </li>
+   <li>
+    🚨 Toute infraction = sanction immédiate
+   </li>
+  </ul>
+  <button class="discord-btn" onclick="navigate('convois')" style="margin-top: 1rem;">
+   ⬅️ Retour aux Convois
+</button>
+ </div>
+</section>
+<!-- Page Radios -->
+<section id="radios">
+ <h2>
+  📻 Radios Françaises
+ </h2>
+ <div class="radio-gallery">
+  <div onclick="playRadio(0)">
+   <img alt="Direct FM ( Metz )" src="https://i.ibb.co/bRBHNv52/t-l-chargement-3.jpg"/>
+   <span>
+    Direct FM ( Metz )
+   </span>
+  </div>
+  <div onclick="playRadio(1)">
+   <img alt="France Inter" src="https://i.ibb.co/wFXQjzc3/t-l-chargement-4.png"/>
+   <span>
+    France Inter
+   </span>
+  </div>
+  <div onclick="playRadio(2)">
+   <img alt="France Info" src="https://i.ibb.co/j9Bxsj3K/t-l-chargement.jpg"/>
+   <span>
+    France Info
+   </span>
+  </div>
+  <div onclick="playRadio(3)">
+   <img alt="France Bleu" src="https://i.ibb.co/jP6TNSdc/France-Bleu-2021-svg.png"/>
+   <span>
+    France Bleu
+   </span>
+  </div>
+  <div onclick="playRadio(4)">
+   <img alt="Europe 1" src="https://i.ibb.co/4RBpBBRq/t-l-chargement-2.png"/>
+   <span>
+    Europe 1
+   </span>
+  </div>
+  <div onclick="playRadio(5)">
+   <img alt="RTL" src="https://i.ibb.co/GQ17J77N/t-l-chargement-11.png"/>
+   <span>
+    RTL
+   </span>
+  </div>
+  <div onclick="playRadio(6)">
+   <img alt="NRJ" src="https://i.ibb.co/v6jHbHLQ/t-l-chargement.png"/>
+   <span>
+    NRJ
+   </span>
+  </div>
+  <div onclick="playRadio(7)">
+   <img alt="Skyrock" src="https://i.ibb.co/DDH8FvjB/t-l-chargement-3.png"/>
+   <span>
+    Skyrock
+   </span>
+  </div>
+  <div onclick="playRadio(8)">
+   <img alt="Fun Radio" src="https://i.ibb.co/4wvsMXYW/t-l-chargement-1.jpg"/>
+   <span>
+    Fun Radio
+   </span>
+  </div>
+  <div onclick="playRadio(9)">
+   <img alt="Chérie FM" src="https://i.ibb.co/JTx5Stb/t-l-chargement-6.png"/>
+   <span>
+    Chérie FM
+   </span>
+  </div>
+  <div onclick="playRadio(10)">
+   <img alt="Rire &amp; Chansons" src="https://i.ibb.co/21SydjZn/t-l-chargement-7.png"/>
+   <span>
+    Rire &amp; Chansons
+   </span>
+  </div>
+  <div onclick="playRadio(11)">
+   <img alt="Nostalgie" src="https://i.ibb.co/YBcQ9xP2/images.png"/>
+   <span>
+    Nostalgie
+   </span>
+  </div>
+  <div onclick="playRadio(12)">
+   <img alt="RFM" src="https://i.ibb.co/FbDs01tY/t-l-chargement-2.jpg"/>
+   <span>
+    RFM
+   </span>
+  </div>
+  <div onclick="playRadio(13)">
+   <img alt="RTL2" src="https://i.ibb.co/9x9b6Tz/t-l-chargement-8.png"/>
+   <span>
+    RTL2
+   </span>
+  </div>
+  <div onclick="playRadio(14)">
+   <img alt="FIP" src="https://i.ibb.co/chfhGLD4/t-l-chargement-9.png"/>
+   <span>
+    FIP
+   </span>
+  </div>
+  <div onclick="playRadio(15)">
+   <img alt="France Culture" src="https://i.ibb.co/5xtpSXVV/France-Culture-logo-2021-svg.png"/>
+   <span>
+    France Culture
+   </span>
+  </div>
+  <div onclick="playRadio(16)">
+   <img alt="France Musique" src="https://i.ibb.co/ycRh4bTx/t-l-chargement-10.png"/>
+   <span>
+    France Musique
+   </span>
+  </div>
+ </div>
+</section>
+<!-- Page Galerie -->
+<section id="galerie">
+ <h2>
+  📸 Galerie
+ </h2>
+ <div class="gallery">
+  <img alt="gallery1" src="https://i.ibb.co/DgTGC1WJ/71-CCA90-E-5874-427-F-A88-C-E3866-EEC62-C5.png"/>
+  <img alt="gallery2" src="https://i.ibb.co/3Y14GhfB/ets2-20250427-212434-00.png"/>
+  <img alt="gallery3" src="https://i.ibb.co/yFdRT5Tt/ets2-20250427-212717-00.png"/>
+  <img alt="gallery4" src="https://i.ibb.co/0Vz0Zfn6/ets2-20250428-155833-00.png"/>
+  <img alt="gallery5" src="https://i.ibb.co/rKDbhBq6/ets2-20250502-110322-00.png"/>
+  <img alt="gallery6" src="https://i.ibb.co/xKPDz1hv/ets2-20250502-110611-00.png"/>
+  <img alt="gallery7" src="https://i.ibb.co/G4wdxwCm/ets2-20250504-034024-00.png"/>
+  <img alt="gallery8" src="https://i.ibb.co/Sw6FCqp5/F608-A72-A-E338-4-BEC-99-B9-23-B479496-EE3.png"/>
+ </div>
+</section>
+<!-- Page Recrutements -->
+<section id="recrutement">
+ <h2>
+  🎯 Rejoignez Les Pâtés Lorrains
+ </h2>
+ <div class="card">
+  <h3>
+   📢 Nous recrutons des conducteurs majeurs !
+  </h3>
+  <p>
+   Si tu as 18 ans ou plus, que tu es motivé, mature, et que tu cherches une entreprise sérieuse mais détendue sur ETS2, tu es au bon endroit !
+  </p>
+  <p>
+   🎯 Notre équipe est composée uniquement d'adultes responsables et passionnés. Nous valorisons la communication, la rigueur et l’ambiance familiale.
+  </p>
+<p>
+    💬 Pour en savoir plus et postuler, clique sur le bouton
+    <strong>
+     Discord
+    </strong>
+    en haut à droite du site.
+   </p>
+   <p style="margin-top:1rem;">
+    <strong>
+     🚛 Rejoins la route avec Les Pâtés Lorrains !
+    </strong>
+   </p>
+  </div>
+ </section>
+ <!-- Page Règlement -->
+ <section id="reglement">
+  <h2>
+   📘 RÈGLEMENT OFFICIEL - LES PÂTÉS LORRAINS
+  </h2>
+  <div class="card">
+   <p>
+    Bienvenue chez Les Pâtés Lorrains, une entreprise virtuelle de transport où professionnalisme et convivialité vont de pair.
+   </p>
+   <p>
+    🎯 Notre objectif est simple : offrir un cadre où chacun peut évoluer dans le respect, la bonne humeur et sans pression inutile.
+   </p>
+   <p>
+    <strong>
+     🧭 Nos valeurs au quotidien :
+    </strong>
+   </p>
+   <ul>
+    <li>
+     ➤
+     <strong>
+      Le respect comme fondation
+     </strong>
+     — En vocal, en convoi ou en discussion, le respect est non négociable.
+    </li>
+    <li>
+     ➤
+     <strong>
+      Zéro stress, zéro drama
+     </strong>
+     — On reste zen même dans les bouchons.
+    </li>
+    <li>
+     ➤
+     <strong>
+      L'entraide avant tout
+     </strong>
+     — Toujours quelqu’un pour aider sur un souci de mod ou de config.
+    </li>
+    <li>
+     ➤
+     <strong>
+      Du réalisme à la cool
+     </strong>
+     — On roule propre, sans excès de zèle.
+    </li>
+   </ul>
+   <p>
+    <strong>
+     🚨 Tolérance Zéro &amp; Discipline Obligatoire
+    </strong>
+   </p>
+   <ul>
+    <li>
+     • Dépassement des 95 km/h strictement interdit (hors exceptions autorisées).
+    </li>
+    <li>
+     • Respect absolu du code de la route.
+    </li>
+    <li>
+     • Aucun comportement dangereux ou irrespectueux.
+    </li>
+    <li>
+     • Aucune insulte, provocation ou attitude toxique.
+    </li>
+    <li>
+     • Être majeur est obligatoire pour rejoindre l'entreprise.
+    </li>
+   </ul>
+   <p>
+    <strong>
+     ⚠️ Sanctions :
+    </strong>
+    <br/>
+    Toute infraction pourra entraîner des sanctions immédiates, allant du simple avertissement au licenciement selon la gravité.
+   </p>
+   <p>
+    <strong>
+     🏢 Organisation :
+    </strong>
+   </p>
+   <ul>
+    <li>
+     • Grades clairs et responsables à l'écoute
+    </li>
+    <li>
+     • Convois réguliers
+    </li>
+    <li>
+     • Règlement simple, appliqué, respecté
+    </li>
+    <li>
+     • Bonne humeur sans pression
+    </li>
+   </ul>
+   <p>
+    <strong>
+     💬 En résumé :
+    </strong>
+    <br/>
+    Tu veux rouler dans le respect, avec des gens adultes et passionnés, dans une vraie ambiance de groupe ?
+    <br/>
+    Alors tu es au bon endroit.
+   </p>
+   <p>
+    <strong>
+     Les Pâtés Lorrains – Roulez avec nous, sans stress, sans prise de tête !
+    </strong>
+   </p>
+  </div>
+ </section>
+</div>
+<!-- Lightbox Galerie -->
+<div class="lightbox" id="lightbox">
+ <span class="close" id="lightbox-close">
+  ×
+ </span>
+ <img alt="Agrandissement" id="lightbox-img" src=""/>
+</div>
+<!-- Footer -->
+<footer>
+ © 2025 Les Pâtés Lorrains | minou_offciel | TikTok
+</footer>
+<!-- Lecteur Audio Fixe en Bas -->
+<div class="radio-player">
+ <div class="controls">
+  <button class="spotify-btn" onclick="prevRadio()">
+   ⏮
+  </button>
+  <button class="spotify-btn" onclick="nextRadio()">
+⏭
+    </button>
+   </div>
+   <div class="radio-name" id="currentRadio">
+    Aucune radio
+   </div>
+   <input id="volumeSlider" max="1" min="0" step="0.01" type="range" value="0.05">
+    <audio autoplay="" id="audioPlayer">
+    </audio>
+   </input>
+  </div>
   <script>
-    // Navigation entre sections
+   // Navigation entre sections
     function navigate(page) {
       document.querySelectorAll("section").forEach(sec => {
         sec.classList.remove("active");
@@ -832,6 +1115,8 @@
 
     let currentRadioIndex = -1;
     const audioPlayer = document.getElementById("audioPlayer");
+    audioPlayer.volume = 0.05; // volume initial à 5%
+
     const currentRadio = document.getElementById("currentRadio");
     const volumeSlider = document.getElementById("volumeSlider");
 
@@ -867,8 +1152,6 @@
     }, 500);
   }, 2000); // délai de 3 secondes
 });
-
   </script>
-
-</body>
+ </body>
 </html>
