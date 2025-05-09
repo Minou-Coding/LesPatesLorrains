@@ -584,6 +584,12 @@ width: 100%;
   transform: scale(1.1) !important;
 }
 
+
+@keyframes bounce {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(1.8); }
+}
+
 </style>
 </head>
 <body>
@@ -1170,6 +1176,13 @@ Les Pâtés Lorrains
 </footer>
 <!-- Lecteur Audio Fixe en Bas -->
 <div class="radio-player" id="radioPlayerContainer" style="position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);">
+
+<div id="equalizer" style="display: none; gap: 3px; position: absolute; left: 16px; top: 12px; display: flex; align-items: center;">
+  <div class="bar" style="width: 3px; height: 12px; background: #1db954; animation: bounce 0.5s infinite ease-in-out;"></div>
+  <div class="bar" style="width: 3px; height: 8px; background: #1db954; animation: bounce 0.5s 0.1s infinite ease-in-out;"></div>
+  <div class="bar" style="width: 3px; height: 14px; background: #1db954; animation: bounce 0.5s 0.2s infinite ease-in-out;"></div>
+</div>
+
 <div id="togglePlayerBtn" onclick="togglePlayer()" style="position: absolute; top: 8px; right: 12px; font-size: 1.2rem; cursor: pointer; color: #1db954;">▼</div>
 
 <div class="controls">
@@ -1337,31 +1350,50 @@ Les Pâtés Lorrains
       currentRadio.textContent = "Aucune radio";
     }
     
-    function togglePlayPause() {
+    }
+
+
+let isPlayerMinimized = false;
+}
+
+
+const equalizer = document.getElementById("equalizer");
+
+function togglePlayPause() {
   const btn = document.getElementById("togglePlayPause");
   if (audioPlayer.paused) {
     audioPlayer.play();
     btn.textContent = "⏸";
+    if (equalizer) equalizer.style.display = "flex";
   } else {
     audioPlayer.pause();
     btn.textContent = "⏯";
+    if (equalizer) equalizer.style.display = "none";
   }
 }
 
-
-let isPlayerMinimized = false;
+// Afficher ou cacher les contrôles si réduit
 function togglePlayer() {
   const container = document.getElementById("radioPlayerContainer");
   const toggleBtn = document.getElementById("togglePlayerBtn");
+  const controls = document.querySelector(".radio-player .controls");
+  const range = document.getElementById("volumeSlider");
+  const name = document.getElementById("currentRadio");
   if (!isPlayerMinimized) {
     container.style.height = "40px";
     container.style.overflow = "hidden";
     toggleBtn.innerText = "▲";
+    if (controls) controls.style.display = "none";
+    if (range) range.style.display = "none";
+    if (name) name.style.display = "none";
     isPlayerMinimized = true;
   } else {
     container.style.height = "";
     container.style.overflow = "";
     toggleBtn.innerText = "▼";
+    if (controls) controls.style.display = "flex";
+    if (range) range.style.display = "block";
+    if (name) name.style.display = "block";
     isPlayerMinimized = false;
   }
 }
