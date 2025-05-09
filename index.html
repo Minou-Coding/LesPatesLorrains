@@ -1150,7 +1150,7 @@ Les Pâtés Lorrains
 <!-- Lecteur Audio Fixe en Bas -->
 <div class="radio-player">
 <div class="controls">
-<button class="spotify-btn" id="togglePlayPause" onclick="togglePlayPause()">⏯</button><button class="spotify-btn" onclick="prevRadio()">
+<button class="spotify-btn" id="togglePlayPause" onclick="togglePlayPause()" textContent="⏯">⏯</button><button class="spotify-btn" onclick="prevRadio()">
    ⏮
   </button>
 <button class="spotify-btn" onclick="nextRadio()">
@@ -1315,11 +1315,17 @@ Les Pâtés Lorrains
     }
 
 
+    
     function togglePlayPause() {
       if (audioPlayer.paused) {
         audioPlayer.play();
-        document.getElementById("togglePlayPause").textContent = "⏸";
+        toggleBtn.textContent = "⏸";
       } else {
+        audioPlayer.pause();
+        toggleBtn.textContent = "▶️";
+      }
+    }
+     else {
         audioPlayer.pause();
         document.getElementById("togglePlayPause").textContent = "▶️";
       }
