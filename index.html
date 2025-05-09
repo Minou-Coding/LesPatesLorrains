@@ -455,14 +455,7 @@ width: 100%;
   }
 }
 
-@media (max-width: 768px) {
-  .radio-player {
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    padding: 16px;
-    bottom: 10px;
-  }
+
 
   .radio-player .controls {
     gap: 10px;
@@ -563,6 +556,26 @@ width: 100%;
   color: #fff;
   transform: scale(1.1);
 }
+
+.radio-player .spotify-btn {
+  background: #191414 !important;
+  color: #1db954 !important;
+  border: 2px solid #1db954 !important;
+  border-radius: 50% !important;
+  width: 48px !important;
+  height: 48px !important;
+  font-size: 1.5rem !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  transition: background 0.3s, transform 0.2s !important;
+}
+.radio-player .spotify-btn:hover {
+  background: #1db954 !important;
+  color: #fff !important;
+  transform: scale(1.1) !important;
+}
+
 </style>
 </head>
 <body>
