@@ -695,6 +695,10 @@ width: 100%;
    </span>
 </div>
 </div>
+
+<!-- Explosion de pâtés -->
+<div id="explosionContainer" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9998;"></div>
+
 <header>
 <div style="display: flex; align-items: center;">
 <div class="logo-scan-wrapper">
@@ -773,6 +777,10 @@ Les Pâtés Lorrains
 <h3>🔖 Tag TruckersMP</h3>
 <p>Configuration du Player Tag selon votre grade</p>
 </div>
+  <div class="card" onclick="navigate('couleursEntreprise')" style="cursor:pointer;">
+    <h3>🎨 Couleurs Entreprise</h3>
+    <p>Charte graphique des camions & remorques</p>
+  </div>
 </section>
 <!-- PAGE TAG TRUCKERSMP -->
 <section id="tagTruckersMP">
@@ -788,10 +796,10 @@ Les Pâtés Lorrains
 </ul>
 <h3>PLAYER TAGS PAR GRADE</h3>
 <ul>
-<li><strong>PDG :</strong> [1]LPL-FR — Couleur : #E74C3C</li>
-<li><strong>DIRECTEUR :</strong> [2]LPL-FR — Couleur : #F39C12</li>
-<li><strong>RESPONSABLE DE FLOTTE :</strong> [3]LPL-FR — Couleur : #F1C40F</li>
-<li><strong>CHAUFFEUR :</strong> [4]LPL-FR — Couleur : #2ECC71</li>
+<li><strong>PDG :</strong> [1] LPL-FR — Couleur : #E74C3C</li>
+<li><strong>DIRECTEUR :</strong> [2] LPL-FR — Couleur : #F39C12</li>
+<li><strong>RESPONSABLE DE FLOTTE :</strong> [3] LPL-FR — Couleur : #F1C40F</li>
+<li><strong>CHAUFFEUR :</strong> [4] LPL-FR — Couleur : #2ECC71</li>
 </ul>
 <p><strong>IMPORTANT :</strong> Assure-toi que ton tag est correctement configuré avant chaque convoi.</p>
 <p><em>Le non-respect de cette consigne pourra entraîner une exclusion temporaire des événements.</em></p>
@@ -802,7 +810,7 @@ Les Pâtés Lorrains
 <!-- Page Accueil -->
 <section class="active" id="home">
 <div class="hero">
-<img alt="Image d'accueil" src="https://i.ibb.co/FbwSpc44/cfa0921d14a0.png"/>
+<img alt="Image d'accueil" src="https://i.ibb.co/JwXHJT3N/7efdc42a8192.png"/>
 <div class="hero-text">
 <h2>
      Les Pâtés Lorrains
@@ -1305,6 +1313,53 @@ Les Pâtés Lorrains
 </div>
 </section>
 
+
+
+
+
+
+
+<!-- PAGE COULEURS ENTREPRISE -->
+<section id="couleursEntreprise">
+  <h2>🎨 APPARENCE OFFICIELLE DES VÉHICULES LPL-FR</h2>
+  <div class="card">
+    <p>Voici les consignes pour personnaliser ton camion et ta remorque aux couleurs de Les Pâtés Lorrains. L'objectif est d'avoir une flotte homogène et stylée sur les routes !</p>
+    <h3>🔷 CAMION</h3>
+    <p>Le modèle recommandé est le Scania (en simple essieux chassis 4x2), mais ce n'est pas obligatoire. Tu dois utiliser la peinture Vision comme montré ci-dessus.</p>
+    <h3>🎨 COULEURS DU CAMION + REMORQUE</h3>
+    <p>Utilise exactement ces 3 couleurs :</p>
+    <div class="gallery" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; margin-bottom: 2rem;">
+      <div style="text-align:center; max-width: 180px;">
+        <img src="https://i.ibb.co/gMVBDJ9B/f3df16e5546d.png" alt="Couleur 1" style="width: 100%; height: auto; border-radius: 8px;" />
+        <p style="margin-top:0.5rem;">H: 48 | S: 97 | V: 95</p>
+      </div>
+      <div style="text-align:center; max-width: 180px;">
+        <img src="https://i.ibb.co/93ktkptK/0356ae3d117b.png" alt="Couleur 2" style="width: 100%; height: auto; border-radius: 8px;" />
+        <p style="margin-top:0.5rem;">H: 48 | S: 97 | V: 95</p>
+      </div>
+      <div style="text-align:center; max-width: 180px;">
+        <img src="https://i.ibb.co/8D18dJfB/05dfde75ea63.png" alt="Couleur 3" style="width: 100%; height: auto; border-radius: 8px;" />
+        <p style="margin-top:0.5rem;">H: 360 | S: 100 | V: 81</p>
+      </div>
+    </div>
+    <div class="gallery" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem;">
+      <div style="text-align:center; max-width: 180px;">
+        <img src="https://i.ibb.co/Kp4Zm305/37e5b3207385.png" alt="Couleur 4" style="width: 100%; height: auto; border-radius: 8px;" />
+        <p style="margin-top:0.5rem;">H: 48 | S: 97 | V: 95</p>
+      </div>
+      <div style="text-align:center; max-width: 180px;">
+        <img src="https://i.ibb.co/Q3rwyZ7J/d3856bbe9e1c.png" alt="Couleur 5" style="width: 100%; height: auto; border-radius: 8px;" />
+        <p style="margin-top:0.5rem;">H: 48 | S: 97 | V: 95</p>
+      </div>
+      <div style="text-align:center; max-width: 180px;">
+        <img src="https://i.ibb.co/n8gVYWVV/9d9a84382817.png" alt="Couleur 6" style="width: 100%; height: auto; border-radius: 8px;" />
+        <p style="margin-top:0.5rem;">H: 360 | S: 100 | V: 81</p>
+      </div>
+    </div>
+    <button onclick="navigate('chauffeurPage')" style="margin-top: 2rem;">⬅️ Retour à l'Espace Chauffeur</button>
+  </div>
+</section>
+
 <!-- Lightbox Galerie -->
 <div class="lightbox" id="lightbox">
 <span class="close" id="lightbox-close">
@@ -1560,6 +1615,43 @@ function openLiveMap() {
   window.location.href = "https://map.truckersmp.com";
 }
 
+
+function createExplosion() {
+  const container = document.getElementById("explosionContainer");
+  const count = 120;
+  for (let i = 0; i < count; i++) {
+    const particle = document.createElement("img");
+    particle.src = "https://i.ibb.co/kWr3PZn/e42e854f1dd3.png";
+    particle.style.position = "absolute";
+    particle.style.width = "20px";
+    particle.style.height = "20px";
+    particle.style.top = "50%";
+    particle.style.left = "50%";
+    particle.style.transform = "translate(-50%, -50%)";
+    particle.style.transition = "all 2s ease-out";
+    particle.style.zIndex = 9999;
+    container.appendChild(particle);
+
+    const angle = Math.random() * 2 * Math.PI;
+    const radius = Math.random() * 300 + 50;
+    const x = Math.cos(angle) * radius;
+    const y = Math.sin(angle) * radius;
+
+    setTimeout(() => {
+      particle.style.transform = `translate(${x}px, ${y}px) rotate(${Math.random() * 720}deg)`;
+      particle.style.opacity = "0";
+    }, 50);
+
+    setTimeout(() => {
+      container.removeChild(particle);
+    }, 2050);
+  }
+
+  setTimeout(() => {
+    container.remove();
+  }, 2500);
+}
+
 </script>
 <script>
 
@@ -1590,6 +1682,8 @@ function validateChauffeur() {
   const remember = document.getElementById("rememberMe").checked;
 
   const allowed = [
+    {id: "minou", pass: "ets2"},
+    {id: "admin", pass: "1234"},
     {id: "Minou", pass: "Minou57170"},
     {id: "Douii", pass: "Alban@57"}
 ];
