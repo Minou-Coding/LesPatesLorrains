@@ -1313,17 +1313,18 @@ Les Pâtés Lorrains
       audioPlayer.currentTime = 0;
       currentRadio.textContent = "Aucune radio";
     }
-
-
+    
     function togglePlayPause() {
-      if (audioPlayer.paused) {
-        audioPlayer.play();
-        document.getElementById("togglePlayPause").textContent = "⏸";
-      } else {
-        audioPlayer.pause();
-        document.getElementById("togglePlayPause").textContent = "▶️";
-      }
-    }
+  const btn = document.getElementById("togglePlayPause");
+  if (audioPlayer.paused) {
+    audioPlayer.play();
+    btn.textContent = "⏸";
+  } else {
+    audioPlayer.pause();
+    btn.textContent = "⏯";
+  }
+}
+
 </script>
 </body>
 </html>
