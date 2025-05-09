@@ -1338,23 +1338,20 @@ Les Pâtés Lorrains
 });
   
 
-    function pauseRadio() {
-      if (!audioPlayer.paused) {
-        audioPlayer.pause();
-      }
-    }
+function pauseRadio() {
+  if (!audioPlayer.paused) {
+    audioPlayer.pause();
+  }
+}
 
-    function stopRadio() {
-      audioPlayer.pause();
-      audioPlayer.currentTime = 0;
-      currentRadio.textContent = "Aucune radio";
-    }
-    
-    }
-
+function stopRadio() {
+  audioPlayer.pause();
+  audioPlayer.currentTime = 0;
+  currentRadio.textContent = "Aucune radio";
+}
 
 let isPlayerMinimized = false;
-}
+
 
 
 const equalizer = document.getElementById("equalizer");
