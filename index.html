@@ -643,6 +643,7 @@ Les Pâtés Lorrains
 <a onclick="navigate('home')">
    Accueil
   </a>
+<a onclick="openChauffeurLogin()">Chauffeur</a>
 <a onclick="navigate('convois')">
    Convois
   </a>
@@ -655,7 +656,6 @@ Les Pâtés Lorrains
 <a onclick="navigate('recrutement')">
    Recrutements
   </a>
-<a onclick="openLiveMap()" class="desktop-only">Live Map</a>
       <a onclick="navigate('reglement')">
    Règlement
   </a>
@@ -687,6 +687,55 @@ Les Pâtés Lorrains
 </div>
 </div>
 <div class="container">
+
+<!-- MODALE DE CONNEXION CHAUFFEUR -->
+<div class="modal-overlay" id="chauffeurLoginModal">
+  <div class="modal">
+    <h3>Connexion Chauffeur</h3>
+    <input id="chauffeurId" placeholder="Identifiant" type="text"/>
+    <input id="chauffeurPass" placeholder="Mot de passe" type="password"/>
+    <button onclick="validateChauffeur()">Se connecter</button>
+    <div class="error" id="chauffeurLoginError">❌ Identifiants invalides.</div>
+  </div>
+</div>
+
+<!-- PAGE CHAUFFEUR -->
+<section id="chauffeurPage">
+  <h2>👨‍✈️ Espace Chauffeur</h2>
+  <div class="card" onclick="navigate('tagTruckersMP')" style="cursor:pointer;">
+    <h3>🔖 Tag TruckersMP</h3>
+    <p>Configuration du Player Tag selon votre grade</p>
+  </div>
+</section>
+
+
+<!-- PAGE TAG TRUCKERSMP -->
+<section id="tagTruckersMP">
+  <h2>🔖 TAG ENTREPRISE — OBLIGATOIRE SUR TRUCKERSMP</h2>
+  <div class="card">
+    <p>Tous les membres de Les Pâtés Lorrains doivent obligatoirement afficher leur Player Tag personnalisé sur TruckersMP.</p>
+    <p>Ce tag permet une identification claire et immédiate lors des convois, selon le grade du membre dans l'entreprise.</p>
+    <h3>PROCÉDURE DE CONFIGURATION</h3>
+    <ul>
+      <li>• Appuyez sur la touche TAB pour ouvrir le menu TruckersMP.</li>
+      <li>• Cliquez sur l'icône d'engrenage en bas à gauche.</li>
+      <li>• Dans la section "Player Tag", entrez le tag correspondant à votre grade (voir ci-dessous).</li>
+    </ul>
+    <h3>PLAYER TAGS PAR GRADE</h3>
+    <ul>
+      <li><strong>PDG :</strong> [1]LPL-FR — Couleur : #E74C3C</li>
+      <li><strong>DIRECTEUR :</strong> [2]LPL-FR — Couleur : #F39C12</li>
+      <li><strong>RESPONSABLE DE FLOTTE :</strong> [3]LPL-FR — Couleur : #F1C40F</li>
+      <li><strong>CHAUFFEUR :</strong> [4]LPL-FR — Couleur : #2ECC71</li>
+    </ul>
+    <p><strong>IMPORTANT :</strong> Assure-toi que ton tag est correctement configuré avant chaque convoi.</p>
+    <p><em>Le non-respect de cette consigne pourra entraîner une exclusion temporaire des événements.</em></p>
+    <p>Les Pâtés Lorrains — Discipline, visibilité et esprit d'équipe 🚛</p>
+    <button onclick="navigate('chauffeurPage')" style="margin-top: 1rem;">⬅️ Retour à l'Espace Chauffeur</button>
+  </div>
+</section>
+
+
 <!-- Page Accueil -->
 <section class="active" id="home">
 <div class="hero">
@@ -1302,31 +1351,48 @@ Les Pâtés Lorrains
     });
 
     modalOverlay.addEventListener("click", (e) => {
-      if (e.target === modalOverlay) {
-        modalOverlay.style.display = "none";
-      }
-    });
+  if (e.target === modalOverlay) {
+    modalOverlay.style.display = "none";
+  }
+});
 
-    // Radios
-    const radios = [
-      { name: "Direct FM ( Metz )", stream: "http://directfm.ice.infomaniak.ch/directfm-128.mp3" },      
-      { name: "France Inter", stream: "https://direct.franceinter.fr/live/franceinter-midfi.mp3" },
-      { name: "France Info", stream: "https://direct.franceinfo.fr/live/franceinfo-midfi.mp3" },
-      { name: "France Bleu", stream: "http://direct.francebleu.fr/live/fb1071-midfi.mp3" },
-      { name: "Europe 1", stream: "https://stream.europe1.fr/europe1.mp3" },
-      { name: "RTL", stream: "https://streaming.radio.rtl.fr/rtl-1-44-128" },
-      { name: "NRJ", stream: "http://cdn.nrjaudio.fm/audio1/fr/30001/mp3_128.mp3" },
-      { name: "Skyrock", stream: "http://www.skyrock.fm/stream.php/tunein16_128mp3.mp3" },
-      { name: "Fun Radio", stream: "http://streaming.radio.funradio.fr/fun-1-44-128" },
-      { name: "Chérie FM", stream: "http://cdn.nrjaudio.fm/audio1/fr/40104/mp3_128.mp3" },
-      { name: "Rire & Chansons", stream: "http://cdn.nrjaudio.fm/adwz2/fr/30401/mp3_128.mp3?origine=fluxradios" },
-      { name: "Nostalgie", stream: "https://scdn.nrjaudio.fm/adwz2/fr/30601/mp3_128.mp3?origine=fluxradios" },
-      { name: "RFM", stream: "http://stream.rfm.fr/rfm.mp3" },
-      { name: "RTL2", stream: "https://streaming.radio.rtl2.fr/rtl2-1-44-128" },
-      { name: "FIP", stream: "https://direct.fipradio.fr/live/fip-midfi.mp3" },
-      { name: "France Culture", stream: "https://direct.franceculture.fr/live/franceculture-midfi.mp3" },
-      { name: "France Musique", stream: "https://direct.francemusique.fr/live/francemusique-midfi.mp3" }
-    ];
+// Bloc chauffeur - CORRIGÉ
+function validateChauffeur() {
+  const id = document.getElementById("chauffeurId").value.trim();
+  const pass = document.getElementById("chauffeurPass").value.trim();
+  const allowed = [
+    {id: "Minou", pass: "Minou57170"},
+    {id: "Douii", pass: "Alban@57"}
+  ];
+  const found = allowed.find(u => u.id === id && u.pass === pass);
+  if (found) {
+    document.getElementById("chauffeurLoginModal").style.display = "none";
+    navigate("chauffeurPage");
+  } else {
+    document.getElementById("chauffeurLoginError").style.display = "block";
+  }
+} // ← ici on ferme correctement la fonction
+
+// Radios
+const radios = [
+  { name: "Direct FM ( Metz )", stream: "http://directfm.ice.infomaniak.ch/directfm-128.mp3" },
+  { name: "France Inter", stream: "https://direct.franceinter.fr/live/franceinter-midfi.mp3" },
+  { name: "France Info", stream: "https://direct.franceinfo.fr/live/franceinfo-midfi.mp3" },
+  { name: "France Bleu", stream: "http://direct.francebleu.fr/live/fb1071-midfi.mp3" },
+  { name: "Europe 1", stream: "https://stream.europe1.fr/europe1.mp3" },
+  { name: "RTL", stream: "https://streaming.radio.rtl.fr/rtl-1-44-128" },
+  { name: "NRJ", stream: "http://cdn.nrjaudio.fm/audio1/fr/30001/mp3_128.mp3" },
+  { name: "Skyrock", stream: "http://www.skyrock.fm/stream.php/tunein16_128mp3.mp3" },
+  { name: "Fun Radio", stream: "http://streaming.radio.funradio.fr/fun-1-44-128" },
+  { name: "Chérie FM", stream: "http://cdn.nrjaudio.fm/audio1/fr/40104/mp3_128.mp3" },
+  { name: "Rire & Chansons", stream: "http://cdn.nrjaudio.fm/adwz2/fr/30401/mp3_128.mp3?origine=fluxradios" },
+  { name: "Nostalgie", stream: "https://scdn.nrjaudio.fm/adwz2/fr/30601/mp3_128.mp3?origine=fluxradios" },
+  { name: "RFM", stream: "http://stream.rfm.fr/rfm.mp3" },
+  { name: "RTL2", stream: "https://streaming.radio.rtl2.fr/rtl2-1-44-128" },
+  { name: "FIP", stream: "https://direct.fipradio.fr/live/fip-midfi.mp3" },
+  { name: "France Culture", stream: "https://direct.franceculture.fr/live/franceculture-midfi.mp3" },
+  { name: "France Musique", stream: "https://direct.francemusique.fr/live/francemusique-midfi.mp3" }
+];
 
     let currentRadioIndex = -1;
     const audioPlayer = document.getElementById("audioPlayer");
@@ -1433,6 +1499,31 @@ function openLiveMap() {
   window.location.href = "https://map.truckersmp.com";
 }
 
+</script>
+
+<script>
+function openChauffeurLogin() {
+  document.getElementById("chauffeurLoginModal").style.display = "flex";
+  document.getElementById("chauffeurLoginError").style.display = "none";
+}
+
+function validateChauffeur() {
+  const id = document.getElementById("chauffeurId").value.trim();
+  const pass = document.getElementById("chauffeurPass").value.trim();
+  const allowed = [
+    {id: "Minou", pass: "Minou57170"},
+    {id: "Douii", pass: "Alban@57"}
+  ];
+  const found = allowed.find(function(u) {
+    return u.id === id && u.pass === pass;
+  });
+  if (found) {
+    document.getElementById("chauffeurLoginModal").style.display = "none";
+    navigate("chauffeurPage");
+  } else {
+    document.getElementById("chauffeurLoginError").style.display = "block";
+  }
+}
 </script>
 </body>
 </html>
