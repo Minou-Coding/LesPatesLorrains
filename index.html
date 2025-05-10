@@ -1486,23 +1486,74 @@ function validateChauffeur() {
 
 // Radios
 const radios = [
-        { name: "Direct FM ( Metz )", stream: "http://directfm.ice.infomaniak.ch/directfm-128.mp3" },
-        { name: "France Inter", stream: "https://direct.franceinter.fr/live/franceinter-midfi.mp3" },
-        { name: "France Info", stream: "https://direct.franceinfo.fr/live/franceinfo-midfi.mp3" },
-        { name: "France Bleu", stream: "http://direct.francebleu.fr/live/fb1071-midfi.mp3" },
-        { name: "Europe 1", stream: "https://stream.europe1.fr/europe1.mp3" },
-        { name: "RTL", stream: "https://streaming.radio.rtl.fr/rtl-1-44-128" },
-        { name: "NRJ", stream: "http://cdn.nrjaudio.fm/audio1/fr/30001/mp3_128.mp3" },
-        { name: "Skyrock", stream: "http://www.skyrock.fm/stream.php/tunein16_128mp3.mp3" },
-        { name: "Fun Radio", stream: "http://streaming.radio.funradio.fr/fun-1-44-128" },
-        { name: "Chérie FM", stream: "http://cdn.nrjaudio.fm/audio1/fr/40104/mp3_128.mp3" },
-        { name: "Rire & Chansons", stream: "http://cdn.nrjaudio.fm/adwz2/fr/30401/mp3_128.mp3?origine=fluxradios" },
-        { name: "Nostalgie", stream: "https://scdn.nrjaudio.fm/adwz2/fr/30601/mp3_128.mp3?origine=fluxradios" },
-        { name: "RFM", stream: "http://stream.rfm.fr/rfm.mp3" },
-        { name: "RTL2", stream: "https://streaming.radio.rtl2.fr/rtl2-1-44-128" },
-        { name: "FIP", stream: "https://direct.fipradio.fr/live/fip-midfi.mp3" },
-        { name: "France Culture", stream: "https://direct.franceculture.fr/live/franceculture-midfi.mp3" },
-        { name: "France Musique", stream: "https://direct.francemusique.fr/live/francemusique-midfi.mp3" }
+  {
+    name: "Direct FM (Metz)",
+    stream: "https://directfm.ice.infomaniak.ch/directfm-128.mp3"
+  },
+  {
+    name: "France Inter",
+    stream: "https://icecast.radiofrance.fr/franceinter-midfi.mp3"
+  },
+  {
+    name: "France Info",
+    stream: "https://icecast.radiofrance.fr/franceinfo-midfi.mp3"
+  },
+  {
+    name: "France Bleu",
+    stream: "https://icecast.radiofrance.fr/fb1071-midfi.mp3"
+  },
+  {
+    name: "Europe 1",
+    stream: "https://stream.europe1.fr/europe1.mp3"
+  },
+  {
+    name: "RTL",
+    stream: "https://icecast.rtl.fr/rtl-1-44-128"
+  },
+  {
+    name: "NRJ",
+    stream: "https://scdn.nrjaudio.fm/audio1/fr/30001/mp3_128.mp3"
+  },
+  {
+    name: "Skyrock",
+    stream: "https://icecast.skyrock.net/s/natio_mp3_128k"
+  },
+  {
+    name: "Fun Radio",
+    stream: "https://icecast.funradio.fr/fun-1-44-128"
+  },
+  {
+    name: "Chérie FM",
+    stream: "https://scdn.nrjaudio.fm/audio1/fr/40104/mp3_128.mp3"
+  },
+  {
+    name: "Rire & Chansons",
+    stream: "https://scdn.nrjaudio.fm/audio1/fr/30401/mp3_128.mp3"
+  },
+  {
+    name: "Nostalgie",
+    stream: "https://scdn.nrjaudio.fm/audio1/fr/30601/mp3_128.mp3"
+  },
+  {
+    name: "RFM",
+    stream: "https://ais-live.cloud-services.paris/rfm.mp3"
+  },
+  {
+    name: "RTL2",
+    stream: "https://icecast.rtl2.fr/rtl2-1-44-128"
+  },
+  {
+    name: "FIP",
+    stream: "https://icecast.radiofrance.fr/fip-midfi.mp3"
+  },
+  {
+    name: "France Culture",
+    stream: "https://icecast.radiofrance.fr/franceculture-midfi.mp3"
+  },
+  {
+    name: "France Musique",
+    stream: "https://icecast.radiofrance.fr/francemusique-midfi.mp3"
+  }
 ];
 
     let currentRadioIndex = -1;
