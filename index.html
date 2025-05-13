@@ -786,6 +786,10 @@ Les Pâtés Lorrains
 <h3>🎨 Couleurs Entreprise</h3>
 <p>Charte graphique des camions &amp; remorques</p>
 </div>
+<div class="card" onclick="navigate('formulaireChauffeur')" style="cursor:pointer; background: linear-gradient(135deg, #1a1d23, #121418); border-left: 4px solid var(--accent); transition: transform 0.3s;">
+  <h3>📋 Enregistrement Chauffeur</h3>
+  <p>Soumettez votre dossier pour rejoindre officiellement Les Pâtés Lorrains</p>
+</div>
 </section>
 <!-- PAGE TAG TRUCKERSMP -->
 <section id="tagTruckersMP">
@@ -1354,7 +1358,46 @@ Les Pâtés Lorrains
 <button onclick="navigate('chauffeurPage')" style="margin-top: 2rem;">⬅️ Retour à l'Espace Chauffeur</button>
 </div>
 </section>
+
+<section id="formulaireChauffeur">
+  <h2 style="text-align:center; font-size:2rem;">📋 Enregistrement des Chauffeurs</h2>
+  <div class="card" style="max-width:600px; margin:auto; background:linear-gradient(145deg, #1a1d23, #1f222a); box-shadow:0 0 20px rgba(0,195,255,0.2);">
+    <form id="chauffeurForm" style="display:flex; flex-direction:column; gap:1.2rem;">
+      
+      <div>
+        <label for="age" style="font-weight:bold;">🧓 Ton âge *</label>
+        <input type="number" id="age" required placeholder="Ex: 21" style="padding:0.7rem; border:none; border-radius:8px; background:#2c3038; color:white;"/>
+      </div>
+
+      <div>
+        <label for="pickup" style="font-weight:bold;">🚛 Pseudo Pickup *</label>
+        <input type="text" id="pickup" required placeholder="Ex: Minou_Offciel" style="padding:0.7rem; border:none; border-radius:8px; background:#2c3038; color:white;"/>
+      </div>
+
+      <div>
+        <label for="discord" style="font-weight:bold;">💬 Pseudo Discord *</label>
+        <input type="text" id="discord" required placeholder="Ex: Minou#1234" style="padding:0.7rem; border:none; border-radius:8px; background:#2c3038; color:white;"/>
+      </div>
+
+      <div>
+        <label for="tiktok" style="font-weight:bold;">🎥 Pseudo TikTok (facultatif)</label>
+        <input type="text" id="tiktok" placeholder="Ex: minou_offciel" style="padding:0.7rem; border:none; border-radius:8px; background:#2c3038; color:white;"/>
+      </div>
+
+      <button type="submit" style="margin-top:1rem; padding:0.8rem; background:linear-gradient(90deg, #00c3ff, #007aa3); border:none; border-radius:10px; color:black; font-weight:bold; font-size:1rem; cursor:pointer; transition:transform 0.2s;">
+        📝 M'enregistrer comme chauffeur chez Les Pâtés Lorrains
+      </button>          
+
+      <p id="successMessage" style="color:lime; margin-top:10px; display:none; text-align:center;">✅ Envoyé avec succès !</p>
+    </form>
+    <button onclick="navigate('chauffeurPage')" style="margin-top:2rem; background:transparent; border:1px solid var(--accent); color:var(--accent); padding:0.6rem 1rem; border-radius:8px; cursor:pointer;">⬅️ Retour à l'Espace Chauffeur</button>
+  </div>
+</section>
+
+
+
 <!-- Lightbox Galerie -->
+
 <div class="lightbox" id="lightbox">
 <span class="close" id="lightbox-close">
   ×
@@ -2123,6 +2166,49 @@ document.addEventListener("DOMContentLoaded", () => {
 document.getElementById("chauffeurCloseBtn").addEventListener("click", () => {
   document.getElementById("chauffeurLoginModal").style.display = "none";
 });
+
+document.getElementById("chauffeurForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const age = document.getElementById("age").value.trim();
+  const pickup = document.getElementById("pickup").value.trim();
+  const discord = document.getElementById("discord").value.trim();
+  const tiktok = document.getElementById("tiktok").value.trim();
+
+  const webhookURL = "https://discord.com/api/webhooks/1366946101373960273/nQOEXaEdl1sKrWrqp3PC4vrAa5k0bxshJ4Fcc5WstJnV_UMxgxHLBibO8P1qNYdnwUnO";
+
+  const payload = {
+    embeds: [{
+      title: "📝 Nouvelle Candidature Chauffeur",
+      color: 3066993,
+      fields: [
+        { name: "🧓 Âge", value: age, inline: true },
+        { name: "🚛 Pseudo TruckersMP", value: pickup, inline: true },
+        { name: "💬 Pseudo Discord", value: discord, inline: true },
+        { name: "🎥 TikTok", value: tiktok || "Non précisé", inline: true }
+      ],
+      timestamp: new Date().toISOString(),
+      footer: {
+        text: "Les Pâtés Lorrains • Recrutement"
+      }
+    }]
+  };
+
+  fetch(webhookURL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+  }).then(res => {
+    if (res.ok) {
+      document.getElementById("chauffeurForm").reset();
+      document.getElementById("successMessage").style.display = "block";
+      setTimeout(() => {
+        document.getElementById("successMessage").style.display = "none";
+      }, 3000);
+    }
+  });
+});
+
 
 </script>
 </body>
