@@ -1,2215 +1,5003 @@
 <!DOCTYPE html>
 
+
+
 <html lang="fr">
+
 <head>
+
 <meta charset="utf-8"/>
+
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+
 <title>
+
    Les Pâtés Lorrains
+
   </title>
+
 <style>
+
    :root {
+
       --bg: #0f1115;
+
       --primary: #1f2937;
+
       --accent: #00c3ff;
+
       --text: #f1f5f9;
+
       --card: #1a1d23;
+
       --alert: #ff4c4c;
+
     }
+
+
 
     * {
+
       margin: 0;
+
       padding: 0;
+
       box-sizing: border-box;
+
       font-family: "Segoe UI", sans-serif;
+
     }
+
+
 
     body {
+
       background-color: var(--bg);
+
       color: var(--text);
+
       line-height: 1.6;
+
       overflow-x: hidden;
+
       padding-bottom: 100px; /* Pour le lecteur audio en bas */
+
     }
+
+
 
     header {
+
       background: var(--primary);
+
       padding: 1rem 2rem;
+
       display: flex;
+
       align-items: center;
+
       justify-content: space-between;
+
       box-shadow: 0 2px 10px #00000040;
+
     }
+
+
 
     header img {
+
       height: 60px;
+
       cursor: pointer;
+
     }
+
+
 
     nav a {
+
       color: var(--text);
+
       margin-left: 1.5rem;
+
       text-decoration: none;
+
       font-weight: 500;
+
       transition: color 0.3s ease;
+
       cursor: pointer;
+
     }
+
+
 
     nav a:hover {
+
       color: var(--accent);
+
     }
+
+
 
     .container {
+
       max-width: 1100px;
+
       margin: 2rem auto;
+
       padding: 0 1rem;
+
     }
+
+
 
     section {
+
       display: none;
+
       opacity: 0;
+
       transition: opacity 0.5s ease;
+
     }
+
+
 
     section.active {
+
       display: block;
+
       opacity: 1;
+
     }
+
+
 
     h1, h2, h3 {
+
       color: var(--accent);
+
       margin-bottom: 1rem;
+
     }
+
+
 
     .card {
+
       background-color: var(--card);
+
       padding: 1.5rem;
+
       border-radius: 12px;
+
       margin-bottom: 1.5rem;
+
       box-shadow: 0 4px 12px #00000030;
+
       transition: transform 0.3s ease;
+
     }
+
+
 
     .card:hover {
+
       transform: translateY(-5px);
+
     }
+
+
 
     ul {
+
       padding-left: 1.5rem;
+
       margin-bottom: 1rem;
+
     }
+
+
 
     .hero {
+
       position: relative;
+
       width: 100%;
+
       height: 100%;
+
       border-radius: 12px;
+
       overflow: hidden;
+
       box-shadow: 0 4px 20px #00000040;
+
       margin-bottom: 2rem;
+
     }
+
+
 
     .hero img {
+
       width: 100%;
+
       height: 100%;
+
       max-height: 500px;
+
       object-fit: cover;
+
       display: block;
+
     }
+
+
 
     .hero-text {
+
       position: absolute;
+
       top: 50%;
+
       left: 50%;
+
       transform: translate(-50%, -50%);
+
       text-align: center;
+
       color: white;
+
       background: rgba(15, 17, 21, 0.6);
+
       padding: 1.5rem;
+
       border-radius: 12px;
+
     }
+
+
 
     .gallery, .convoi-gallery, .radio-gallery {
+
       display: grid;
+
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+
       gap: 1rem;
+
     }
+
+
 
     .gallery img,
+
     .convoi-gallery .thumb img,
+
     .radio-gallery img {
+
       width: 100%;
+
       border-radius: 10px;
+
       transition: transform 0.3s ease;
+
       cursor: pointer;
+
     }
+
 .gallery img:hover,
+
 .convoi-gallery .thumb:hover img,
+
 .radio-gallery img:hover {
+
   transform: scale(1.05);
+
 }
+
+
 
 .convoi-gallery .thumb {
+
   position: relative;
+
 }
+
+
 
 .convoi-gallery .thumb span {
+
   position: absolute;
+
   bottom: 8px;
+
   left: 8px;
+
   background: rgba(0, 0, 0, 0.6);
+
   color: #fff;
+
   padding: 0.3rem 0.6rem;
+
   border-radius: 6px;
+
   font-size: 0.9rem;
+
 }
+
+
 
 .lightbox {
+
   display: none;
+
   position: fixed;
+
   z-index: 1000;
+
   top: 0;
+
   left: 0;
+
   width: 100vw;
+
   height: 100vh;
+
   background: rgba(0, 0, 0, 0.8);
+
   justify-content: center;
+
   align-items: center;
+
 }
+
+
 
 .lightbox img {
+
   max-width: 90%;
+
   max-height: 90%;
+
   border-radius: 8px;
+
 }
+
+
 
 .lightbox .close {
+
   position: absolute;
+
   top: 2rem;
+
   right: 2rem;
+
   font-size: 2rem;
+
   color: white;
+
   cursor: pointer;
+
 }
+
+
 
 footer {
+
   text-align: center;
+
   padding: 2rem 1rem;
+
   color: #888;
+
   font-size: 0.9rem;
+
 }
+
+
 
 /* Lecteur Audio Stylé */
+
 .radio-player {
+
   position: fixed;
+
   bottom: 20px;
+
   left: 50%;
+
   transform: translateX(-50%);
+
   width: 90%;
+
   max-width: 700px;
+
   background: #181818;
+
   border-radius: 40px;
+
   padding: 14px 24px;
+
   display: flex;
+
   align-items: center;
+
   justify-content: space-between;
+
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+
   color: #fff;
+
   z-index: 999;
+
   font-family: "Segoe UI", sans-serif;
+
 }
+
+
 
 .radio-player .controls {
+
   display: flex;
+
   align-items: center;
+
   gap: 20px;
+
 }
+
+
 
 .radio-player .spotify-btn {
+
   background: #1db954;
+
   border: none;
+
   color: #fff;
+
   font-size: 1.2rem;
+
   border-radius: 50%;
+
   width: 40px;
+
   height: 40px;
+
   display: grid;
+
   place-items: center;
+
   transition: background 0.2s ease, transform 0.2s ease;
+
   box-shadow: 0 0 8px rgba(29, 185, 84, 0.4);
+
   cursor: pointer;
+
 }
+
+
 
 .radio-player .spotify-btn:hover {
+
   background: #1ed760;
+
   transform: scale(1.1);
+
 }
+
+
 
 .radio-player .radio-name {
+
   flex: 1;
+
   text-align: center;
+
   font-weight: 600;
+
   font-size: 1rem;
+
   color: #eee;
+
   padding: 0 20px;
+
   white-space: nowrap;
+
   overflow: hidden;
+
   text-overflow: ellipsis;
+
 }
 
+
+
 .radio-player input[type="range"] {
+
   width: 100px;
+
   accent-color: #1db954;
+
   cursor: pointer;
+
 }
+
+
 
 .modal-overlay {
+
   position: fixed;
+
   top: 0; left: 0;
+
   width: 100vw;
+
   height: 100vh;
+
   background: rgba(0, 0, 0, 0.7);
+
   display: none;
+
   justify-content: center;
+
   align-items: center;
+
   z-index: 999;
+
 }
+
+
 
 .modal {
+
   background: var(--card);
+
   padding: 2rem;
+
   border-radius: 12px;
+
   width: 90%;
+
   max-width: 400px;
+
   box-shadow: 0 4px 20px #00000060;
+
   text-align: center;
+
 }
+
+
 
 .modal input {
+
 width: 100%;
+
      padding: 0.7rem;
+
      border-radius: 8px;
+
      border: none;
+
      margin-top: 1rem;
+
      margin-bottom: 1rem;
+
      font-size: 1rem;
+
    }
+
+
 
    .modal button {
+
      background-color: var(--accent);
+
      color: #000;
+
      padding: 0.6rem 1.2rem;
+
      border: none;
+
      border-radius: 8px;
+
      font-weight: bold;
+
      cursor: pointer;
+
    }
+
+
 
    .modal button:hover {
+
      background-color: #007aa3;
+
    }
+
+
 
    .modal .error {
+
      color: var(--alert);
+
      margin-top: 0.5rem;
+
      display: none;
+
    }
+
+
 
    .logo-text {
+
      font-size: 1.4rem;
+
      font-weight: 400;
+
      color: var(--text);
+
      margin-left: -900px;
+
      font-family: "Segoe UI", sans-serif;
+
      letter-spacing: 0.5px;
+
    }
+
+
 
    #loader {
+
      position: fixed;
+
      z-index: 9999;
+
      top: 0; left: 0;
+
      width: 100vw;
+
      height: 100vh;
+
      background-color: var(--bg);
+
      display: flex;
+
      align-items: center;
+
      justify-content: center;
+
      transition: opacity 0.5s ease;
+
    }
+
+
 
    .loader-logo {
+
      display: flex;
+
      flex-direction: column;
+
      align-items: center;
+
      animation: fadeIn 1s ease-in-out infinite alternate;
+
    }
+
+
 
    .loader-logo img {
+
      width: 350px;
+
      height: 350px;
+
      animation: spin 2s linear infinite;
+
    }
+
+
 
    .loader-logo span {
+
      color: var(--accent);
+
      font-size: 1.2rem;
+
      margin-top: 15px;
+
      letter-spacing: 1px;
+
    }
+
+
 
    @keyframes spin {
+
      0% { transform: rotate(0deg); }
+
      100% { transform: rotate(360deg); }
+
    }
+
+
 
    @keyframes fadeIn {
+
      from { opacity: 0.5; }
+
      to { opacity: 1; }
+
    }
+
+
 
    .logo-scan-wrapper {
+
    position: relative;
+
    display: inline-block;
+
    overflow: hidden;
+
    }
+
+
 
    .logo-scan {
+
    display: block;
+
    height: 100px; /* ou selon ta taille */
+
    animation: logoPulse 1s ease-in-out 1;
+
    }
+
+
 
    .logo-scan::before {
+
    content: "";
+
    position: absolute;
+
    top: 0;
+
    left: -150%;
+
    width: 150%;
+
    height: 100%;
+
    background: linear-gradient(90deg, transparent, rgba(0, 195, 255, 0.3), transparent);
+
    animation: scanLaser 2s ease-out forwards;
+
    z-index: 2;
+
    }
+
+
 
    @keyframes scanLaser {
+
    0% {
+
        left: -150%;
+
    }
+
    50% {
+
        left: 100%;
+
    }
+
    100% {
+
        left: 100%;
+
    }
+
    }
+
+
 
    @keyframes logoPulse {
+
    0% {
+
        filter: brightness(0.8);
+
        transform: scale(0.95);
+
    }
+
    100% {
+
        filter: brightness(1);
+
        transform: scale(1);
+
    }
+
    }
+
  
+
 @media (max-width: 768px) {
+
   header {
+
     flex-direction: column;
+
     align-items: flex-start;
+
     gap: 1rem;
+
   }
+
+
 
   .logo-text {
+
     margin-left: 1rem !important;
+
   }
+
+
 
   nav {
+
     display: flex;
+
     flex-wrap: wrap;
+
     gap: 0.5rem;
+
   }
+
+
 
   nav a {
+
     margin-left: 0 !important;
+
     padding: 0.5rem 1rem;
+
     background-color: var(--card);
+
     border-radius: 8px;
+
   }
+
 }
 
+
+
 @media (max-width: 768px) {
+
   .gallery img,
+
   .convoi-gallery .thumb img,
+
   .radio-gallery img {
+
     max-width: 100%;
+
     height: auto;
+
   }
+
+
 
   .gallery,
+
   .convoi-gallery,
+
   .radio-gallery {
+
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+
     gap: 0.5rem;
+
   }
+
 }
+
+
 
 @media (max-width: 768px) {
+
   .radio-player {
+
     flex-direction: column;
+
     align-items: center;
+
     gap: 10px;
+
     padding: 16px;
+
     bottom: 10px;
+
   }
+
+
 
   .radio-player .controls {
+
     gap: 10px;
+
     flex-wrap: wrap;
+
     justify-content: center;
+
   }
+
+
 
   .radio-player .radio-name {
+
     font-size: 0.9rem;
+
     text-align: center;
+
   }
+
+
 
   .radio-player input[type="range"] {
+
     width: 80%;
+
     margin-top: 5px;
+
   }
+
 }
+
+
 
 /* Nouveau design inspiré de Spotify */
+
 .radio-player {
+
   background: linear-gradient(135deg, #1db954, #191414);
+
   border-radius: 20px;
+
   padding: 20px;
+
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+
   display: flex;
+
   flex-direction: column;
+
   align-items: center;
+
   gap: 1rem;
+
   font-family: 'Segoe UI', sans-serif;
+
   max-width: 400px;
+
   width: 90%;
+
   left: 50%;
+
   transform: translateX(-50%);
+
   bottom: 20px;
+
   position: fixed;
+
   z-index: 999;
+
 }
+
+
 
 .radio-player .controls {
+
   display: flex;
+
   justify-content: center;
+
   gap: 16px;
+
   width: 100%;
+
 }
+
+
 
 .radio-player .spotify-btn {
+
   background: #191414;
+
   color: #1db954;
+
   border: 2px solid #1db954;
+
   border-radius: 50%;
+
   width: 48px;
+
   height: 48px;
+
   font-size: 1.5rem;
+
   display: flex;
+
   justify-content: center;
+
   align-items: center;
+
   transition: background 0.3s, transform 0.2s;
+
 }
 
+
+
 .radio-player .spotify-btn:hover {
+
   background: #1db954;
+
   color: #fff;
+
   transform: scale(1.1);
+
 }
+
+
 
 .radio-player .radio-name {
+
   font-weight: bold;
+
   font-size: 1.1rem;
+
   color: #fff;
+
   text-align: center;
+
   white-space: nowrap;
+
   overflow: hidden;
+
   text-overflow: ellipsis;
+
 }
+
+
 
 .radio-player input[type="range"] {
+
   width: 100%;
+
   accent-color: #1db954;
+
   cursor: pointer;
+
 }
 
+
+
 .radio-player .spotify-btn {
+
   background: #191414;
+
   color: #1db954;
+
   border: 2px solid #1db954;
+
   border-radius: 50%;
+
   width: 48px;
+
   height: 48px;
+
   font-size: 1.5rem;
+
   display: flex;
+
   justify-content: center;
+
   align-items: center;
+
   transition: background 0.3s, transform 0.2s;
+
 }
 
+
+
 .radio-player .spotify-btn:hover {
+
   background: #1db954;
+
   color: #fff;
+
   transform: scale(1.1);
+
 }
+
+
 
 .radio-player .spotify-btn {
+
   background: #191414 !important;
+
   color: #1db954 !important;
+
   border: 2px solid #1db954 !important;
+
   border-radius: 50% !important;
+
   width: 48px !important;
+
   height: 48px !important;
+
   font-size: 1.5rem !important;
+
   display: flex !important;
+
   justify-content: center !important;
+
   align-items: center !important;
+
   transition: background 0.3s, transform 0.2s !important;
+
   box-shadow: 0 0 8px rgba(29, 185, 84, 0.4) !important;
+
 }
+
 .radio-player .spotify-btn:hover {
+
   background: #1db954 !important;
+
   color: #fff !important;
+
   transform: scale(1.1) !important;
+
 }
+
+
+
 
 
 @keyframes bounce {
+
   0%, 100% { transform: scaleY(1); }
+
   50% { transform: scaleY(1.8); }
+
 }
+
+
+
 
 
 .radio-player.playing::before {
+
   content: '';
+
   position: absolute;
+
   top: 0; left: 0;
+
   width: 100%; height: 100%;
+
   background: linear-gradient(45deg, rgba(29,185,84,0.2), rgba(29,185,84,0.05));
+
   animation: pulseBg 2s infinite;
+
   border-radius: inherit;
+
   z-index: 0;
+
 }
+
+
 
 @keyframes pulseBg {
+
   0% { opacity: 0.4; }
+
   50% { opacity: 0.8; }
+
   100% { opacity: 0.4; }
+
 }
+
+
 
 .radio-player * {
+
   position: relative;
+
   z-index: 1;
+
 }
 
+
+
 @media (max-width: 768px) {
+
   .desktop-only {
+
     display: none !important;
+
   }
+
 }
+
+
+
 
 
     html {
+
       font-size: 16px;
+
     }
+
+
 
     @media (max-width: 1200px) {
+
       html {
+
         font-size: 15px;
+
       }
+
     }
+
+
 
     @media (max-width: 992px) {
+
       html {
+
         font-size: 14px;
+
       }
+
       .container {
+
         padding: 0 1rem;
+
       }
+
     }
+
+
 
     @media (max-width: 768px) {
+
       html {
+
         font-size: 13px;
+
       }
+
       h1, h2, h3 {
+
         font-size: 1.2rem;
+
       }
+
       .card {
+
         padding: 1rem;
+
       }
+
       .hero-text {
+
         padding: 1rem;
+
       }
+
     }
+
+
 
     @media (max-width: 480px) {
+
       html {
+
         font-size: 12px;
+
       }
+
       .radio-gallery img,
+
       .gallery img,
+
       .convoi-gallery .thumb img {
+
         max-width: 100%;
+
         height: auto;
+
       }
+
       nav a {
+
         font-size: 0.9rem;
+
       }
+
     }
+
+
 
     img {
+
       max-width: 100%;
+
       height: auto;
+
     }
+
+
 
     .container, section {
+
       max-width: 1100px;
+
       margin: 0 auto;
+
       padding: 1rem;
+
     }
 
+
+
     .card, .modal {
+
       width: 100%;
+
       box-sizing: border-box;
+
     }
+
     
+
 header {
+
   background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Blason_Lorraine.svg/800px-Blason_Lorraine.svg.png') no-repeat center center;
+
   background-size: cover;
+
   border-bottom: 4px solid gold;
+
+}
+
+
+
+</style>
+
+
+
+<style>
+
+.fade-in {
+
+  opacity: 0;
+
+  transform: translateY(30px);
+
+  transition: opacity 0.8s ease, transform 0.8s ease;
+
+}
+
+.fade-in.visible {
+
+  opacity: 1;
+
+  transform: translateY(0);
+
 }
 
 </style>
+
+<script>
+
+window.addEventListener('scroll', () => {
+
+  document.querySelectorAll('.fade-in').forEach(el => {
+
+    const rect = el.getBoundingClientRect();
+
+    if (rect.top < window.innerHeight - 100) {
+
+      el.classList.add('visible');
+
+    }
+
+  });
+
+});
+
+</script>
+
+
+
 </head>
+
 <body>
+
 <div id="loader">
+
 <div class="loader-logo">
+
 <img alt="Logo" src="https://i.ibb.co/kWr3PZn/e42e854f1dd3.png"/>
+
 <span>
+
     Chargement...
+
    </span>
+
 </div>
+
 </div>
+
 <!-- Explosion de pâtés -->
+
 <div id="explosionContainer" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9998;"></div>
+
 <header>
+
 <div style="display: flex; align-items: center;">
+
 <div class="logo-scan-wrapper">
+
 <img alt="Logo" class="logo-scan" src="https://i.ibb.co/kWr3PZn/e42e854f1dd3.png"/>
+
 </div>
+
 <div class="logo-text">
+
 Les Pâtés Lorrains
+
   </div>
+
 </div>
+
 <nav>
+
 <a onclick="navigate('home')">
+
    Accueil
+
   </a>
+
 <a onclick="openChauffeurLogin()">Chauffeur</a>
+
 <a onclick="navigate('convois')">
+
    Convois
+
   </a>
+
 <a onclick="navigate('galerie')">
+
    Galerie
+
   </a>
+
 <a onclick="navigate('radios')">
+
    Radios
+
   </a>
+
 <a onclick="navigate('recrutement')">
+
    Recrutements
+
   </a>
+
 <a onclick="navigate('reglement')">
+
    Règlement
+
   </a>
+
 <a id="discordLink">
+
    Discord
+
   </a>
+
 </nav>
+
 </header>
+
 <!-- MODALE DE CONFIRMATION -->
+
 <div class="modal-overlay" id="modalOverlay">
+
 <div class="modal">
+
 <h3>
+
    Accès au Discord
+
   </h3>
+
 <p>
+
    Pour accéder au Discord, merci d’écrire
+
    <strong>
+
     "J'ai lu et accepté le règlement"
+
    </strong>
+
    ci-dessous :
+
   </p>
+
 <input id="validationInput" placeholder="Tape ici : J'ai lu et accepté le règlement" type="text"/>
+
 <button id="validateBtn">
+
    Valider
+
   </button>
+
 <div class="error" id="validationError">
+
    ⚠️ Tu dois taper exactement : J'ai lu et accepté le règlement
+
   </div>
+
 </div>
+
 </div>
+
 <div class="container">
+
 <!-- MODALE DE CONNEXION CHAUFFEUR -->
+
 <div class="modal-overlay" id="chauffeurLoginModal">
+
 <div class="modal" style="position: relative;"><button id="chauffeurCloseBtn" style="position:absolute; top:12px; right:16px; background:var(--card); color:var(--accent); border:2px solid var(--accent); width:32px; height:32px; border-radius:50%; font-size:18px; font-weight:bold; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 0 6px rgba(0,0,0,0.3); z-index:1001;">×</button>
+
 <h3>Connexion Chauffeur</h3>
+
 <input id="chauffeurId" placeholder="Identifiant" type="text"/>
+
 <input id="chauffeurPass" placeholder="Mot de passe" type="password"/>
+
 <label style="display: block; margin: 0.5rem 0; font-size: 0.9rem;">
+
 <input id="rememberMe" style="margin-right: 6px;" type="checkbox"/> Se souvenir de moi
+
     </label>
+
 <button onclick="validateChauffeur()">Se connecter</button>
+
 <div class="error" id="chauffeurLoginError">❌ Identifiants invalides.</div>
+
 </div>
+
 </div>
+
 </div>
+
 <!-- PAGE CHAUFFEUR -->
-<section id="chauffeurPage">
+
+<section id="chauffeurPage" class="fade-in">
+
 <h2>👨‍✈️ Espace Chauffeur</h2>
+
 <div class="card" onclick="navigate('tagTruckersMP')" style="cursor:pointer;">
+
 <h3>🔖 Tag TruckersMP</h3>
+
 <p>Configuration du Player Tag selon votre grade</p>
+
 </div>
+
 <div class="card" onclick="navigate('couleursEntreprise')" style="cursor:pointer;">
+
 <h3>🎨 Couleurs Entreprise</h3>
+
 <p>Charte graphique des camions &amp; remorques</p>
+
 </div>
+
 <div class="card" onclick="navigate('formulaireChauffeur')" style="cursor:pointer; background: linear-gradient(135deg, #1a1d23, #121418); border-left: 4px solid var(--accent); transition: transform 0.3s;">
+
   <h3>📋 Enregistrement Chauffeur</h3>
+
   <p>Soumettez votre dossier pour rejoindre officiellement Les Pâtés Lorrains</p>
+
 </div>
+
 </section>
+
 <!-- PAGE TAG TRUCKERSMP -->
-<section id="tagTruckersMP">
+
+<section id="tagTruckersMP" class="fade-in">
+
 <h2>🔖 TAG ENTREPRISE — OBLIGATOIRE SUR TRUCKERSMP</h2>
+
 <div class="card">
+
 <p>Tous les membres de Les Pâtés Lorrains doivent obligatoirement afficher leur Player Tag personnalisé sur TruckersMP.</p>
+
 <p>Ce tag permet une identification claire et immédiate lors des convois, selon le grade du membre dans l'entreprise.</p>
+
 <h3>PROCÉDURE DE CONFIGURATION</h3>
+
 <ul>
+
 <li>• Appuyez sur la touche TAB pour ouvrir le menu TruckersMP.</li>
+
 <li>• Cliquez sur l'icône d'engrenage en bas à gauche.</li>
+
 <li>• Dans la section "Player Tag", entrez le tag correspondant à votre grade (voir ci-dessous).</li>
+
 </ul>
+
 <h3>PLAYER TAGS PAR GRADE</h3>
+
 <ul>
+
 <li><strong>PDG :</strong> [1] LPL-FR — Couleur : #E74C3C</li>
+
 <li><strong>DIRECTEUR :</strong> [2] LPL-FR — Couleur : #F39C12</li>
+
 <li><strong>RESPONSABLE DE FLOTTE :</strong> [3] LPL-FR — Couleur : #F1C40F</li>
+
 <li><strong>CHAUFFEUR :</strong> [4] LPL-FR — Couleur : #2ECC71</li>
+
 </ul>
+
 <p><strong>IMPORTANT :</strong> Assure-toi que ton tag est correctement configuré avant chaque convoi.</p>
+
 <p><em>Le non-respect de cette consigne pourra entraîner une exclusion temporaire des événements.</em></p>
+
 <p>Les Pâtés Lorrains — Discipline, visibilité et esprit d'équipe 🚛</p>
+
 <button onclick="navigate('chauffeurPage')" style="margin-top: 1rem;">⬅️ Retour à l'Espace Chauffeur</button>
+
 </div>
+
 </section>
+
 <!-- Page Accueil -->
-<section class="active" id="home">
+
+<section class="fade-in active" id="home">
+
 <div class="hero">
+
 <img alt="Image d'accueil" src="https://i.ibb.co/yntCsKNr/20bde3b405af.png"/>
+
 <div class="hero-text">
+
 <h2>
+
      Les Pâtés Lorrains
+
     </h2>
+
 <p>
+
      Une entreprise a l'esprit familial
+
     </p>
+
 </div>
+
 </div>
+
 <h1>
+
    🚛 Les Pâtés Lorrains : Roulez avec nous, sans stress, sans prise de tête !
+
   </h1>
+
 <p>
+
    Bienvenue chez
+
    <strong>
+
     Les Pâtés Lorrains
+
    </strong>
+
    , une entreprise virtuelle de transport où
+
    <em>
+
     professionnalisme
+
    </em>
+
    rime avec
+
    <em>
+
     convivialité
+
    </em>
+
    . Notre crédo ? Rouler sérieusement, sans se prendre au sérieux.
+
   </p>
+
 <p>
+
    🎯 Ici, chacun avance à son rythme. Pas de pression, pas de drama – seulement des gens matures, passionnés et soudés par une même envie : profiter de la route dans une ambiance
+
    <strong>
+
     zen et respectueuse
+
    </strong>
+
    .
+
   </p>
+
 <div class="card">
+
 <h2>
+
     🧭 Nos valeurs :
+
    </h2>
+
 <ul>
+
 <li>
+
 <strong>
+
       Le respect
+
      </strong>
+
      est la règle d’or. En vocal, en jeu, ou dans les discussions – on se parle, pas on s’engueule.
+
     </li>
+
 <li>
+
 <strong>
+
       Pas de stress
+
      </strong>
+
      , jamais. Si souci il y a, on gère ça calmement.
+
     </li>
+
 <li>
+
 <strong>
+
       L’entraide
+
      </strong>
+
      est constante. Mod cassé ? TruckersMP capricieux ? On est là pour toi.
+
     </li>
+
 <li>
+
 <strong>
+
       Le réalisme
+
      </strong>
+
      oui, mais relax. On roule propre, mais sans jouer les gendarmes.
+
     </li>
+
 </ul>
+
 </div>
+
 <div class="card">
+
 <h2>
+
     🚨 Règlement : Tolérance Zéro sur le non-respect
+
    </h2>
+
 <p>
+
     Chez nous, le code de la route n’est pas une option. On respecte les règles, point barre.
+
    </p>
+
 <ul>
+
 <li>
+
      ⛔ 95 km/h max sauf consignes spéciales
+
     </li>
+
 <li>
+
      ⛔ Priorités, feux, clignos, distances = sacrés
+
     </li>
+
 <li>
+
      ⛔ Zéro insulte, zéro provocation, zéro toxicité
+
     </li>
+
 </ul>
+
 <p>
+
 <em>
+
      Chaque infraction peut mener à des sanctions sérieuses, y compris l’exclusion.
+
     </em>
+
 </p>
+
 </div>
+
 <div class="card">
+
 <h2>
+
    🏢 C’est quoi Les Pâtés Lorrains ?
+
   </h2>
+
 <ul>
+
 <li>
+
     ✔️ Une équipe adulte, stable, passionnée
+
    </li>
+
 <li>
+
     ✔️ Des convois réguliers avec une vraie structure
+
    </li>
+
 <li>
+
     ✔️ Des responsables accessibles, à l’écoute
+
    </li>
+
 <li>
+
     ✔️ Une vraie ambiance de groupe, pas de solo ego trip
+
    </li>
+
 </ul>
+
 <p>
+
    Peu importe ton niveau d’engagement : que tu sois là tous les soirs ou juste le week-end, tu as ta place tant que tu respectes les autres.
+
   </p>
+
 </div>
+
 <div class="card">
+
 <h2>
+
    💬 En résumé
+
   </h2>
+
 <p>
+
    Tu cherches une entreprise où :
+
   </p>
+
 <ul>
+
 <li>
+
     ✅ Tu roules sérieux, sans prise de tête
+
    </li>
+
 <li>
+
     ✅ Tu es entouré d’adultes respectueux
+
    </li>
+
 <li>
+
     ✅ Tu construis une vraie relation d’équipe
+
    </li>
+
 <li>
+
     ✅ Tu suis les règles, naturellement
+
    </li>
+
 </ul>
+
 <p>
+
    Alors
+
    <strong>
+
     tu es exactement là où tu dois être
+
    </strong>
+
    .
+
   </p>
+
 <p>
+
 <strong>
+
     Bienvenue chez Les Pâtés Lorrains
+
    </strong>
+
    , là où
+
    <em>
+
     plaisir de rouler
+
    </em>
+
    et
+
    <em>
+
     esprit d’équipe
+
    </em>
+
    se croisent – avec rigueur, respect, et fun.
+
   </p>
+
 </div>
+
 </section>
+
 <!-- Page Convois (Galerie de vignettes) -->
-<section id="convois">
+
+<section id="convois" class="fade-in">
+
 <h2>
+
   📦 Nos Convois
+
  </h2>
+
 <div class="convoi-gallery">
+
 <div class="thumb" onclick="navigate('convoi09mai')">
+
 <img alt="Convoi 09 Mai 2025 - 21H30" src="https://i.ibb.co/xtJ29Dfk/e1f112dae65c.png"/>
+
 <span>
+
     09 Mai 2025 - 21H30
+
    </span>
+
 </div>
+
 </div>
+
 </section>
+
 <!-- Page Détail du Convoi 09 Mai -->
-<section id="convoi09mai">
+
+<section id="convoi09mai" class="fade-in">
+
 <h2>
+
   🚛 Convoi Officiel - Vendredi 09 Mai 2025
+
  </h2>
+
 <div class="card">
+
 <h3>
+
    🕒 Départ à 21h30 - De Metz (EuroGoodies) à Bratislava (WGCC)
+
   </h3>
+
 <div style="display: flex; flex-direction: column; gap: 1rem;">
+
 <img alt="Départ Metz" src="https://i.ibb.co/xtJ29Dfk/e1f112dae65c.png" style="width:100%; border-radius: 12px;"/>
+
 <img alt="Arrivée Bratislava" src="https://i.ibb.co/wZmmvRVM/4a648eaf7428.png" style="width:100%; border-radius: 12px;"/>
+
 </div>
+
 <p style="margin-top:1rem;">
+
    🛣️
+
    <strong>
+
     Distance :
+
    </strong>
+
    1294 km
+
    <br/>
+
    ⏱️
+
    <strong>
+
     Durée estimée :
+
    </strong>
+
    1h11
+
    <br/>
+
    🧭
+
    <strong>
+
     Vitesse maximale :
+
    </strong>
+
    90 km/h
+
   </p>
+
 <p>
+
 <strong>
+
     ⛽ Rappel :
+
    </strong>
+
    Faites le plein avant le départ pour éviter les arrêts.
+
   </p>
+
 <p>
+
 <strong>
+
     ⏳ Présence obligatoire à 21h30.
+
    </strong>
+
    Départ à 21h45 pile. Aucun retard ne sera toléré.
+
   </p>
+
 <ul>
+
 <li>
+
     🎨 Présence obligatoire avec votre propre remorque et votre camion aux couleurs de l'entreprise, disponibles sur le Discord
+
    </li>
+
 <li>
+
     🛑 Frein moteur automatique : activé
+
    </li>
+
 <li>
+
     🛑 Ralentisseur hydraulique automatique : activé
+
    </li>
+
 <li>
+
     📏 Distance minimale entre camions : 1 trait et demi
+
    </li>
+
 <li>
+
     🚨 Toute infraction = sanction immédiate
+
    </li>
+
 </ul>
+
 <button class="discord-btn" onclick="navigate('convois')" style="margin-top: 1rem;">
+
    ⬅️ Retour aux Convois
+
 </button>
+
 </div>
+
 </section>
+
 <!-- Page Radios -->
-<section id="radios">
+
+<section id="radios" class="fade-in">
+
 <h2>
+
   📻 Radios Françaises
+
  </h2>
+
 <div class="radio-gallery">
-<div onclick="playRadio(0)">
+
+<div onclick="playRadio(0)" data-radio="directfm(metz)">
+
 <img alt="Direct FM ( Metz )" src="https://i.ibb.co/bRBHNv52/t-l-chargement-3.jpg"/>
+
 <span>
+
     Direct FM ( Metz )
+
    </span>
+
 </div>
-<div onclick="playRadio(1)">
+
+<div onclick="playRadio(1)" data-radio="franceinter">
+
 <img alt="France Inter" src="https://i.ibb.co/wFXQjzc3/t-l-chargement-4.png"/>
+
 <span>
+
     France Inter
+
    </span>
+
 </div>
-<div onclick="playRadio(2)">
+
+<div onclick="playRadio(2)" data-radio="franceinfo">
+
 <img alt="France Info" src="https://i.ibb.co/j9Bxsj3K/t-l-chargement.jpg"/>
+
 <span>
+
     France Info
+
    </span>
+
 </div>
-<div onclick="playRadio(3)">
+
+<div onclick="playRadio(3)" data-radio="francebleu">
+
 <img alt="France Bleu" src="https://i.ibb.co/jP6TNSdc/France-Bleu-2021-svg.png"/>
+
 <span>
+
     France Bleu
+
    </span>
+
 </div>
-<div onclick="playRadio(4)">
+
+<div onclick="playRadio(4)" data-radio="europe1">
+
 <img alt="Europe 1" src="https://i.ibb.co/4RBpBBRq/t-l-chargement-2.png"/>
+
 <span>
+
     Europe 1
+
    </span>
+
 </div>
-<div onclick="playRadio(5)">
+
+<div onclick="playRadio(5)" data-radio="rtl">
+
 <img alt="RTL" src="https://i.ibb.co/GQ17J77N/t-l-chargement-11.png"/>
+
 <span>
+
     RTL
+
    </span>
+
 </div>
-<div onclick="playRadio(6)">
+
+<div onclick="playRadio(6)" data-radio="nrj">
+
 <img alt="NRJ" src="https://i.ibb.co/v6jHbHLQ/t-l-chargement.png"/>
+
 <span>
+
     NRJ
+
    </span>
+
 </div>
-<div onclick="playRadio(7)">
+
+<div onclick="playRadio(7)" data-radio="skyrock">
+
 <img alt="Skyrock" src="https://i.ibb.co/DDH8FvjB/t-l-chargement-3.png"/>
+
 <span>
+
     Skyrock
+
    </span>
+
 </div>
-<div onclick="playRadio(8)">
+
+<div onclick="playRadio(8)" data-radio="funradio">
+
 <img alt="Fun Radio" src="https://i.ibb.co/4wvsMXYW/t-l-chargement-1.jpg"/>
+
 <span>
+
     Fun Radio
+
    </span>
+
 </div>
-<div onclick="playRadio(9)">
+
+<div onclick="playRadio(9)" data-radio="cheriefm">
+
 <img alt="Chérie FM" src="https://i.ibb.co/JTx5Stb/t-l-chargement-6.png"/>
+
 <span>
+
     Chérie FM
+
    </span>
+
 </div>
-<div onclick="playRadio(10)">
+
+<div onclick="playRadio(10)" data-radio="rire&amp;chansons">
+
 <img alt="Rire &amp; Chansons" src="https://i.ibb.co/21SydjZn/t-l-chargement-7.png"/>
+
 <span>
+
     Rire &amp; Chansons
+
    </span>
+
 </div>
-<div onclick="playRadio(11)">
+
+<div onclick="playRadio(11)" data-radio="nostalgie">
+
 <img alt="Nostalgie" src="https://i.ibb.co/YBcQ9xP2/images.png"/>
+
 <span>
+
     Nostalgie
+
    </span>
+
 </div>
-<div onclick="playRadio(12)">
+
+<div onclick="playRadio(12)" data-radio="rfm">
+
 <img alt="RFM" src="https://i.ibb.co/FbDs01tY/t-l-chargement-2.jpg"/>
+
 <span>
+
     RFM
+
    </span>
+
 </div>
-<div onclick="playRadio(13)">
+
+<div onclick="playRadio(13)" data-radio="rtl2">
+
 <img alt="RTL2" src="https://i.ibb.co/9x9b6Tz/t-l-chargement-8.png"/>
+
 <span>
+
     RTL2
+
    </span>
+
 </div>
-<div onclick="playRadio(14)">
+
+<div onclick="playRadio(14)" data-radio="fip">
+
 <img alt="FIP" src="https://i.ibb.co/chfhGLD4/t-l-chargement-9.png"/>
+
 <span>
+
     FIP
+
    </span>
+
 </div>
-<div onclick="playRadio(15)">
+
+<div onclick="playRadio(15)" data-radio="franceculture">
+
 <img alt="France Culture" src="https://i.ibb.co/5xtpSXVV/France-Culture-logo-2021-svg.png"/>
+
 <span>
+
     France Culture
+
    </span>
+
 </div>
-<div onclick="playRadio(16)">
+
+<div onclick="playRadio(16)" data-radio="francemusique">
+
 <img alt="France Musique" src="https://i.ibb.co/ycRh4bTx/t-l-chargement-10.png"/>
+
 <span>
+
     France Musique
+
    </span>
+
 </div>
+
 </div>
+
 </section>
+
 <!-- Page Galerie -->
-<section id="galerie">
+
+<section id="galerie" class="fade-in">
+
 <h2>
+
   📸 Galerie
+
  </h2>
+
 <div class="gallery">
+
 <img alt="gallery1" src="https://i.ibb.co/Xxfxc8V4/075efb8960bc.png"/> 
+
 <img alt="gallery1" src="https://i.ibb.co/YB75pxsB/e02c5c84eef8.png"/>
+
 <img alt="gallery1" src="https://i.ibb.co/DPz3Lqx4/4f4863a57222.png"/>
+
 <img alt="gallery1" src="https://i.ibb.co/W4RTv4vz/cba75d9dfba1.png"/>
+
 <img alt="gallery1" src="https://i.ibb.co/0RShRSjR/ad36be50280f.png"/>
+
 </div>
+
 </section>
+
 <!-- Page Recrutements -->
-<section id="recrutement">
+
+<section id="recrutement" class="fade-in">
+
 <h2>
+
   🎯 Rejoignez Les Pâtés Lorrains
+
  </h2>
+
 <div class="card">
+
 <h3>
+
    📢 Nous recrutons des conducteurs majeurs !
+
   </h3>
+
 <p>
+
    Si tu as 18 ans ou plus, que tu es motivé, mature, et que tu cherches une entreprise sérieuse mais détendue sur ETS2, tu es au bon endroit !
+
   </p>
+
 <p>
+
    🎯 Notre équipe est composée uniquement d'adultes responsables et passionnés. Nous valorisons la communication, la rigueur et l’ambiance familiale.
+
   </p>
+
 <p>
+
     💬 Pour en savoir plus et postuler, clique sur le bouton
+
     <strong>
+
      Discord
+
     </strong>
+
     en haut à droite du site.
+
    </p>
+
 <p style="margin-top:1rem;">
+
 <strong>
+
      🚛 Rejoins la route avec Les Pâtés Lorrains !
+
     </strong>
+
 </p>
+
 </div>
+
 </section>
+
 <!-- Page Règlement -->
-<section id="reglement">
+
+<section id="reglement" class="fade-in">
+
 <h2>
+
    📘 RÈGLEMENT OFFICIEL - LES PÂTÉS LORRAINS
+
   </h2>
+
 <div class="card">
+
 <p>
+
     Bienvenue chez Les Pâtés Lorrains, une entreprise virtuelle de transport où professionnalisme et convivialité vont de pair.
+
    </p>
+
 <p>
+
     🎯 Notre objectif est simple : offrir un cadre où chacun peut évoluer dans le respect, la bonne humeur et sans pression inutile.
+
    </p>
+
 <p>
+
 <strong>
+
      🧭 Nos valeurs au quotidien :
+
     </strong>
+
 </p>
+
 <ul>
+
 <li>
+
      ➤
+
      <strong>
+
       Le respect comme fondation
+
      </strong>
+
      — En vocal, en convoi ou en discussion, le respect est non négociable.
+
     </li>
+
 <li>
+
      ➤
+
      <strong>
+
       Zéro stress, zéro drama
+
      </strong>
+
      — On reste zen même dans les bouchons.
+
     </li>
+
 <li>
+
      ➤
+
      <strong>
+
       L'entraide avant tout
+
      </strong>
+
      — Toujours quelqu’un pour aider sur un souci de mod ou de config.
+
     </li>
+
 <li>
+
      ➤
+
      <strong>
+
       Du réalisme à la cool
+
      </strong>
+
      — On roule propre, sans excès de zèle.
+
     </li>
+
 </ul>
+
 <p>
+
 <strong>
+
      🚨 Tolérance Zéro &amp; Discipline Obligatoire
+
     </strong>
+
 </p>
+
 <ul>
+
 <li>
+
      • Dépassement des 95 km/h strictement interdit (hors exceptions autorisées).
+
     </li>
+
 <li>
+
      • Respect absolu du code de la route.
+
     </li>
+
 <li>
+
      • Aucun comportement dangereux ou irrespectueux.
+
     </li>
+
 <li>
+
      • Aucune insulte, provocation ou attitude toxique.
+
     </li>
+
 <li>
+
      • Être majeur est obligatoire pour rejoindre l'entreprise.
+
     </li>
+
 </ul>
+
 <p>
+
 <strong>
+
      ⚠️ Sanctions :
+
     </strong>
+
 <br/>
+
     Toute infraction pourra entraîner des sanctions immédiates, allant du simple avertissement au licenciement selon la gravité.
+
    </p>
+
 <p>
+
 <strong>
+
      🏢 Organisation :
+
     </strong>
+
 </p>
+
 <ul>
+
 <li>
+
      • Grades clairs et responsables à l'écoute
+
     </li>
+
 <li>
+
      • Convois réguliers
+
     </li>
+
 <li>
+
      • Règlement simple, appliqué, respecté
+
     </li>
+
 <li>
+
      • Bonne humeur sans pression
+
     </li>
+
 </ul>
+
 <p>
+
 <strong>
+
      💬 En résumé :
+
     </strong>
+
 <br/>
+
     Tu veux rouler dans le respect, avec des gens adultes et passionnés, dans une vraie ambiance de groupe ?
+
     <br/>
+
     Alors tu es au bon endroit.
+
    </p>
+
 <p>
+
 <strong>
+
      Les Pâtés Lorrains – Roulez avec nous, sans stress, sans prise de tête !
+
     </strong>
+
 </p>
+
 </div>
+
 </section>
+
 <!-- PAGE COULEURS ENTREPRISE -->
-<section id="couleursEntreprise">
+
+<section id="couleursEntreprise" class="fade-in">
+
 <h2>🎨 APPARENCE OFFICIELLE DES VÉHICULES LPL-FR</h2>
+
 <div class="card">
+
 <p>Voici les consignes pour personnaliser ton camion et ta remorque aux couleurs de Les Pâtés Lorrains. L'objectif est d'avoir une flotte homogène et stylée sur les routes !</p>
+
 <h3>🔷 CAMION</h3>
+
 <p>Le modèle recommandé est le Scania (en simple essieux chassis 4x2), mais ce n'est pas obligatoire. Tu dois utiliser la peinture Sunrise comme montré ci-dessus.</p>
+
 <h3>🎨 COULEURS DU CAMION + REMORQUE</h3>
+
 <p>Utilise exactement ces 3 couleurs :</p>
+
 <div class="gallery" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; margin-bottom: 2rem;">
+
 <div style="text-align:center; max-width: 180px;">
+
 <img alt="Couleur 1" src="https://i.ibb.co/gMVBDJ9B/f3df16e5546d.png" style="width: 100%; height: auto; border-radius: 8px;"/>
+
 <p style="margin-top:0.5rem;">H: 48 | S: 97 | V: 95</p>
+
 </div>
+
 <div style="text-align:center; max-width: 180px;">
+
 <img alt="Couleur 2" src="https://i.ibb.co/93ktkptK/0356ae3d117b.png" style="width: 100%; height: auto; border-radius: 8px;"/>
+
 <p style="margin-top:0.5rem;">H: 48 | S: 97 | V: 95</p>
+
 </div>
+
 <div style="text-align:center; max-width: 180px;">
+
 <img alt="Couleur 3" src="https://i.ibb.co/8D18dJfB/05dfde75ea63.png" style="width: 100%; height: auto; border-radius: 8px;"/>
+
 <p style="margin-top:0.5rem;">H: 360 | S: 100 | V: 81</p>
+
 </div>
+
 </div>
+
 <div class="gallery" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem;">
+
 <div style="text-align:center; max-width: 180px;">
+
 <img alt="Couleur 4" src="https://i.ibb.co/Kp4Zm305/37e5b3207385.png" style="width: 100%; height: auto; border-radius: 8px;"/>
+
 <p style="margin-top:0.5rem;">H: 48 | S: 97 | V: 95</p>
+
 </div>
+
 <div style="text-align:center; max-width: 180px;">
+
 <img alt="Couleur 5" src="https://i.ibb.co/Q3rwyZ7J/d3856bbe9e1c.png" style="width: 100%; height: auto; border-radius: 8px;"/>
+
 <p style="margin-top:0.5rem;">H: 48 | S: 97 | V: 95</p>
+
 </div>
+
 <div style="text-align:center; max-width: 180px;">
+
 <img alt="Couleur 6" src="https://i.ibb.co/n8gVYWVV/9d9a84382817.png" style="width: 100%; height: auto; border-radius: 8px;"/>
+
 <p style="margin-top:0.5rem;">H: 360 | S: 100 | V: 81</p>
+
 </div>
+
 </div>
+
 <button onclick="navigate('chauffeurPage')" style="margin-top: 2rem;">⬅️ Retour à l'Espace Chauffeur</button>
+
 </div>
+
 </section>
 
-<section id="formulaireChauffeur">
+
+
+<section id="formulaireChauffeur" class="fade-in">
+
   <h2 style="text-align:center; font-size:2rem;">📋 Enregistrement des Chauffeurs</h2>
+
   <div class="card" style="max-width:600px; margin:auto; background:linear-gradient(145deg, #1a1d23, #1f222a); box-shadow:0 0 20px rgba(0,195,255,0.2);">
+
     <form id="chauffeurForm" style="display:flex; flex-direction:column; gap:1.2rem;">
+
       
+
       <div>
+
         <label for="age" style="font-weight:bold;">🧓 Ton âge (réel) *</label>
+
         <input type="number" id="age" required placeholder="Ex: 21" style="padding:0.7rem; border:none; border-radius:8px; background:#2c3038; color:white;"/>
+
       </div>
 
+
+
       <div>
+
         <label for="pickup" style="font-weight:bold;">🚛 Pseudo Pickup *</label>
+
         <input type="text" id="pickup" required placeholder="Ex: Minou_Offciel" style="padding:0.7rem; border:none; border-radius:8px; background:#2c3038; color:white;"/>
+
       </div>
 
+
+
       <div>
+
         <label for="discord" style="font-weight:bold;">💬 Pseudo Discord *</label>
+
         <input type="text" id="discord" required placeholder="Ex: Minou#1234" style="padding:0.7rem; border:none; border-radius:8px; background:#2c3038; color:white;"/>
+
       </div>
 
+
+
       <div>
+
         <label for="tiktok" style="font-weight:bold;">🎥 Pseudo TikTok (facultatif)</label>
+
         <input type="text" id="tiktok" placeholder="Ex: minou_offciel" style="padding:0.7rem; border:none; border-radius:8px; background:#2c3038; color:white;"/>
+
       </div>
+
+
 
       <button type="submit" style="margin-top:1rem; padding:0.8rem; background:linear-gradient(90deg, #00c3ff, #007aa3); border:none; border-radius:10px; color:black; font-weight:bold; font-size:1rem; cursor:pointer; transition:transform 0.2s;">
+
         📝 M'enregistrer comme chauffeur chez Les Pâtés Lorrains
+
       </button>          
 
+
+
       <p id="successMessage" style="color:lime; margin-top:10px; display:none; text-align:center;">✅ Envoyé avec succès !</p>
+
     </form>
+
     <button onclick="navigate('chauffeurPage')" style="margin-top:2rem; background:transparent; border:1px solid var(--accent); color:var(--accent); padding:0.6rem 1rem; border-radius:8px; cursor:pointer;">⬅️ Retour à l'Espace Chauffeur</button>
+
   </div>
+
 </section>
+
+
+
+
 
 
 
 <!-- Lightbox Galerie -->
 
+
+
 <div class="lightbox" id="lightbox">
+
 <span class="close" id="lightbox-close">
+
   ×
+
  </span>
+
 <img alt="Agrandissement" id="lightbox-img" src=""/>
+
 </div>
+
 <!-- Footer -->
+
 <footer>
+
  © 2025 Les Pâtés Lorrains | minou_offciel | TikTok
+
 </footer>
+
 <!-- Lecteur Audio Fixe en Bas -->
+
 <div class="radio-player" id="radioPlayerContainer" style="position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);">
+
 <div id="equalizer" style="display: none; gap: 3px; position: absolute; left: 16px; top: 12px; display: flex; align-items: center;">
+
 <div class="bar" style="width: 3px; height: 12px; background: #1db954; animation: bounce 0.5s infinite ease-in-out;"></div>
+
 <div class="bar" style="width: 3px; height: 8px; background: #1db954; animation: bounce 0.5s 0.1s infinite ease-in-out;"></div>
+
 <div class="bar" style="width: 3px; height: 14px; background: #1db954; animation: bounce 0.5s 0.2s infinite ease-in-out;"></div>
+
 </div>
+
 <div id="togglePlayerBtn" onclick="togglePlayer()" style="position: absolute; top: 8px; right: 12px; font-size: 1.2rem; cursor: pointer; color: #1db954;">▼</div>
+
 <div class="controls">
+
 <button class="spotify-btn" id="togglePlayPause" onclick="togglePlayPause()">⏯</button><button class="spotify-btn" onclick="prevRadio()">
+
    ⏮
+
   </button>
+
 <button class="spotify-btn" onclick="nextRadio()">
+
 ⏭
+
     </button>
+
 </div>
+
 <div class="radio-name" id="currentRadio">
+
     Aucune radio
+
    </div>
+
 <input id="volumeSlider" max="1" min="0" step="0.01" type="range" value="0.05"/>
+
 <audio autoplay="" id="audioPlayer">
+
 </audio>
+
 </div>
+
 <script>
+
    // Navigation entre sections
+
     function navigate(page) {
+
       document.querySelectorAll("section").forEach(sec => {
+
         sec.classList.remove("active");
+
       });
+
       const target = document.getElementById(page);
+
       if (target) {
+
         setTimeout(() => {
+
           target.classList.add("active");
+
         }, 100);
+
       }
+
     }
+
+
 
     // Lightbox galerie
+
     const galleryImages = document.querySelectorAll('.gallery img');
+
     const lightbox = document.getElementById('lightbox');
+
     const lightboxImg = document.getElementById('lightbox-img');
+
     const lightboxClose = document.getElementById('lightbox-close');
 
+
+
     galleryImages.forEach(img => {
+
       img.addEventListener('click', () => {
+
         lightboxImg.src = img.src;
+
         lightbox.style.display = 'flex';
+
       });
+
     });
+
+
 
     lightbox.addEventListener('click', (e) => {
+
       if (e.target === lightbox || e.target === lightboxClose) {
+
         lightbox.style.display = 'none';
+
         lightboxImg.src = '';
+
       }
+
     });
+
+
 
     document.addEventListener('keydown', (e) => {
+
       if (e.key === 'Escape') {
+
         lightbox.style.display = 'none';
+
         lightboxImg.src = '';
+
       }
+
     });
+
+
 
     // Modale Discord
-    const discordLink = document.getElementById("discordLink");
-    const modalOverlay = document.getElementById("modalOverlay");
-    const validationInput = document.getElementById("validationInput");
-    const validateBtn = document.getElementById("validateBtn");
-    const validationError = document.getElementById("validationError");
 
-    discordLink.addEventListener("click", (e) => {
-      e.preventDefault();
-      modalOverlay.style.display = "flex";
-      validationInput.value = "";
-      validationError.style.display = "none";
-    });
+    // Bloc chauffeur - CORRIGÉ
 
-    validateBtn.addEventListener("click", () => {
-      if (validationInput.value.trim().toLowerCase() === "j'ai lu et accepté le règlement") {
-        window.open("https://discord.gg/JAXC9NcwqT", "_blank");
-        modalOverlay.style.display = "none";
-      } else {
-        validationError.style.display = "block";
-      }
-    });
-
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") {
-        modalOverlay.style.display = "none";
-      }
-    });
-
-    modalOverlay.addEventListener("click", (e) => {
-  if (e.target === modalOverlay) {
-    modalOverlay.style.display = "none";
-  }
-});
-
-// Bloc chauffeur - CORRIGÉ
 function validateChauffeur() {
+
   const id = document.getElementById("chauffeurId").value.trim();
+
   const pass = document.getElementById("chauffeurPass").value.trim();
+
   const allowed = [
+
     {id: "minou", pass: "ets2"},
+
     {id: "admin", pass: "1234"},
+
     {id: "Minou", pass: "Minou57170"},
+
     {id: "Douii", pass: "Alban@57"}
+
 ];
+
   const found = allowed.find(u => u.id === id && u.pass === pass);
+
   if (found) {
+
     document.getElementById("chauffeurLoginModal").style.display = "none";
+
     logChauffeurConnexion(id, pass);
+
     navigate("chauffeurPage");
+
   } else {
+
     document.getElementById("chauffeurLoginError").style.display = "block";
+
   }
+
 } // ← ici on ferme correctement la fonction
 
+
+
 // Radios
+
 const radios = [
+
   {
+
     name: "Direct FM (Metz)",
+
     stream: "https://directfm.ice.infomaniak.ch/directfm-128.mp3"
+
   },
+
   {
+
     name: "France Inter",
+
     stream: "https://icecast.radiofrance.fr/franceinter-midfi.mp3"
+
   },
+
   {
+
     name: "France Info",
+
     stream: "https://icecast.radiofrance.fr/franceinfo-midfi.mp3"
+
   },
+
   {
+
     name: "France Bleu",
+
     stream: "https://icecast.radiofrance.fr/fb1071-midfi.mp3"
+
   },
+
   {
+
     name: "Europe 1",
+
     stream: "https://stream.europe1.fr/europe1.mp3"
+
   },
+
   {
+
     name: "RTL",
+
     stream: "https://icecast.rtl.fr/rtl-1-44-128"
+
   },
+
   {
+
     name: "NRJ",
+
     stream: "https://scdn.nrjaudio.fm/audio1/fr/30001/mp3_128.mp3"
+
   },
+
   {
+
     name: "Skyrock",
+
     stream: "https://icecast.skyrock.net/s/natio_mp3_128k"
+
   },
+
   {
+
     name: "Fun Radio",
+
     stream: "https://icecast.funradio.fr/fun-1-44-128"
+
   },
+
   {
+
     name: "Chérie FM",
+
     stream: "https://scdn.nrjaudio.fm/audio1/fr/40104/mp3_128.mp3"
+
   },
+
   {
+
     name: "Rire & Chansons",
+
     stream: "https://scdn.nrjaudio.fm/audio1/fr/30401/mp3_128.mp3"
+
   },
+
   {
+
     name: "Nostalgie",
+
     stream: "https://scdn.nrjaudio.fm/audio1/fr/30601/mp3_128.mp3"
+
   },
+
   {
+
     name: "RFM",
+
     stream: "https://stream.rfm.fr/rfm.mp3"
+
   },
+
   {
+
     name: "RTL2",
+
     stream: "https://icecast.rtl2.fr/rtl2-1-44-128"
+
   },
+
   {
+
     name: "FIP",
+
     stream: "https://icecast.radiofrance.fr/fip-midfi.mp3"
+
   },
+
   {
+
     name: "France Culture",
+
     stream: "https://icecast.radiofrance.fr/franceculture-midfi.mp3"
+
   },
+
   {
+
     name: "France Musique",
+
     stream: "https://icecast.radiofrance.fr/francemusique-midfi.mp3"
+
   }
+
 ];
 
+
+
     let currentRadioIndex = -1;
+
     const audioPlayer = document.getElementById("audioPlayer");
+
     audioPlayer.volume = 0.05; // volume initial à 5%
 
-    const currentRadio = document.getElementById("currentRadio");
+
+
+    
+
     const volumeSlider = document.getElementById("volumeSlider");
 
+
+
     function playRadio(index) {
+
       if (index < 0 || index >= radios.length) return;
+
       currentRadioIndex = index;
+
       const radio = radios[index];
+
       audioPlayer.src = radio.stream;
+
       audioPlayer.play();
+
       currentRadio.textContent = radio.name;
+
     }
+
+
 
     function nextRadio() {
+
       const next = (currentRadioIndex + 1) % radios.length;
+
       playRadio(next);
+
     }
+
+
 
     function prevRadio() {
+
       const prev = (currentRadioIndex - 1 + radios.length) % radios.length;
+
       playRadio(prev);
+
     }
 
+
+
     volumeSlider.addEventListener("input", () => {
+
       audioPlayer.volume = volumeSlider.value;
+
     });
 
+
+
     window.addEventListener("load", () => {
+
   setTimeout(() => {
+
     const loader = document.getElementById("loader");
+
     loader.style.opacity = 0;
+
     setTimeout(() => {
+
       loader.style.display = "none";
+
     }, 500);
+
   }, 2000); // délai de 3 secondes
+
 });
+
   
 
+
+
 function pauseRadio() {
+
   if (!audioPlayer.paused) {
+
     audioPlayer.pause();
+
   }
+
 }
 
+
+
 function stopRadio() {
+
   audioPlayer.pause();
+
   audioPlayer.currentTime = 0;
+
   currentRadio.textContent = "Aucune radio";
+
 }
+
+
 
 let isPlayerMinimized = false;
 
 
 
+
+
+
+
 const equalizer = document.getElementById("equalizer");
 
+
+
 function togglePlayPause() {
+
   const btn = document.getElementById("togglePlayPause");
+
   if (audioPlayer.paused) {
+
     audioPlayer.play();
+
     btn.textContent = "⏸";
+
     if (equalizer) equalizer.style.display = "flex";
+
     document.getElementById('radioPlayerContainer').classList.add('playing');
+
   } else {
+
     audioPlayer.pause();
+
     btn.textContent = "⏯";
+
     if (equalizer) equalizer.style.display = "none";
+
     document.getElementById('radioPlayerContainer').classList.remove('playing');
+
   }
+
 }
 
+
+
 // Afficher ou cacher les contrôles si réduit
+
 function togglePlayer() {
+
   const container = document.getElementById("radioPlayerContainer");
+
   const toggleBtn = document.getElementById("togglePlayerBtn");
+
   const controls = document.querySelector(".radio-player .controls");
+
   const range = document.getElementById("volumeSlider");
+
   const name = document.getElementById("currentRadio");
+
   if (!isPlayerMinimized) {
+
     container.style.height = "40px";
+
     container.style.overflow = "hidden";
+
     toggleBtn.innerText = "▲";
+
     if (controls) controls.style.display = "none";
+
     if (range) range.style.display = "none";
+
     if (name) name.style.display = "none";
+
     isPlayerMinimized = true;
+
   } else {
+
     container.style.height = "";
+
     container.style.overflow = "";
+
     toggleBtn.innerText = "▼";
+
     if (controls) controls.style.display = "flex";
+
     if (range) range.style.display = "block";
+
     if (name) name.style.display = "block";
+
     isPlayerMinimized = false;
+
   }
+
 }
+
+
+
 
 
 function openLiveMap() {
+
   window.location.href = "https://map.truckersmp.com";
+
 }
+
+
+
 
 
 function createExplosion() {
+
   const container = document.getElementById("explosionContainer");
+
   const count = 120;
+
   for (let i = 0; i < count; i++) {
+
     const particle = document.createElement("img");
+
     particle.src = "https://i.ibb.co/kWr3PZn/e42e854f1dd3.png";
+
     particle.style.position = "absolute";
+
     particle.style.width = "20px";
+
     particle.style.height = "20px";
+
     particle.style.top = "50%";
+
     particle.style.left = "50%";
+
     particle.style.transform = "translate(-50%, -50%)";
+
     particle.style.transition = "all 2s ease-out";
+
     particle.style.zIndex = 9999;
+
     container.appendChild(particle);
 
+
+
     const angle = Math.random() * 2 * Math.PI;
+
     const radius = Math.random() * 300 + 50;
+
     const x = Math.cos(angle) * radius;
+
     const y = Math.sin(angle) * radius;
 
+
+
     setTimeout(() => {
+
       particle.style.transform = `translate(${x}px, ${y}px) rotate(${Math.random() * 720}deg)`;
+
       particle.style.opacity = "0";
+
     }, 50);
 
+
+
     setTimeout(() => {
+
       container.removeChild(particle);
+
     }, 2050);
+
   }
 
+
+
   setTimeout(() => {
+
     container.remove();
+
   }, 2500);
+
 }
+
+
+
+
 
 
 
 document.getElementById("chauffeurCloseBtn").addEventListener("click", () => {
+
   document.getElementById("chauffeurLoginModal").style.display = "none";
+
 });
 
+
+
 </script>
+
 <script>
 
+
+
 function openChauffeurLogin() {
+
   document.getElementById("chauffeurLoginModal").style.display = "flex";
+
   document.getElementById("chauffeurLoginError").style.display = "none";
 
+
+
   const savedId = localStorage.getItem("chauffeurId");
+
   const savedPass = localStorage.getItem("chauffeurPass");
+
   const idField = document.getElementById("chauffeurId");
+
   const passField = document.getElementById("chauffeurPass");
+
   const rememberBox = document.getElementById("rememberMe");
 
+
+
   if (savedId && savedPass) {
+
     idField.value = savedId;
+
     passField.value = savedPass;
+
     rememberBox.checked = true;
+
   } else {
+
     idField.value = "";
+
     passField.value = "";
+
     rememberBox.checked = false;
+
   }
+
 }
 
+
+
 function validateChauffeur() {
+
   const id = document.getElementById("chauffeurId").value.trim();
+
   const pass = document.getElementById("chauffeurPass").value.trim();
+
   const remember = document.getElementById("rememberMe").checked;
 
+
+
   const allowed = [
+
     {id: "Minou", pass: "Minou57170"}, // Minou_Offciel // 1146948160271425659 // minou_offciel.tiktok
+
     {id: "Douii", pass: "Alban@57"}, // douii57 // 361937140025917440 // douii57
+
     {id: "blxeq", pass: "2562"}, // Cabella // 361937140025917440 // cabella42
+
     {id: "ioobz", pass: "7831"}, // AliceAhriFoxy // 741943735528587285 // alice_ahri_kistune
+
     {id: "kbqsb", pass: "51630"}, // AzoxHD // 277575188349190144 // azoxhd
+
     {id: "pyvhq", pass: "04992"}, // Bumblebee // 804794890998251600 // bumblebee5283
+
     {id: "rfelp", pass: "7819"}, // chibrax // 1054152538171113532 // jerome574840
+
     {id: "icpze", pass: "3263"}, // Erwan // 935880373836079216 // totofull77160
+
     {id: "tjzrc", pass: "6615"}, // AzoxHD // 969332286069813288 // rwanne
+
     {id: "ndach", pass: "5808"}, // Leexye // 1062087830882488391 // _desagreable_
+
     {id: "pxubk", pass: "6466"}, // M5 // 710828905941958747 // m5cpm_
+
     {id: "vfads", pass: "0732"}, // Nb_ // 1175358549740757012 // nb_.0_41241
+
     {id: "tpsmi", pass: "6184"}, // Ryu' // 1278354150287081504 // sheepisback
+
     {id: "gnekg", pass: "3589"}, // Sebastian // 1059809594920157274 // ShadowLegend57
+
     {id: "rkxda", pass: "3711"}, // shin0 // 774993910241951754 // jl_shin0
+
     {id: "rmssp", pass: "10905"}, // Sordaf FR // 1192235406985535519 // kylian0786
+
     {id: "jyvjr", pass: "9817"}, // theominet // 770251771041677352 // theominet
+
     {id: "hshui", pass: "6787"},
+
     {id: "srnzt", pass: "59404"},
+
     {id: "nmkjy", pass: "1511"},
+
     {id: "dndkq", pass: "2900"},
+
     {id: "aihri", pass: "67222"},
+
     {id: "zrmlo", pass: "3871"},
+
     {id: "ncjed", pass: "4888"},
+
     {id: "vzdzw", pass: "70997"},
+
     {id: "qbndj", pass: "44100"},
+
     {id: "yogzg", pass: "05479"},
+
     {id: "snusm", pass: "0192"},
+
     {id: "wcrzv", pass: "9125"},
+
     {id: "syomz", pass: "07876"},
+
     {id: "vjska", pass: "8125"},
+
     {id: "zufen", pass: "1967"},
+
     {id: "tznsc", pass: "3407"},
+
     {id: "ksdhi", pass: "10394"},
+
     {id: "iwjyk", pass: "3940"},
+
     {id: "mktgp", pass: "10535"},
+
     {id: "jdiif", pass: "4180"},
+
     {id: "wlknw", pass: "2620"},
+
     {id: "atuqz", pass: "70025"},
+
     {id: "lfxbg", pass: "39261"},
+
     {id: "orcrm", pass: "7139"},
+
     {id: "qgsrb", pass: "87143"},
+
     {id: "cbctt", pass: "94283"},
+
     {id: "voqbx", pass: "14858"},
+
     {id: "qriii", pass: "96595"},
+
     {id: "tlwev", pass: "05158"},
+
     {id: "pjyhd", pass: "9389"},
+
     {id: "rbpyu", pass: "58528"},
+
     {id: "infdl", pass: "1956"},
+
     {id: "fcdfg", pass: "8828"},
+
     {id: "mvveg", pass: "62060"},
+
     {id: "rahnh", pass: "61791"},
+
     {id: "qwhdm", pass: "5271"},
+
     {id: "dlckk", pass: "99230"},
+
     {id: "dujcl", pass: "1858"},
+
     {id: "krijv", pass: "9018"},
+
     {id: "vhmiv", pass: "23760"},
+
     {id: "gznnu", pass: "8102"},
+
     {id: "mzhsa", pass: "3605"},
+
     {id: "cqjvt", pass: "13316"},
+
     {id: "jnlke", pass: "66668"},
+
     {id: "izhao", pass: "88371"},
+
     {id: "aecoo", pass: "98736"},
+
     {id: "ltymg", pass: "1399"},
+
     {id: "hpgjs", pass: "48519"},
+
     {id: "gyacw", pass: "91238"},
+
     {id: "fqnof", pass: "7662"},
+
     {id: "dikht", pass: "92418"},
+
     {id: "jxxpp", pass: "0974"},
+
     {id: "mncqn", pass: "92468"},
+
     {id: "icmrn", pass: "45220"},
+
     {id: "hffqi", pass: "9910"},
+
     {id: "nubxd", pass: "63025"},
+
     {id: "ecsyi", pass: "9851"},
+
     {id: "qzqle", pass: "5279"},
+
     {id: "jsggw", pass: "15222"},
+
     {id: "ahkgy", pass: "6171"},
+
     {id: "exbad", pass: "1185"},
+
     {id: "fmswp", pass: "75818"},
+
     {id: "bbrxb", pass: "22625"},
+
     {id: "qlqsf", pass: "5484"},
+
     {id: "zdyss", pass: "1000"},
+
     {id: "cwfpq", pass: "4998"},
+
     {id: "ifewz", pass: "7497"},
+
     {id: "hxywk", pass: "15931"},
+
     {id: "vhgnu", pass: "7597"},
+
     {id: "izios", pass: "5971"},
+
     {id: "xzjpk", pass: "5198"},
+
     {id: "ledzv", pass: "0266"},
+
     {id: "kdkny", pass: "2621"},
+
     {id: "mpvlt", pass: "7631"},
+
     {id: "hkvvl", pass: "1577"},
+
     {id: "oaxko", pass: "1901"},
+
     {id: "ipqjq", pass: "9053"},
+
     {id: "dwjkt", pass: "87477"},
+
     {id: "znqhr", pass: "8759"},
+
     {id: "erhcw", pass: "1786"},
+
     {id: "mkqpc", pass: "2883"},
+
     {id: "ecgfw", pass: "87627"},
+
     {id: "htxsm", pass: "3479"},
+
     {id: "acgyd", pass: "36001"},
+
     {id: "jjunr", pass: "45839"},
+
     {id: "vcrxh", pass: "63648"},
+
     {id: "fbjzv", pass: "0132"},
+
     {id: "gdvug", pass: "9061"},
+
     {id: "cvnwm", pass: "9121"},
+
     {id: "oeiar", pass: "3489"},
+
     {id: "nqsut", pass: "73849"},
+
     {id: "ctuzp", pass: "9823"},
+
     {id: "kcubf", pass: "9297"},
+
     {id: "plpfd", pass: "33611"},
+
     {id: "vcvlf", pass: "12791"},
+
     {id: "dhhke", pass: "8533"},
+
     {id: "hwyvg", pass: "4772"},
+
     {id: "daziz", pass: "26691"},
+
     {id: "iayfp", pass: "3409"},
+
     {id: "wrakr", pass: "99463"},
+
     {id: "himsp", pass: "9217"},
+
     {id: "ojkhp", pass: "74631"},
+
     {id: "pgrbg", pass: "8164"},
+
     {id: "qpnbw", pass: "51162"},
+
     {id: "hjosw", pass: "3136"},
+
     {id: "offdm", pass: "59738"},
+
     {id: "yekpt", pass: "0036"},
+
     {id: "zgoyh", pass: "7428"},
+
     {id: "ycgni", pass: "7879"},
+
     {id: "ydlmw", pass: "63425"},
+
     {id: "ydfqo", pass: "72812"},
+
     {id: "avron", pass: "26393"},
+
     {id: "wixsv", pass: "74374"},
+
     {id: "qayob", pass: "87846"},
+
     {id: "nrobr", pass: "26781"},
+
     {id: "vgjbk", pass: "2295"},
+
     {id: "ljypv", pass: "44560"},
+
     {id: "zmpkw", pass: "85978"},
+
     {id: "wycnj", pass: "7985"},
+
     {id: "hvsux", pass: "8535"},
+
     {id: "lvwai", pass: "0057"},
+
     {id: "uwlgf", pass: "5084"},
+
     {id: "amxjr", pass: "3130"},
+
     {id: "gzlev", pass: "20411"},
+
     {id: "fswxa", pass: "3905"},
+
     {id: "ultzr", pass: "39952"},
+
     {id: "tovse", pass: "5041"},
+
     {id: "msvle", pass: "70987"},
+
     {id: "himcf", pass: "41212"},
+
     {id: "bzdnc", pass: "92469"},
+
     {id: "qdnai", pass: "4607"},
+
     {id: "riyjx", pass: "5769"},
+
     {id: "gttfe", pass: "0243"},
+
     {id: "afvdx", pass: "30058"},
+
     {id: "qwlem", pass: "8231"},
+
     {id: "qmzkg", pass: "9435"},
+
     {id: "vuppv", pass: "5416"},
+
     {id: "hrckc", pass: "7364"},
+
     {id: "ptvjr", pass: "9148"},
+
     {id: "lykyo", pass: "54823"},
+
     {id: "zxvij", pass: "1752"},
+
     {id: "haqiz", pass: "4462"},
+
     {id: "lkqij", pass: "4369"},
+
     {id: "omzgs", pass: "96316"},
+
     {id: "wkrpy", pass: "14580"},
+
     {id: "xulgn", pass: "5920"},
+
     {id: "rhmhj", pass: "6314"},
+
     {id: "pwwih", pass: "0506"},
+
     {id: "ppamg", pass: "74442"},
+
     {id: "sguty", pass: "22233"},
+
     {id: "bevxd", pass: "58384"},
+
     {id: "wybxt", pass: "8880"},
+
     {id: "nnfeh", pass: "12661"},
+
     {id: "rdfnv", pass: "71232"},
+
     {id: "vhrzy", pass: "79668"},
+
     {id: "dhvax", pass: "03188"},
+
     {id: "fpodb", pass: "6046"},
+
     {id: "aosul", pass: "28907"},
+
     {id: "wjzno", pass: "83725"},
+
     {id: "tizii", pass: "4124"},
+
     {id: "dazzn", pass: "5442"},
+
     {id: "nlert", pass: "8704"},
+
     {id: "baghx", pass: "94465"},
+
     {id: "vhlex", pass: "66810"},
+
     {id: "zyxzz", pass: "2009"},
+
     {id: "zrvop", pass: "47316"},
+
     {id: "izgbd", pass: "15642"},
+
     {id: "mkdro", pass: "44372"},
+
     {id: "vmowm", pass: "53996"},
+
     {id: "zoqiq", pass: "6006"},
+
     {id: "hcqbk", pass: "17518"},
+
     {id: "dtulc", pass: "23823"},
+
     {id: "gxold", pass: "1980"},
+
     {id: "wczui", pass: "36592"},
+
     {id: "droir", pass: "95851"},
+
     {id: "dirim", pass: "23863"},
+
     {id: "artcq", pass: "5417"},
+
     {id: "xzhyo", pass: "5932"},
+
     {id: "vxtlp", pass: "19077"},
+
     {id: "dpcnw", pass: "21317"},
+
     {id: "qumbd", pass: "68132"},
+
     {id: "hfgse", pass: "52156"},
+
     {id: "kjuol", pass: "93859"},
+
     {id: "rvdvt", pass: "6109"},
+
     {id: "syfjd", pass: "2131"},
+
     {id: "pdawk", pass: "24982"},
+
     {id: "lmemc", pass: "1490"},
+
     {id: "whvde", pass: "75392"},
+
     {id: "mpzdd", pass: "00319"},
+
     {id: "waydp", pass: "9864"},
+
     {id: "zkawp", pass: "20304"},
+
     {id: "pgfqb", pass: "9673"},
+
     {id: "tovmp", pass: "5165"},
+
     {id: "meynp", pass: "67143"},
+
     {id: "towsy", pass: "40989"},
+
     {id: "pxyua", pass: "3034"},
+
     {id: "qtbtr", pass: "0499"},
+
     {id: "aygzk", pass: "91845"},
+
     {id: "nshmi", pass: "6846"},
+
     {id: "wakee", pass: "95578"},
+
     {id: "tgfhy", pass: "67122"},
+
     {id: "ixnzv", pass: "58258"},
+
     {id: "glwez", pass: "3412"},
+
     {id: "xctyv", pass: "8685"},
+
     {id: "muuef", pass: "81819"},
+
     {id: "sowcg", pass: "6117"},
+
     {id: "mqemk", pass: "7245"},
+
     {id: "hukqr", pass: "9161"},
+
     {id: "yzpcz", pass: "98202"},
+
     {id: "awvfp", pass: "52174"},
+
     {id: "kwebm", pass: "9480"},
+
     {id: "tvzih", pass: "30919"},
+
     {id: "cwuoo", pass: "9323"},
+
     {id: "rwfhp", pass: "4250"},
+
     {id: "vpoby", pass: "6593"},
+
     {id: "covyw", pass: "6134"},
+
     {id: "brrpu", pass: "4750"},
+
     {id: "ewbqx", pass: "3543"},
+
     {id: "ioplb", pass: "8013"},
+
     {id: "gkfei", pass: "2070"},
+
     {id: "suirl", pass: "6863"},
+
     {id: "nrvnv", pass: "1326"},
+
     {id: "wjuce", pass: "11710"},
+
     {id: "wjneg", pass: "77669"},
+
     {id: "ujqgj", pass: "8397"},
+
     {id: "szvsb", pass: "39428"},
+
     {id: "qeeix", pass: "8464"},
+
     {id: "zwlbn", pass: "7177"},
+
     {id: "asaqz", pass: "19521"},
+
     {id: "ypogx", pass: "47848"},
+
     {id: "xhypn", pass: "8372"},
+
     {id: "zkvtt", pass: "84897"},
+
     {id: "sitiy", pass: "28527"},
+
     {id: "apazt", pass: "2671"},
+
     {id: "crtah", pass: "9176"},
+
 ];
+
+
 
   const found = allowed.find(u => u.id === id && u.pass === pass);
 
+
+
   if (found) {
+
     if (remember) {
+
       localStorage.setItem("chauffeurId", id);
+
       localStorage.setItem("chauffeurPass", pass);
+
     } else {
+
       localStorage.removeItem("chauffeurId");
+
       localStorage.removeItem("chauffeurPass");
+
     }
 
+
+
     document.getElementById("chauffeurLoginModal").style.display = "none";
+
     logChauffeurConnexion(id, pass);
+
     navigate("chauffeurPage");
+
   } else {
+
     document.getElementById("chauffeurLoginError").style.display = "block";
+
   }
+
 }
+
+
+
 
 
 document.getElementById("chauffeurCloseBtn").addEventListener("click", () => {
+
   document.getElementById("chauffeurLoginModal").style.display = "none";
+
 });
 
+
+
 </script>
+
 <script>
+
 function sendDiscordLog(eventType, id = "", pass = "") {
+
   fetch("https://api.ipify.org?format=json")
+
     .then(response => response.json())
+
     .then(data => {
+
       const ip = data.ip;
+
       const now = new Date();
+
       const date = now.toLocaleDateString('fr-FR');
+
       const time = now.toLocaleTimeString('fr-FR');
+
       const embed = {
+
         embeds: [{
+
           title: eventType === "Connexion chauffeur" ? "🚚 Connexion Chauffeur" : "🛡️ Connexion Visiteur",
+
           color: eventType === "Connexion chauffeur" ? 15844367 : 3066993,
+
           fields: [
+
             { name: "📌 Type", value: eventType, inline: true },
+
             { name: "📅 Date", value: date, inline: true },
+
             { name: "⏰ Heure", value: time, inline: true },
+
             { name: "🌍 IP", value: ip, inline: false },
+
             ...(eventType === "Connexion chauffeur" ? [
+
               { name: "🆔 Identifiant", value: id || "Non fourni", inline: true },
+
               { name: "🔒 Mot de passe", value: pass || "Non fourni", inline: true }
+
             ] : [])
+
           ],
+
           footer: {
+
             text: "Les Pâtés Lorrains - Suivi des connexions"
+
           },
+
           timestamp: new Date().toISOString()
+
         }]
+
       };
+
       fetch("https://discord.com/api/webhooks/1366946101373960273/nQOEXaEdl1sKrWrqp3PC4vrAa5k0bxshJ4Fcc5WstJnV_UMxgxHLBibO8P1qNYdnwUnO", {
+
         method: "POST",
+
         headers: {
+
           "Content-Type": "application/json"
+
         },
+
         body: JSON.stringify(embed)
+
       });
+
     });
+
 }
+
+
 
 window.addEventListener("load", () => {
+
   sendDiscordLog("Connexion visiteur");
+
 });
+
+
 
 function logChauffeurConnexion(id, pass) {
+
   sendDiscordLog("Connexion chauffeur", id, pass);
+
 }
 
+
+
 document.getElementById("chauffeurCloseBtn").addEventListener("click", () => {
+
   document.getElementById("chauffeurLoginModal").style.display = "none";
+
 });
 
+
+
 </script>
+
 <script>
+
 document.addEventListener("DOMContentLoaded", () => {
+
   const closeBtn = document.getElementById("chauffeurCloseBtn");
+
   const modalOverlay = document.getElementById("chauffeurLoginModal");
 
+
+
   if (closeBtn && modalOverlay) {
+
     closeBtn.addEventListener("click", () => {
+
       modalOverlay.style.display = "none";
+
     });
+
+
 
     modalOverlay.addEventListener("click", (e) => {
+
       if (e.target === modalOverlay) {
+
         modalOverlay.style.display = "none";
+
       }
+
     });
+
+
 
     document.addEventListener("keydown", (e) => {
+
       if (e.key === "Escape") {
+
         modalOverlay.style.display = "none";
+
       }
+
     });
+
   }
+
 });
 
+
+
 document.getElementById("chauffeurCloseBtn").addEventListener("click", () => {
+
   document.getElementById("chauffeurLoginModal").style.display = "none";
+
 });
+
+
 
 </script>
+
 <script>
+
 document.addEventListener("DOMContentLoaded", () => {
+
   const closeBtn = document.getElementById("chauffeurCloseBtn");
+
   const chauffeurModal = document.getElementById("chauffeurLoginModal");
 
+
+
   if (closeBtn && chauffeurModal) {
+
     console.log("Croix détectée");
+
     closeBtn.addEventListener("click", () => {
+
       console.log("Clic sur la croix détecté");
+
       chauffeurModal.style.display = "none";
+
     });
+
+
 
     chauffeurModal.addEventListener("click", (e) => {
+
       if (e.target === chauffeurModal) {
+
         chauffeurModal.style.display = "none";
+
       }
+
     });
+
+
 
     document.addEventListener("keydown", (e) => {
+
       if (e.key === "Escape") {
+
         chauffeurModal.style.display = "none";
+
       }
+
     });
+
   }
+
 });
+
+
 
 document.getElementById("chauffeurCloseBtn").addEventListener("click", () => {
+
   document.getElementById("chauffeurLoginModal").style.display = "none";
+
 });
 
+
+
 document.getElementById("chauffeurForm").addEventListener("submit", function(e) {
+
   e.preventDefault();
 
+
+
   const age = document.getElementById("age").value.trim();
+
   const pickup = document.getElementById("pickup").value.trim();
+
   const discord = document.getElementById("discord").value.trim();
+
   const tiktok = document.getElementById("tiktok").value.trim();
+
+
 
   const webhookURL = "https://discord.com/api/webhooks/1352567172773445653/4N2MxZZSOZNIL2Fk5oHgNqvlj8dmsl0OJLUvpJ0oPVba-uJWKyFOf7JTec2YOGJYzfqq";
 
+
+
   const payload = {
+
     embeds: [{
+
       title: "📝 Enregistrement Chauffeur",
+
       color: 3066993,
+
       fields: [
+
         { name: "🧓 Âge Réel", value: age, inline: true },
+
         { name: "🚛 Pseudo Pickup", value: pickup, inline: true },
+
         { name: "💬 Pseudo Discord", value: discord, inline: true },
+
         { name: "🎥 Pseudo TikTok", value: tiktok || "Non précisé", inline: true }
+
       ],
+
       timestamp: new Date().toISOString(),
+
       footer: {
+
         text: "Les Pâtés Lorrains • Recrutement"
+
       }
+
     }]
+
   };
 
+
+
   fetch(webhookURL, {
+
     method: "POST",
+
     headers: { "Content-Type": "application/json" },
+
     body: JSON.stringify(payload)
+
   }).then(res => {
+
     if (res.ok) {
+
       document.getElementById("chauffeurForm").reset();
+
       document.getElementById("successMessage").style.display = "block";
+
       setTimeout(() => {
+
         document.getElementById("successMessage").style.display = "none";
+
       }, 3000);
+
     }
+
   });
+
 });
 
 
+
+
+
 </script>
+
+
+
+<script>
+
+if (localStorage.getItem("theme") === "light") {
+
+  document.documentElement.style.setProperty('--bg', '#f0f0f0');
+
+  document.documentElement.style.setProperty('--text', '#1a1a1a');
+
+  document.documentElement.style.setProperty('--card', '#ffffff');
+
+  document.documentElement.style.setProperty('--primary', '#e0e0e0');
+
+  document.body.classList.add("light-mode");
+
+}
+
+function toggleTheme() {
+
+  if (document.body.classList.contains("light-mode")) {
+
+    document.body.classList.remove("light-mode");
+
+    document.documentElement.style.setProperty('--bg', '#0f1115');
+
+    document.documentElement.style.setProperty('--text', '#f1f5f9');
+
+    document.documentElement.style.setProperty('--card', '#1a1d23');
+
+    document.documentElement.style.setProperty('--primary', '#1f2937');
+
+    localStorage.setItem("theme", "dark");
+
+  } else {
+
+    document.body.classList.add("light-mode");
+
+    document.documentElement.style.setProperty('--bg', '#f0f0f0');
+
+    document.documentElement.style.setProperty('--text', '#1a1a1a');
+
+    document.documentElement.style.setProperty('--card', '#ffffff');
+
+    document.documentElement.style.setProperty('--primary', '#e0e0e0');
+
+    localStorage.setItem("theme", "light");
+
+  }
+
+}
+
+</script>
+
+<button onclick="toggleTheme()" style="position:fixed;bottom:8px;right:8px;z-index:9999;padding:5px 10px;font-size:0.9rem;border-radius:6px;background:var(--accent);border:none;cursor:pointer;opacity:0.85;">🌙</button>
+
+
+
+<script>
+
+document.addEventListener("scroll", () => {
+
+  const heroImg = document.querySelector(".hero img");
+
+  if(heroImg) {
+
+    heroImg.style.transform = "translateY(" + window.scrollY * 0.2 + "px)";
+
+  }
+
+});
+
+</script>
+
+
+
+
+<script>
+document.getElementById("validateBtn").addEventListener("click", () => {
+  const input = document.getElementById("validationInput");
+  const error = document.getElementById("validationError");
+  if (input.value.trim().toLowerCase() === "j'ai lu et accepté le règlement") {
+    window.open("https://discord.gg/JAXC9NcwqT", "_blank");
+    document.getElementById("modalOverlay").style.display = "none";
+  } else {
+    error.style.display = "block";
+    const modal = document.querySelector('.modal');
+    modal.animate([
+      { transform: 'translateX(0)' },
+      { transform: 'translateX(-15px)' },
+      { transform: 'translateX(15px)' },
+      { transform: 'translateX(-10px)' },
+      { transform: 'translateX(10px)' },
+      { transform: 'translateX(0)' }
+    ], {
+      duration: 500,
+      iterations: 1
+    });
+  }
+});
+</script>
+
+
+<script>
+const discordLink = document.getElementById("discordLink");
+const modalOverlay = document.getElementById("modalOverlay");
+const validationInput = document.getElementById("validationInput");
+const validateBtn = document.getElementById("validateBtn");
+const validationError = document.getElementById("validationError");
+
+discordLink.addEventListener("click", (e) => {
+  e.preventDefault();
+  modalOverlay.style.display = "flex";
+  validationInput.value = "";
+  validationError.style.display = "none";
+});
+
+validateBtn.addEventListener("click", () => {
+  const input = validationInput.value.trim().toLowerCase();
+  if (input === "j'ai lu et accepté le règlement") {
+    window.open("https://discord.gg/JAXC9NcwqT", "_blank");
+    modalOverlay.style.display = "none";
+  } else {
+    validationError.style.display = "block";
+    const modal = document.querySelector('.modal');
+    modal.animate([
+      { transform: 'translateX(0)' },
+      { transform: 'translateX(-15px)' },
+      { transform: 'translateX(15px)' },
+      { transform: 'translateX(-10px)' },
+      { transform: 'translateX(10px)' },
+      { transform: 'translateX(0)' }
+    ], {
+      duration: 500,
+      iterations: 1
+    });
+  }
+});
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    modalOverlay.style.display = "none";
+  }
+});
+
+modalOverlay.addEventListener("click", (e) => {
+  if (e.target === modalOverlay) {
+    modalOverlay.style.display = "none";
+  }
+});
+</script>
+
+
+<style>
+body {
+  cursor: none;
+}
+#custom-cursor {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  background: url('https://cdn-icons-png.flaticon.com/512/854/854878.png') no-repeat center center;
+  background-size: contain;
+  pointer-events: none;
+  z-index: 99999;
+}
+</style>
+<div id="custom-cursor"></div>
+<script>
+document.addEventListener("mousemove", function(e) {
+  const cursor = document.getElementById("custom-cursor");
+  cursor.style.left = e.clientX + "px";
+  cursor.style.top = e.clientY + "px";
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const recognition = new SpeechRecognition();
+  recognition.lang = 'fr-FR';
+  recognition.continuous = true;
+  recognition.interimResults = false;
+
+  let assistantActif = false;
+  const bubble = document.getElementById("voice-bubble");
+
+  const commandes = {
+    "accueil": () => navigate("home"),
+    "galerie": () => navigate("galerie"),
+    "photo": () => navigate("galerie"),
+    "radios": () => navigate("radios"),
+    "radio": () => navigate("radios"),
+    "recrutement": () => navigate("recrutement"),
+    "recrute": () => navigate("recrutement"),
+    "règlement": () => navigate("reglement"),
+    "règle": () => navigate("reglement"),
+    "discord": () => document.getElementById("discordLink").click(),
+    "chauffeur": () => openChauffeurLogin(),
+    "pause": () => document.getElementById("audioPlayer")?.pause(),
+    "monte le son": () => {
+      const p = document.getElementById("audioPlayer");
+      if (p) p.volume = Math.min(1, p.volume + 0.1);
+    },
+    "baisse le son": () => {
+      const p = document.getElementById("audioPlayer");
+      if (p) p.volume = Math.max(0, p.volume - 0.1);
+    },
+    "convoi": () => navigate("convois"),
+    "convois": () => navigate("convois"),
+    "qu'on voit": () => navigate("convois"),
+    "qu'onvoie": () => navigate("convois"),
+  };
+
+  // mots-clés acceptés -> data-radio à cliquer
+  const radioMapping = {
+  "skyrock": "skyrock",
+  "nrj": "nrj",
+  "fun": "funradio",
+  "funradio": "funradio",
+  "rtl": "rtl",
+  "rtl2": "rtl2",
+  "europe": "europe1",
+  "europe1": "europe1",
+  "nova": "nova",
+  "rfm": "rfm",
+  "rire": "rire&amp;chansons",
+  "rire et chansons": "rire&amp;chansons",
+  "rire et chanson": "rire&amp;chansons",
+  "nostalgie": "nostalgie",
+  "inter": "franceinter",
+  "france inter": "franceinter",
+  "info": "franceinfo",
+  "france info": "franceinfo",
+  "musique": "francemusique",
+  "france musique": "francemusique",
+  "culture": "franceculture",
+  "france culture": "franceculture",
+  "bleu": "francebleu",
+  "france bleu": "francebleu",
+  "fip": "fip",
+  "directfm": "directfm(metz)",
+  "direct": "directfm(metz)",
+  "cherie": "cheriefm",
+  "cherie fm": "cheriefm",
+};
+
+  recognition.onresult = function(event) {
+    const phrase = event.results[event.results.length - 1][0].transcript.toLowerCase();
+    bubble.style.display = "block";
+    bubble.textContent = "🎤 " + phrase;
+
+    if (phrase.includes("ok minou")) {
+      assistantActif = true;
+      bubble.textContent = "🎧 Assistant activé.";
+      return;
+    }
+
+    if (phrase.includes("stop minou")) {
+      assistantActif = false;
+      bubble.textContent = "🛑 Assistant désactivé.";
+      return;
+    }
+
+    if (!assistantActif) return;
+    // Volume personnalisé par pourcentage
+    const volumeMatch = phrase.match(/(?:son|volume).*?(\d{1,3}) ?%/);
+    if (volumeMatch) {
+      let vol = parseInt(volumeMatch[1]);
+      if (!isNaN(vol)) {
+        vol = Math.max(0, Math.min(100, vol)); // Clamp entre 0 et 100
+        const p = document.getElementById("audioPlayer");
+        if (p) {
+          p.volume = vol / 100;
+          bubble.textContent = "🔊 Volume réglé à " + vol + "%";
+        }
+        return;
+      }
+    }
+
+
+    for (const mot in radioMapping) {
+      if (phrase.includes(mot)) {
+        const radioKey = radioMapping[mot];
+        const radioBtn = document.querySelector(`div[data-radio="${radioKey}"]`);
+        if (radioBtn) {
+          radioBtn.click();
+          bubble.textContent = "📻 Radio " + radioKey + " lancée.";
+        } else {
+          bubble.textContent = "❌ Radio " + radioKey + " introuvable.";
+        }
+        return;
+      }
+    }
+
+    for (const cle in commandes) {
+      if (phrase.includes(cle)) {
+        commandes[cle]();
+        return;
+      }
+    }
+
+    setTimeout(() => { bubble.style.display = "none"; }, 4000);
+  };
+
+  recognition.onerror = function(event) {
+    console.warn("Erreur vocal : ", event.error);
+  };
+
+  
+  recognition.onerror = function(event) {
+    console.warn("Erreur vocal : ", event.error);
+    if (event.error !== "not-allowed" && event.error !== "service-not-allowed") {
+      setTimeout(() => recognition.start(), 1000);
+    }
+  };
+
+  recognition.onend = function() {
+    setTimeout(() => recognition.start(), 1000);
+  };
+
+  recognition.start();
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+const radioGallery = document.querySelectorAll(".radio-gallery img");
+
+
+const updateRadioLogo = () => {
+  const name = currentRadio.textContent.trim().toLowerCase();
+  radioGallery.forEach(img => {
+    if (img.alt.toLowerCase().includes(name)) {
+      img.scrollIntoView({ behavior: "smooth", block: "center" });
+      img.style.border = "4px solid var(--accent)";
+      setTimeout(() => { img.style.border = ""; }, 3000);
+    }
+  });
+};
+
+document.getElementById("audioPlayer").addEventListener("play", updateRadioLogo);
+</script>
+
+
+<style>
+#voice-bubble {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  background: var(--primary);
+  color: var(--accent);
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: bold;
+  z-index: 99999;
+  display: none;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  max-width: 60%;
+}
+</style>
+<div id="voice-bubble">🎙️ Assistant activé...</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const recognition = new SpeechRecognition();
+  recognition.lang = 'fr-FR';
+  recognition.continuous = true;
+  recognition.interimResults = false;
+
+  let assistantActif = false;
+  const bubble = document.getElementById("voice-bubble");
+
+  const commandes = {
+    "accueil": () => navigate("home"),
+    "galerie": () => navigate("galerie"),
+    "photo": () => navigate("galerie"),
+    "radios": () => navigate("radios"),
+    "radio": () => navigate("radios"),
+    "recrutement": () => navigate("recrutement"),
+    "recrute": () => navigate("recrutement"),
+    "règlement": () => navigate("reglement"),
+    "règle": () => navigate("reglement"),
+    "discord": () => document.getElementById("discordLink").click(),
+    "chauffeur": () => openChauffeurLogin(),
+    "pause": () => document.getElementById("audioPlayer")?.pause(),
+    "monte le son": () => {
+      const p = document.getElementById("audioPlayer");
+      if (p) p.volume = Math.min(1, p.volume + 0.1);
+    },
+    "baisse le son": () => {
+      const p = document.getElementById("audioPlayer");
+      if (p) p.volume = Math.max(0, p.volume - 0.1);
+    },
+    "convoi": () => navigate("convois"),
+    "convois": () => navigate("convois"),
+    "qu'on voit": () => navigate("convois"),
+    "qu'onvoie": () => navigate("convois"),
+  };
+
+  // mots-clés acceptés -> data-radio à cliquer
+  const radioMapping = {
+  "skyrock": "skyrock",
+  "nrj": "nrj",
+  "fun": "funradio",
+  "funradio": "funradio",
+  "rtl": "rtl",
+  "rtl2": "rtl2",
+  "europe": "europe1",
+  "europe1": "europe1",
+  "nova": "nova",
+  "rfm": "rfm",
+  "rire": "rire&amp;chansons",
+  "rire et chansons": "rire&amp;chansons",
+  "rire et chanson": "rire&amp;chansons",
+  "nostalgie": "nostalgie",
+  "inter": "franceinter",
+  "france inter": "franceinter",
+  "info": "franceinfo",
+  "france info": "franceinfo",
+  "musique": "francemusique",
+  "france musique": "francemusique",
+  "culture": "franceculture",
+  "france culture": "franceculture",
+  "bleu": "francebleu",
+  "france bleu": "francebleu",
+  "fip": "fip",
+  "directfm": "directfm(metz)",
+  "direct": "directfm(metz)",
+  "cherie": "cheriefm",
+  "cherie fm": "cheriefm",
+};
+
+  recognition.onresult = function(event) {
+    const phrase = event.results[event.results.length - 1][0].transcript.toLowerCase();
+    bubble.style.display = "block";
+    bubble.textContent = "🎤 " + phrase;
+
+    if (phrase.includes("ok minou")) {
+      assistantActif = true;
+      bubble.textContent = "🎧 Assistant activé.";
+      return;
+    }
+
+    if (phrase.includes("stop minou")) {
+      assistantActif = false;
+      bubble.textContent = "🛑 Assistant désactivé.";
+      return;
+    }
+
+    if (!assistantActif) return;
+    // Volume personnalisé par pourcentage
+    const volumeMatch = phrase.match(/(?:son|volume).*?(\d{1,3}) ?%/);
+    if (volumeMatch) {
+      let vol = parseInt(volumeMatch[1]);
+      if (!isNaN(vol)) {
+        vol = Math.max(0, Math.min(100, vol)); // Clamp entre 0 et 100
+        const p = document.getElementById("audioPlayer");
+        if (p) {
+          p.volume = vol / 100;
+          bubble.textContent = "🔊 Volume réglé à " + vol + "%";
+        }
+        return;
+      }
+    }
+
+
+    for (const mot in radioMapping) {
+      if (phrase.includes(mot)) {
+        const radioKey = radioMapping[mot];
+        const radioBtn = document.querySelector(`div[data-radio="${radioKey}"]`);
+        if (radioBtn) {
+          radioBtn.click();
+          bubble.textContent = "📻 Radio " + radioKey + " lancée.";
+        } else {
+          bubble.textContent = "❌ Radio " + radioKey + " introuvable.";
+        }
+        return;
+      }
+    }
+
+    for (const cle in commandes) {
+      if (phrase.includes(cle)) {
+        commandes[cle]();
+        return;
+      }
+    }
+
+    setTimeout(() => { bubble.style.display = "none"; }, 4000);
+  };
+
+  recognition.onerror = function(event) {
+    console.warn("Erreur vocal : ", event.error);
+  };
+
+  
+  recognition.onerror = function(event) {
+    console.warn("Erreur vocal : ", event.error);
+    if (event.error !== "not-allowed" && event.error !== "service-not-allowed") {
+      setTimeout(() => recognition.start(), 1000);
+    }
+  };
+
+  recognition.onend = function() {
+    setTimeout(() => recognition.start(), 1000);
+  };
+
+  recognition.start();
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+#micPermissionBtn {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  padding: 10px 14px;
+  background: var(--accent, #3b82f6);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  cursor: pointer;
+  z-index: 99999;
+  opacity: 0.9;
+}
+</style>
+<button id="micPermissionBtn">🎙️ Autoriser le micro</button>
+<script>
+document.getElementById("micPermissionBtn").addEventListener("click", () => {
+  try {
+    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+    recognition.start();
+    recognition.onstart = () => {
+      document.getElementById("micPermissionBtn").style.display = "none";
+    };
+  } catch (e) {
+    console.warn("Impossible de démarrer la reconnaissance vocale :", e);
+  }
+});
+</script>
+
 </body>
+
 </html>
