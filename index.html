@@ -885,12 +885,12 @@
     
     <!-- Voice Control Interface -->
     <div class="voice-control">
-        <button class="voice-btn" id="voiceBtn" onclick="toggleVoiceControl()" title="Contrôle vocal - Écoute permanente (Ctrl+V)" aria-label="Activer/Désactiver le contrôle vocal permanent" tabindex="0">
+        <button class="voice-btn" id="voiceBtn" onclick="toggleVoiceControl()" title="Contrôle vocal permanent - Une autorisation unique (Ctrl+V)" aria-label="Activer/Désactiver le contrôle vocal permanent" tabindex="0">
             🎤
         </button>
         
         <div class="voice-status" id="voiceStatus">
-            <div id="voiceStatusText">Écoute permanente activée</div>
+            <div id="voiceStatusText">Initialisation du contrôle vocal...</div>
             <div class="voice-wave" id="voiceWave" style="display: none;">
                 <div class="wave-bar"></div>
                 <div class="wave-bar"></div>
@@ -1101,6 +1101,8 @@
         let isListening = false;
         let voiceTimeout = null;
         let isWakeWordMode = true; // Always listening for "ok radio"
+        let microphonePermissionGranted = false;
+        let permissionChecked = false;
         
         // Voice Control Elements
         const voiceBtn = document.getElementById('voiceBtn');
@@ -1109,139 +1111,221 @@
         const voiceWave = document.getElementById('voiceWave');
         const voiceCommands = document.getElementById('voiceCommands');
 
-        // Initialize Voice Control
-        function initVoiceControl() {
-            if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-                recognition = new SpeechRecognition();
-                
-                recognition.continuous = true; // Continuous listening
-                recognition.interimResults = true;
-                recognition.lang = 'fr-FR';
-                recognition.maxAlternatives = 3;
-                
-                recognition.onstart = () => {
-                    isListening = true;
-                    if (isWakeWordMode) {
-                        voiceBtn.classList.add('listening');
-                        voiceStatusText.textContent = 'En écoute... Dites "Ok Radio" puis votre commande';
-                        voiceWave.style.display = 'flex';
+        // Check Microphone Permission
+        async function checkMicrophonePermission() {
+            try {
+                // Check if permissions API is available
+                if (navigator.permissions) {
+                    const permissionStatus = await navigator.permissions.query({ name: 'microphone' });
+                    
+                    if (permissionStatus.state === 'granted') {
+                        microphonePermissionGranted = true;
+                        return true;
+                    } else if (permissionStatus.state === 'denied') {
+                        microphonePermissionGranted = false;
+                        return false;
                     }
-                };
+                }
                 
-                recognition.onresult = (event) => {
-                    let transcript = '';
-                    let isFinal = false;
-                    
-                    for (let i = event.resultIndex; i < event.results.length; i++) {
-                        if (event.results[i].isFinal) {
-                            transcript = event.results[i][0].transcript;
-                            isFinal = true;
-                        } else {
-                            transcript = event.results[i][0].transcript;
-                        }
-                    }
-                    
-                    if (isWakeWordMode) {
-                        // Check for wake word "ok radio"
-                        const cleanTranscript = transcript.toLowerCase().trim();
-                        if (cleanTranscript.includes('ok radio') || cleanTranscript.includes('okay radio') || 
-                            cleanTranscript.includes('o k radio') || cleanTranscript.includes('hockey radio')) {
-                            
-                            voiceStatusText.textContent = `🎤 "${transcript}"`;
-                            
-                            if (isFinal) {
-                                // Extract the command part after "ok radio"
-                                let command = cleanTranscript;
-                                const wakeWords = ['ok radio', 'okay radio', 'o k radio', 'hockey radio'];
-                                for (const wake of wakeWords) {
-                                    if (command.includes(wake)) {
-                                        command = command.split(wake)[1]?.trim() || '';
-                                        break;
-                                    }
-                                }
-                                
-                                if (command) {
-                                    processVoiceCommand(command);
-                                } else {
-                                    voiceStatusText.textContent = 'En attente de votre commande...';
-                                }
-                            }
-                        } else if (isFinal) {
-                            // Reset status if wake word not detected
-                            voiceStatusText.textContent = 'En écoute... Dites "Ok Radio" puis votre commande';
-                        }
-                    }
-                };
+                // Fallback: try to access microphone directly
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
                 
-                recognition.onerror = (event) => {
-                    console.error('Voice recognition error:', event.error);
-                    
-                    let errorMessage = 'Erreur de reconnaissance vocale';
-                    switch (event.error) {
-                        case 'no-speech':
-                            // Silently restart for no-speech errors
-                            setTimeout(() => {
-                                if (isVoiceControlActive) {
-                                    startContinuousListening();
-                                }
-                            }, 1000);
-                            return;
-                        case 'audio-capture':
-                            errorMessage = 'Microphone non accessible';
-                            break;
-                        case 'not-allowed':
-                            errorMessage = 'Permission microphone refusée';
-                            break;
-                        case 'network':
-                            errorMessage = 'Erreur réseau';
-                            break;
-                    }
-                    
-                    voiceStatusText.textContent = errorMessage;
-                    
-                    // Restart listening after error
-                    setTimeout(() => {
-                        if (isVoiceControlActive) {
-                            startContinuousListening();
-                        }
-                    }, 2000);
-                };
-                
-                recognition.onend = () => {
-                    isListening = false;
-                    
-                    // Auto-restart if voice control is active
-                    if (isVoiceControlActive) {
-                        setTimeout(() => {
-                            startContinuousListening();
-                        }, 500);
-                    }
-                };
-                
-                // Start listening immediately
-                activateVoiceControl();
-                startContinuousListening();
-                
+                // Permission granted, stop the stream immediately
+                stream.getTracks().forEach(track => track.stop());
+                microphonePermissionGranted = true;
                 return true;
-            } else {
-                console.warn('Speech recognition not supported');
-                voiceBtn.style.display = 'none';
+                
+            } catch (error) {
+                console.error('Microphone permission error:', error);
+                microphonePermissionGranted = false;
+                
+                if (error.name === 'NotAllowedError') {
+                    voiceStatusText.textContent = 'Permission microphone refusée';
+                } else if (error.name === 'NotFoundError') {
+                    voiceStatusText.textContent = 'Aucun microphone trouvé';
+                } else {
+                    voiceStatusText.textContent = 'Erreur d\'accès au microphone';
+                }
+                
                 return false;
             }
         }
 
+        // Initialize Voice Control
+        async function initVoiceControl() {
+            if (!('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)) {
+                console.warn('Speech recognition not supported');
+                voiceBtn.style.display = 'none';
+                voiceStatusText.textContent = 'Reconnaissance vocale non supportée';
+                return false;
+            }
+
+            // Check microphone permission only once
+            if (!permissionChecked) {
+                permissionChecked = true;
+                voiceStatusText.textContent = 'Vérification des permissions...';
+                
+                const hasPermission = await checkMicrophonePermission();
+                
+                if (!hasPermission) {
+                    voiceStatusText.textContent = 'Cliquez sur le micro pour autoriser l\'accès';
+                    isVoiceControlActive = false;
+                    voiceStatus.classList.add('active'); // Show status
+                    return false;
+                }
+            }
+
+            if (!microphonePermissionGranted) {
+                return false;
+            }
+
+            // Initialize speech recognition
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
+            
+            recognition.continuous = true; // Continuous listening
+            recognition.interimResults = true;
+            recognition.lang = 'fr-FR';
+            recognition.maxAlternatives = 3;
+            
+            recognition.onstart = () => {
+                isListening = true;
+                if (isWakeWordMode) {
+                    voiceBtn.classList.add('listening');
+                    voiceStatusText.textContent = 'En écoute... Dites "Ok Radio" puis votre commande';
+                    voiceWave.style.display = 'flex';
+                }
+            };
+            
+            recognition.onresult = (event) => {
+                let transcript = '';
+                let isFinal = false;
+                
+                for (let i = event.resultIndex; i < event.results.length; i++) {
+                    if (event.results[i].isFinal) {
+                        transcript = event.results[i][0].transcript;
+                        isFinal = true;
+                    } else {
+                        transcript = event.results[i][0].transcript;
+                    }
+                }
+                
+                if (isWakeWordMode) {
+                    // Check for wake word "ok radio"
+                    const cleanTranscript = transcript.toLowerCase().trim();
+                    if (cleanTranscript.includes('ok radio') || cleanTranscript.includes('okay radio') || 
+                        cleanTranscript.includes('o k radio') || cleanTranscript.includes('hockey radio')) {
+                        
+                        voiceStatusText.textContent = `🎤 "${transcript}"`;
+                        
+                        if (isFinal) {
+                            // Extract the command part after "ok radio"
+                            let command = cleanTranscript;
+                            const wakeWords = ['ok radio', 'okay radio', 'o k radio', 'hockey radio'];
+                            for (const wake of wakeWords) {
+                                if (command.includes(wake)) {
+                                    command = command.split(wake)[1]?.trim() || '';
+                                    break;
+                                }
+                            }
+                            
+                            if (command) {
+                                processVoiceCommand(command);
+                            } else {
+                                voiceStatusText.textContent = 'En attente de votre commande...';
+                            }
+                        }
+                    } else if (isFinal) {
+                        // Reset status if wake word not detected
+                        voiceStatusText.textContent = 'En écoute... Dites "Ok Radio" puis votre commande';
+                    }
+                }
+            };
+            
+            recognition.onerror = (event) => {
+                console.error('Voice recognition error:', event.error);
+                
+                // Don't restart on permission errors to avoid repeated permission requests
+                if (event.error === 'not-allowed') {
+                    microphonePermissionGranted = false;
+                    voiceStatusText.textContent = 'Permission microphone refusée';
+                    deactivateVoiceControl();
+                    return;
+                }
+                
+                if (event.error === 'no-speech') {
+                    // Silently restart for no-speech errors
+                    setTimeout(() => {
+                        if (isVoiceControlActive && microphonePermissionGranted) {
+                            startContinuousListening();
+                        }
+                    }, 1000);
+                    return;
+                }
+                
+                let errorMessage = 'Erreur de reconnaissance vocale';
+                switch (event.error) {
+                    case 'audio-capture':
+                        errorMessage = 'Microphone non accessible';
+                        break;
+                    case 'network':
+                        errorMessage = 'Erreur réseau';
+                        break;
+                    case 'service-not-allowed':
+                        errorMessage = 'Service non autorisé';
+                        break;
+                }
+                
+                voiceStatusText.textContent = errorMessage;
+                
+                // Restart listening after error (except permission errors)
+                setTimeout(() => {
+                    if (isVoiceControlActive && microphonePermissionGranted) {
+                        startContinuousListening();
+                    }
+                }, 2000);
+            };
+            
+            recognition.onend = () => {
+                isListening = false;
+                
+                // Auto-restart if voice control is active and permissions are granted
+                if (isVoiceControlActive && microphonePermissionGranted) {
+                    setTimeout(() => {
+                        startContinuousListening();
+                    }, 500);
+                }
+            };
+            
+            // Start listening immediately if permissions are granted
+            if (microphonePermissionGranted) {
+                activateVoiceControl();
+                startContinuousListening();
+            }
+            
+            return true;
+        }
+
         // Start Continuous Listening
         function startContinuousListening() {
-            if (!recognition || isListening) return;
+            if (!recognition || isListening || !microphonePermissionGranted) return;
             
             try {
                 recognition.start();
             } catch (error) {
                 console.error('Error starting continuous listening:', error);
-                // Retry after a delay
+                
+                // Don't retry on permission errors
+                if (error.name === 'NotAllowedError') {
+                    microphonePermissionGranted = false;
+                    voiceStatusText.textContent = 'Permission microphone révoquée';
+                    deactivateVoiceControl();
+                    return;
+                }
+                
+                // Retry after a delay for other errors
                 setTimeout(() => {
-                    if (isVoiceControlActive && !isListening) {
+                    if (isVoiceControlActive && !isListening && microphonePermissionGranted) {
                         startContinuousListening();
                     }
                 }, 1000);
@@ -1249,15 +1333,33 @@
         }
 
         // Toggle Voice Control
-        function toggleVoiceControl() {
-            if (!recognition) {
-                voiceStatusText.textContent = 'Contrôle vocal non disponible';
+        async function toggleVoiceControl() {
+            if (!('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)) {
+                voiceStatusText.textContent = 'Reconnaissance vocale non supportée';
                 return;
             }
             
             if (isVoiceControlActive) {
                 deactivateVoiceControl();
             } else {
+                // If permissions not granted, try to get them
+                if (!microphonePermissionGranted) {
+                    voiceStatusText.textContent = 'Demande d\'autorisation microphone...';
+                    
+                    const hasPermission = await checkMicrophonePermission();
+                    
+                    if (!hasPermission) {
+                        voiceStatusText.textContent = 'Permission microphone requise pour continuer';
+                        return;
+                    }
+                    
+                    // Initialize recognition now that we have permission
+                    if (!recognition) {
+                        await initVoiceControl();
+                        return;
+                    }
+                }
+                
                 activateVoiceControl();
                 startContinuousListening();
             }
@@ -1716,8 +1818,8 @@
         }
 
         // Initialize voice control when page loads
-        window.addEventListener('load', () => {
-            initVoiceControl();
+        window.addEventListener('load', async () => {
+            await initVoiceControl();
         });
 
         // Click on voice button to toggle voice control
